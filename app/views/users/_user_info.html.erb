@@ -1,0 +1,34 @@
+<% @user ||= current_user %>	
+						<div class="col-lg-5 col-sm-7">
+							<div class="member wow bounceInUp animated">
+								<div class="member-container" data-wow-delay=".3s">
+									<div class="inner-container">										
+										<div class="author-avatar">									
+											<%= image_tag("team_pic2.jpg", :alt => "Team Member", :class => "img-circle") %>
+										</div><!-- /.author-avatar -->
+										<div class="member-details">
+											<div class="member-top">									
+												<h4 class="name">												
+													<%= link_to @user.nom , @user %>
+												</h4>
+												<span class="designation">
+													Web Developer
+												</span>		
+																						
+												<%= render 'shared/stats' %>
+												
+											</div><!-- /.member-top -->
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin consequat.
+											</p>
+											<div class="member-social-link">
+												<a href="#" class="twitter-btn"><i class="fa fa-twitter"></i></a>
+												<a href="#" class="facebook-btn"><i class="fa fa-facebook"></i></a>
+												<a href="#" class="dribbble-btn"><i class="fa fa-dribbble"></i></a>
+												<a href="#" class="linkedin-btn"><i class="fa fa-linkedin"></i></a>
+											</div><!-- /.member-social-link -->
+										</div><!-- /.member-details -->
+									</div><!-- /.inner-container -->
+								</div><!-- /.member-container -->
+							</div><!-- /.member -->
+						</div>

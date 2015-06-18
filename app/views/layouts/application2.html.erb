@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+  <title> <%= @titre %> </title>
+  
+	<%= stylesheet_link_tag 'reset.css' %>
+	<%= stylesheet_link_tag 'style.css' %>
+	<%= stylesheet_link_tag 'menu.css' %>
+	<%= stylesheet_link_tag 'nivo-slider.css' %>
+	<%= stylesheet_link_tag 'prettyPhoto.css', :media => 'screen'  %>
+
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>	
+	
+	<%= javascript_include_tag 'application' %>	
+	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js' %>
+	<%= javascript_include_tag 'jquery.preload.js' %>
+	<%= javascript_include_tag 'jquery.prettyphoto.js' %>
+	<%= javascript_include_tag 'jquery.nivo.slider.js' %>
+	<%= javascript_include_tag 'bsn.Crossfader.js' %>
+	<%= javascript_include_tag 'menu.js' %>
+	<%= javascript_include_tag 'superfish.js' %>
+	<%= javascript_include_tag 'scripts.js' %>
+
+	
+ 	<%= csrf_meta_tags %>
+ 	
+</head>
+<body>
+	
+	<div id="wrapper">
+		
+		<%= render 'layouts/header' %>
+			
+		
+		<%= render 'layouts/gallery' %>
+	 
+	  
+  
+	  <div id="resize1">
+	  	
+	  	<%= render 'layouts/menu' %>
+	  	
+	    
+	    
+	    <div class="resize">
+	      <div class="content">
+	          <%= yield %>
+	      </div>
+	    </div>
+	    
+	  </div>
+	  <div class="clr"></div>
+	  
+	</div>
+	
+	<%= render 'layouts/footer' %>
+
+	<%= debug(params) if Rails.env.development? %>
+
+	<script type="text/javascript" charset="utf-8">
+
+	// wrap everything in document ready event
+	$(function () {
+	    // hover effect - change background image
+	    $('.photo').hover(function () {
+	        $(this).addClass('hover');
+	    }, function () {
+	        $(this).removeClass('hover');
+	    });
+	
+	    $.preload('images/sub_nav.png', 'images/sub_nav_li.png', 'images/photos/image1.jpg', 'images/photos/image2.jpg', 'images/photos/image3.jpg', 'images/photos/image4.jpg', 'images/photos/image5.jpg', 'images/photos/image6.jpg', 'images/photos/image7.jpg', 'images/photos/image8.jpg');
+	});
+	</script>
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function () {
+	    $("a[rel^='prettyPhoto']").prettyPhoto();
+	});
+	</script>
+	<script type="text/javascript">
+	var cf = new Crossfader( new Array('cf1','cf2','cf3'), 600, 2500 );
+	</script>
+	
+
+</body>
+</html>

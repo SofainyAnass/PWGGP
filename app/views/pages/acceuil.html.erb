@@ -1,0 +1,37 @@
+<section id="hero_section" class="top_cont_outer">
+  <div class="hero_wrapper">
+    <div class="container">
+      <div class="hero_section"> 
+      	<div class="row">
+    <div class="col-lg-5 col-sm-7">
+        <div class="top_left_cont zoomIn wow animated"> 
+        	<% if signed_in? %>
+			  <h2>Exprimez-vous :</h2>
+			   		<%= render 'shared/micropost_form' %>
+     			    <%= render 'shared/feed' %>
+			<% else %>
+			  <h2>Bienvenue visiteur !</h2>			
+			  <p>
+			    Ceci est la page d'acceuil de l'application.
+			    Si vous possedez déjà un compte veuillez vous identifier, sinon veuillez vous inscrire.</p>			
+			  <%= link_to "S'inscrire !", signup_path, :class => "read_more2" %>
+			  
+			 
+			  
+			<% end %>         
+        </div>
+        
+    </div>
+    <% if !signed_in? %>
+    	<%= render 'shared/login_form' %>
+    <% end %>
+
+</div>     			
+        	
+      </div>
+    </div>
+  </div>
+</section><
+
+
+			

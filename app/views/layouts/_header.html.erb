@@ -1,0 +1,18 @@
+<!--Header_section-->
+<header id="header_wrapper">
+  <div class="container">
+    <div class="header_box">
+      <div class="logo"><a href="#"><%= image_tag "logo.png" , :alt => "logo" %></a></div>
+		  <%= render 'layouts/menu' %>
+	  <nav style="float: right;">
+	  	<% if signed_in? %>
+		        <%= link_to "Utilisateurs", users_path %>	      
+      			<%= link_to "Réglages", edit_user_path(current_user) %>
+				<%= link_to "Déconnexion", signout_path, :method => :delete %>
+		  <% end %>	  	
+	  </nav>
+	  
+    </div>
+  </div>
+</header>
+<!--Header_section-->

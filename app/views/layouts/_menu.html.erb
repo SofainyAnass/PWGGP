@@ -1,0 +1,19 @@
+<nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        </div>
+	    <div id="main-nav" class="collapse navbar-collapse navStyle">
+			<ul class="nav navbar-nav" id="mainNav">	
+				<li><%= link_to "Acceuil", pages_acceuil_path, :class => "scroll-link" %></li>			  
+			  <% if signed_in? %>
+			 	 <li><%= link_to "Profil", current_user, :class => "scroll-link" %></li>	
+			 	 <li><%= link_to "Contacts", following_user_path(current_user), :class => "scroll-link" %></li>		 
+			  <% end %>
+			  <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
+			  <li><a href="#service" class="scroll-link">Services</a></li>
+			  <li><a href="#Portfolio" class="scroll-link">Portfolio</a></li>
+			  <li><a href="#clients" class="scroll-link">Clients</a></li>			  
+			  <li><a href="#contact" class="scroll-link">Contact</a></li>
+			</ul>
+      </div>
+</nav>
