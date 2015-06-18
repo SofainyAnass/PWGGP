@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   
   before_filter :authenticate, :except => [:show, :new, :create]
   before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => :destroy
+  before_filter :admin_user,   :only => [:index, :destroy]
     
   def index
     @titre = "Tous les utilisateurs"
@@ -19,18 +19,19 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
     @titre = "Nouvelle inscription"
+    @user = User.new   
   end
   
   def create
+    @titre = "Nouvelle inscription"
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      flash[:success] = "Bienvenue dans l'Application Exemple !"
-      redirect_to @user
-    else
-      @titre = "Nouvelle inscription"
+      flash.now[:success] = "Bienvenue dans l'Application Exemple !"
+      #redirect_to @user
+      render 'new'
+    else     
       render 'new'
     end
   end
@@ -40,12 +41,13 @@ class UsersController < ApplicationController
   end
   
   def update
+    @titre = "Édition profil"
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Profil actualisé."
-      redirect_to @user
+      flash.now[:success] = "Profil actualisé."
+      #redirect_to @user
+      render 'edit'
     else
-      @titre = "Édition profil"
       render 'edit'
     end
   end

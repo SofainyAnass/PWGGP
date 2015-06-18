@@ -14,4 +14,11 @@
   </div>
 </div>
 <% end %>
+<% if flash[:success] %>
+<div class="col-lg-10 col-sm-7">
+  <div class="success_box">
+    <%= flash[:success] %>
+  </div>
+</div>
+<% end %>
 

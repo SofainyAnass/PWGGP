@@ -1,34 +1,50 @@
-	<%= render 'shared/error_messages', :object => @user %>
+	
+<section id="hero_section" class="top_cont_outer">
+  <div class="hero_wrapper">
+    <div class="container">
+      <div class="hero_section"> 
+      	<div class="row">
+      		
+      		<%= render 'shared/_messages', :object => @user %>
 
-	<div class="col-lg-5 col-sm-7">
+    		<div class="col-lg-5 col-sm-7">
     	
-        <div class="top_left_cont zoomIn wow animated"> 
-        	
-        	<%= link_to "<< Retour", 'pages/acceuil' %>	
-        	
-        	<h2><%= @titre %></h2>
-  	        	
-        	<div class="form">
-        		<%= form_for(@user) do |f| %>       		
-        		
-					<%= f.label :nom, "Nom", :class => "label" %><br />
-					<%= f.text_field :nom, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
-	
-					<%= f.label :email, "Email", :class => "label" %><br />
-					<%= f.text_field :email, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
-	
-					<%= f.label :password, "Mot de passe", :class => "label" %><br />
-					<%= f.password_field :password, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+		        <div class="top_left_cont zoomIn wow animated"> 
+		        	
+		        	<%= link_to "<< Retour", 'pages/acceuil' %>	
+		        	
+		        	<h2><%= @titre %></h2>
+		  	        	
+		        	<div class="form">
+		        		<%= form_for(@user) do |f| %>       		
+		        		
+							<%= f.label :nom, "Nom", :class => "label" %><br />
+							<%= f.text_field :nom, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+			
+							<%= f.label :email, "Email", :class => "label" %><br />
+							<%= f.text_field :email, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+			
+							<%= f.label :password, "Mot de passe", :class => "label" %><br />
+							<%= f.password_field :password, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+		
+							<%= f.label :password_confirmation, "Confirmation", :class => "label" %><br />
+							<%= f.password_field :password_confirmation, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+		
+							<%= f.submit "Inscription", :class => "input-btn" %>
+							
+						<% end %>
+			          </div>
+		        	      	        
+		        </div>
+		        
+		    </div>
 
-					<%= f.label :password_confirmation, "Confirmation", :class => "label" %><br />
-					<%= f.password_field :password_confirmation, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
-
-					<%= f.submit "Inscription", :class => "input-btn" %>
-					
-				<% end %>
-	          </div>
-        	      	        
-        </div>
-        
+</div>     			
+        	
+      </div>
     </div>
+  </div>
+</section>
+
+	
 

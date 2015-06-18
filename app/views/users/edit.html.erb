@@ -1,28 +1,46 @@
-<div class="left">
-	<h2><%= @titre %></h2>
-	
-	<%= form_for(@user) do |f| %>
-	  <%= render 'shared/error_messages', :object => f.object %>
-	  <div class="field">
-	    <%= f.label :nom, "Nom" %><br />
-	    <%= f.text_field :nom %>
-	  </div>
-	  <div class="field">
-	    <%= f.label :email, "eMail" %><br />
-	    <%= f.text_field :email %>
-	  </div>
-	  <div class="field">
-	    <%= f.label :password, "Mot de passe" %><br />
-	    <%= f.password_field :password %>
-	  </div>
-	  <div class="field">
-	    <%= f.label :password_confirmation, "Confirmation" %><br />
-	    <%= f.password_field :password_confirmation %>
-	  </div>
-	  <div class="actions">
-	    <%= f.submit "Modifier" %>
-	  </div>
-	<% end %>
 
-</div>
+<section id="aboutUs">
+		
+<div class="inner_wrapper">
+
+	
+  <div class="container">
+  	
+  	<%= render 'shared/messages', :object => @user %>
+  	
+    <div class="inner_section">
+    	
+		<div class="col-lg-5 col-sm-7">
+			
+			<h2><%= @titre %></h2>
+	
+					<%= form_for(@user) do |f| %>
+			
+					    <%= f.label :nom, "Nom", :class => "label" %><br />
+					    <%= f.text_field :nom, :class => "input-text" %>
+
+	
+					    <%= f.label :email, "eMail", :class => "label" %><br />
+					    <%= f.text_field :email, :class => "input-text" %>
+		
+				
+					    <%= f.label :password, "Mot de passe", :class => "label" %><br />
+					    <%= f.password_field :password, :class => "input-text" %>
+
+					    <%= f.label :password_confirmation, "Confirmation", :class => "label" %><br />
+					    <%= f.password_field :password_confirmation, :class => "input-text" %>
+
+					    <%= f.submit "Modifier", :class => "input-btn" %>
+
+					<% end %>
+	       
+	        
+	    </div>
+
+
+    
+    </div>
+  </div> 
+  </div>
+</section>
 

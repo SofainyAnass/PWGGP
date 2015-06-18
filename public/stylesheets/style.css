@@ -131,9 +131,9 @@ p {
 .navbar-inverse .navbar-nav > li > a {
     color: #FFF;
 }
-
+/*Orientation de la barre de navigation*/
 .navStyle {
-    float: right;
+    float: left;
 }
 
 .navStyle ul {
@@ -459,7 +459,7 @@ a.contact_btn:hover {
 }
 
 .input-text {
-    background: transparent;
+    background: #ffffff;
 }
 
 
@@ -866,7 +866,7 @@ transition: all .25s ease;
     display: block;
     border-radius: 4px;
     font-size: 15px;
-    color: #fff;
+    color: #000000;
     margin: 0 0 15px 0;
     transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
@@ -907,6 +907,7 @@ transition: all .25s ease;
 .input-btn:hover {
     background: #fff;
     color: #005490;
+    border: 1px solid #005490;
 }
 
 /* Footer
@@ -1693,6 +1694,19 @@ padding-top: 18px;
 	background-color: #DD4B39;
 	border: 2px solid #CB2026;
     border-radius: 3px;
+}
+
+.success_box {
+	margin-top: 15px;
+	color: #000000;
+	background-color: #49B5E7;
+	border: 2px solid #3B5998;
+    border-radius: 3px;
+}
+
+#header_wrapper .container {
+	width: 100%;
+	
 }
 
 

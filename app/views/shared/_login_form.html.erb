@@ -15,9 +15,8 @@
 				    <%= f.submit "S'identifier", :class => "input-btn" %>
 				<% end %>
 				
-				<% if flash[:error] %>
-				  <div class="error_box"><%= flash[:error] %></div>
-			  	<% end %>
+				<%= render 'shared/_messages', :object => @user %>
+				
 	          </div>
 	          
 	          
