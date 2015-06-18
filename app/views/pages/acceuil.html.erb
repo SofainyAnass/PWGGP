@@ -6,10 +6,7 @@
 
 	
   <div class="container">
-  	<%= render 'shared/error_messages', :object => @micropost %>
-  	<% if flash[:success] %>
-					<div class="success_box"><%= flash[:success] %></div>
-	<% end %>
+  	<%= render 'shared/messages', :object => @micropost %>
   	
     <div class="inner_section">
     	
