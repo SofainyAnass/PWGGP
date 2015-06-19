@@ -14,7 +14,7 @@
 			  <% end %>
 			  <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
 			  <li><a href="#service" class="scroll-link">Services</a></li>
-			  <li><a href="#Portfolio" class="scroll-link">Portfolio</a></li>
+			  <li><a href="#Portfolio" class="scroll-link">Project</a></li>
 			  <li><a href="#clients" class="scroll-link">Clients</a></li>			  
 			</ul>
 				
@@ -23,7 +23,7 @@
 			  	<ul class="nav navbar-nav" id="mainNav">
 					<% if signed_in? %>
 			  			<li><% if current_user.admin? %> <%= link_to "Administration", users_path %> <% end %></li>		        	      
-		      			<li><%= link_to "Compte", edit_user_path(current_user) %></li>
+		      			<li><%= link_to "Compte", edit_contact_path(current_user.contact) %></li>
 						<li><%= link_to "Déconnexion", signout_path, :method => :delete %></li>
 					<% end %>
 				</ul>	

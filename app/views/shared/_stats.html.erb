@@ -1,22 +1,7 @@
 <% @user ||= current_user %>
-  <table summary="User stats">
-  	<tr>
-		<span><%= pluralize(@user.microposts.count, "microposts") %></span> 
-  	</tr>
-    <tr>
-      <td>
-        <a href="<%= following_user_path(@user) %>">
-          <span id="following" class="stat">
-          <%= pluralize(@user.following.count, "auteur suivi", "auteurs suivis") %>
-          </span>
-        </a>
-      </td>
-      <td>
-        <a href="<%= followers_user_path(@user) %>">
-          <span id="followers" class="stat">
-            <%= pluralize(@user.followers.count, "lecteur") %>
-          </span>
-        </a>
-      </td>
-    </tr>
-  </table>
+
+ 	 <%= pluralize(@user.microposts.count, "Message") %>
+ 	 
+ 	 <a href="<%= following_user_path(@user) %>"><%= pluralize(@user.following.count, "Abonnement") %></a>
+	
+	 <a href="<%= followers_user_path(@user) %>"><%= pluralize(@user.followers.count, "Abonné") %></a>

@@ -15,47 +15,49 @@ class UsersController < ApplicationController
     @feed_items = current_user.feed.paginate(:page => params[:page])
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])
-    @titre = @user.nom
+    @titre = "#{@user.contact.prenom} #{@user.contact.nom}"
   end
 
   def new
-    @titre = "Nouvelle inscription"
-    @user = User.new   
+    
   end
   
   def create
-    @titre = "Nouvelle inscription"
-    @user = User.new(user_params)
+    @user = User.new(user_params)      
     if @user.save
-      sign_in @user
-      flash.now[:success] = "Bienvenue dans l'Application Exemple !"
-      #redirect_to @user
-      render 'new'
-    else     
-      render 'new'
+      #sign_in @user        
+      @user.contact=Contact.create! 
+      flash[:success] = "Votre compte a été correctement créé. Veuillez vous authentifier pour continuer."
+      redirect_to root_path
+    else   
+       
+      render '/pages/inscription'          
+      
     end
   end
   
   def edit
-    @titre = "Édition profil"
+    @titre = "Édition compte"
   end
   
   def update
     @titre = "Édition profil"
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash.now[:success] = "Profil actualisé."
-      #redirect_to @user
-      render 'edit'
+      flash[:success] = "Profil actualisé."
+      redirect_to 'edit'      
     else
       render 'edit'
     end
   end
   
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "Utilisateur supprimé."
-    redirect_to users_path
+    if User.find(params[:id]).destroy
+      flash[:success] = "Utilisateur supprimé."
+      redirect_to users_path
+    else
+      render users_path
+    end
   end
   
   def following
@@ -75,7 +77,7 @@ class UsersController < ApplicationController
 private
 
   def user_params
-      params.require(:user).permit(:nom, :email, :password, :password_confirmation)
+      params.require(:user).permit(:nom, :login, :password, :password_confirmation)
   end
   
   def correct_user
@@ -86,5 +88,6 @@ private
   def admin_user
       redirect_to(root_path) unless current_user.admin?
   end
+
   
 end

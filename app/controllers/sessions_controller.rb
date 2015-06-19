@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = User.authenticate(params[:session][:email],
+    user = User.authenticate(params[:session][:login],
                            params[:session][:password])
     if user.nil?
       flash[:error] = "Combinaison Email/Mot de passe invalide."

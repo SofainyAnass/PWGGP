@@ -6,13 +6,15 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :relationships
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :contacts, :only => [:new, :create, :destroy, :update, :edit]
   resources :microposts, :only => [:create, :destroy]
-  resources :relationships, :only => [:create, :destroy]
-
-  root 'pages#acceuil'
-  get '/pages/acceuil'
-  get '/signup',  :to => 'users#new'
+  
+  get '/pages/accueil'
+  get '/pages/inscription'
+  root 'pages#acceuil' 
+  get '/signup',  :to => 'pages#inscription'
   get '/signin',  :to => 'sessions#create'
   delete '/signout', :to => 'sessions#destroy'
 

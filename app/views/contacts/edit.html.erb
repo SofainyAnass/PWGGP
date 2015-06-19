@@ -1,0 +1,45 @@
+
+<section id="aboutUs">
+		
+<div class="inner_wrapper">
+
+	
+  <div class="container">
+  	
+  	<%= render 'shared/messages', :object => @contact %>
+  	
+    <div class="inner_section">
+    	
+		<div class="col-lg-6 col-sm-7">
+			
+			<h2>Informations personnelles :</h2>
+	
+					<div class="form">
+		        		<%= form_for(@contact) do |f| %>       		
+		        		
+							<%= f.label :nom, "Nom", :class => "label" %><br />
+							<%= f.text_field :nom, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+		
+		
+							<%= f.label :prenom, "Prenom", :class => "label" %><br />
+							<%= f.text_field :prenom, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+	
+	
+							<%= f.label :email, "Email", :class => "label" %><br />
+							<%= f.text_field :email, :class => "input-text",:onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+							
+							<%= f.submit "Modifier", :class => "input-btn" %>
+							
+						<% end %>
+			          </div>
+	       
+	        
+	    </div>
+
+
+    
+    </div>
+  </div> 
+  </div>
+</section>
+

@@ -2,14 +2,18 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  nom        :string
-#  email      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                 :integer          not null, primary key
+#  login              :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  encrypted_password :string
+#  salt               :string
+#  admin              :boolean
 #
 
 class User < ActiveRecord::Base
+  
+  has_one :contact
   
   has_many :microposts, :dependent => :destroy
   
@@ -21,18 +25,16 @@ class User < ActiveRecord::Base
                                    :class_name => "Relationship",
                                    :dependent => :destroy
   has_many :followers, :through => :reverse_relationships, :source => :follower
-                           
   
   attr_accessor :password
   
-  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
-  validates :nom,  :presence => true,
-                   :length   => { :maximum => 50 }
+  
+  validates :login,  :presence => true,
+                     :length   => { :maximum => 50 },
+                     :uniqueness => { :case_sensitive => false } 
                    
-  validates :email, :presence => true,
-                    :format   => { :with => email_regex },
-                    :uniqueness => { :case_sensitive => false }         
+          
                     
   validates :password, :presence     => true,
                        :confirmation => true,
@@ -45,8 +47,8 @@ class User < ActiveRecord::Base
       encrypted_password == encrypt(password_soumis)
     end
     
-    def self.authenticate(email, submitted_password)
-      user = find_by_email(email)
+    def self.authenticate(login, submitted_password)
+      user = find_by_login(login)
       return nil  if user.nil?
       return user if user.has_password?(submitted_password)
     end

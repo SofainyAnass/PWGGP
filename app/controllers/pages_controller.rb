@@ -7,7 +7,9 @@ class PagesController < ApplicationController
     end
   end
   
-  def show
-    
+  def inscription
+    @titre = "Inscription" 
+    @user = User.new
   end
+
 end

@@ -1,26 +1,31 @@
 # En utilisant le symbole ':user', nous faisons que
 # Factory Girl simule un modèle User.
 
-FactoryGirl.define do  factory :relationship do
-    follower_id 1
-followed_id 1
+FactoryGirl.define do  factory :contact do
+    nom "MyString"
+    prenom "MyString"
+    email "MyString"
+    association :user
+  end
+  factory :relationship do
+      follower_id 1
+      followed_id 1
   end
 
   
   factory :user do
-  nom                 "Michael Hartl"
-  email                 "mhartl@example.com"
-  password              "foobar"
-  password_confirmation "foobar"
+    login                "Michael Hartl"
+    password              "foobar"
+    password_confirmation "foobar"
   end
   
   factory :micropost do 
-  content "Foo bar"
-  association :user
+    content "Foo bar"
+    association :user
   end
   
   sequence :email do |n|
-  "person-#{n}@example.com"
+    "person-#{n}@example.com"
   end
   
 end
