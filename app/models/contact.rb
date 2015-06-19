@@ -20,7 +20,7 @@ class Contact < ActiveRecord::Base
                    
   validates :prenom, :length   => { :maximum => 30 }
   
-  validates :email, :format   => { :with => email_regex }, :uniqueness => { :case_sensitive => false } 
+  validates :email, :uniqueness => { :case_sensitive => false }  #, :format   => { :with => email_regex }
   
   
 end
