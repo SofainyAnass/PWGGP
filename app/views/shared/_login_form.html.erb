@@ -1,9 +1,10 @@
    
-    <div class="col-lg-5 col-sm-7">
+    <div class="col-lg-6 col-sm-7">
     	
         <div class="top_left_cont zoomIn wow animated"> 
         	
         	<div class="form">
+        		
         		<%= form_for(:session, :url => sessions_path) do |f| %>
         		
 				    <%= f.label :email, "Email", :class => "label" %><br />
@@ -13,9 +14,12 @@
 				    <%= f.password_field :password, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
 
 				    <%= f.submit "S'identifier", :class => "input-btn" %>
+				    
+				  	<%= render 'shared/messages', :object => f.object %>  
+				    
 				<% end %>
 				
-				<%= render 'shared/_messages', :object => @user %>
+				
 				
 	          </div>
 	          

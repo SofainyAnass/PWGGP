@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :relationships, :only => [:create, :destroy]
 
   root 'pages#acceuil'
+  get '/pages/acceuil'
   get '/signup',  :to => 'users#new'
   get '/signin',  :to => 'sessions#create'
   delete '/signout', :to => 'sessions#destroy'

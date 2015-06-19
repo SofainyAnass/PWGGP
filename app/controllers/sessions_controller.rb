@@ -7,12 +7,12 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:session][:email],
                            params[:session][:password])
     if user.nil?
-      flash.now[:error] = "Combinaison Email/Mot de passe invalide."
+      flash[:error] = "Combinaison Email/Mot de passe invalide."
       @titre = "Acceuil"
-      render '/pages/acceuil'
+      redirect_to root_path
     else
       sign_in user
-      redirect_back_or '/pages/acceuil'
+      redirect_back_or root_path
     end
     
   end
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   
   def destroy
     sign_out
-    redirect_to "/pages/acceuil"
+    redirect_to root_path
   end
   
   

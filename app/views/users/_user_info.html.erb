@@ -1,5 +1,5 @@
 <% @user ||= current_user %>	
-						<div class="col-lg-5 col-sm-7">
+						<div class="col-lg-6 col-sm-7">
 							<div class="member wow bounceInUp animated">
 								<div class="member-container" data-wow-delay=".3s">
 									<div class="inner-container">										
@@ -26,7 +26,14 @@
 												<a href="#" class="facebook-btn"><i class="fa fa-facebook"></i></a>
 												<a href="#" class="dribbble-btn"><i class="fa fa-dribbble"></i></a>
 												<a href="#" class="linkedin-btn"><i class="fa fa-linkedin"></i></a>
+												
+												<% if current_user.admin? && !current_user?(@user) %>
+												    <%= link_to "Supprimer", @user, :method => :delete, :confirm => "Etes-vous certain ?" %>
+												<% end %>	
 											</div><!-- /.member-social-link -->
+											
+																				
+											
 										</div><!-- /.member-details -->
 									</div><!-- /.inner-container -->
 								</div><!-- /.member-container -->

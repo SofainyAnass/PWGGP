@@ -1,13 +1,35 @@
-<div class="left">
-	<h2>Tous les utilisateurs</h2>
 
-	<%= will_paginate %>
-	
-	<ul class="users">
-	  <%= render @users %>
-	</ul>
-	
-	<%= will_paginate %>
+<section class="page_section team" id="team"><!--main-section team-start-->
+  <div class="container">
+  	
+  	<%= render 'shared/messages', :object => @user %>
+  	
+    <h2><%= @titre %></h2>
 
+		<div class="member-area">
+					<div class="row">
+						<% unless @users.empty? %>
+						
+							<%= will_paginate @users %>
+							
+					        <% @users.each do |user| %>
+					        
+					 		  <% @user = user %>
+					 		  
+					 		  <% if !current_user?(@user) %>
+								    <%= render "user_info" %>
+							  <% end %>	
+				          
+					          
+					        <% end %>
+					        
+					        <%= will_paginate @users %>
+					        
+					      <% end %>
+						
+						
+					</div><!-- /.row -->
+		</div>
 </div>
+</section>
 

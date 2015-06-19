@@ -32,68 +32,13 @@
 </head>
 <body>
 
-
+<% if signed_in? %>
 	
 <%= render 'layouts/header' %> 
 
-<div id="contentLeft">
+<%= render 'layouts/side_menu' %>
 
-        <ul id="leftNavigation">
-
-            <li class="active">
-                <a href="#"><i class="fa fa-coffee leftNavIcon"></i> About us</a>
-                <ul>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Our History</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Our Team</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-flask leftNavIcon"></i> Products</a>
-                <ul>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Garden</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Office</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Home</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-truck leftNavIcon"></i> Services</a>
-                <ul>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Garden</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Office</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Home</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-envelope-o leftNavIcon"></i> Contact us</a>
-                <ul>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Find Us</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Contact Details</a>
-                    </li>
-                </ul>
-            </li>
-
-        </ul>
-
-    </div>
+<% end %>
 
 <%= yield %>
 
