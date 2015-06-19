@@ -6,13 +6,13 @@
 	
   <div class="container">
   	
-  	<%= render 'shared/messages', :object => @contact %>
+  	<%= render 'shared/messages', :object => @project %>
   	
     <div class="inner_section">
     	
 		<div class="col-lg-6 col-sm-7">
 			
-			<h2>Informations personnelles :</h2>
+			<h2>informations générales :</h2>
 	
 					<div class="form">
 		        		<%= form_for(@project) do |f| %>       		
@@ -22,10 +22,9 @@
 		
 		
 							<%= f.label :datedebut, "Date de début", :class => "label" %><br />
-							<%= f.text_field :datedebut, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
-
+							<%= f.datetime_field :datedebut, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
 							
-							<%= f.submit "Modifier", :class => "input-btn" %>
+							<%= f.submit "Créer", :class => "input-btn" %>
 							
 						<% end %>
 			          </div>

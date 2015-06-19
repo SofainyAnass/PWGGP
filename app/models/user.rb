@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   
   has_one :contact
   
+  has_many :projects
+  
   has_many :microposts, :dependent => :destroy
   
   has_many :relationships, :foreign_key => "follower_id",

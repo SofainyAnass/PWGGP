@@ -12,7 +12,7 @@
 
 class Contact < ActiveRecord::Base
   
-  belongs_to :user
+  belongs_to :user, :dependent => :destroy
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
