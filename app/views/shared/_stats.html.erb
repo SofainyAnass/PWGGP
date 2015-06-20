@@ -1,6 +1,6 @@
 <% @user ||= current_user %>
 
- 	 <%= pluralize(@user.microposts.count, "Message") %>
+ 	 <a href="<%= feed_user_path(@user) %>"><%= pluralize(@user.microposts.count, "Publication") %></a>
  	 
  	 <a href="<%= following_user_path(@user) %>"><%= pluralize(@user.following.count, "Abonnement") %></a>
 	

@@ -11,11 +11,8 @@ class UsersController < ApplicationController
   end
   
   def show
-    @micropost = Micropost.new
-    @feed_items = current_user.feed.paginate(:page => params[:page])
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
-    @titre = "#{@user.contact.prenom} #{@user.contact.nom}"
+    @titre = @user.contact.nom_complet
   end
 
   def new
@@ -38,6 +35,7 @@ class UsersController < ApplicationController
   
   def edit
     @titre = "Édition compte"
+    @user = User.find(params[:id])
   end
   
   def update
@@ -61,17 +59,25 @@ class UsersController < ApplicationController
   end
   
   def following
-    @titre = "Following"
+    @titre = "Abonnements"
     @user = User.find(params[:id])
     @users = @user.following.paginate(:page => params[:page])
     render 'show_follow'
   end
 
   def followers
-    @titre = "Followers"
+    @titre = "Abonnés"
     @user = User.find(params[:id])
     @users = @user.followers.paginate(:page => params[:page])
     render 'show_follow'
+  end
+  
+  def feed
+    @feed_items = current_user.feed.paginate(:page => params[:page])
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(:page => params[:page])
+    @titre = "Publications de #{@user.contact.prenom} #{@user.contact.nom}"
+    render 'user_feed'
   end
 
 private

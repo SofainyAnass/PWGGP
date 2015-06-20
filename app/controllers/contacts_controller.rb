@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   
   def edit
     @titre = "Édition profil" 
-    @contact ||= current_user.contact   
+    @contact = Contact.find(params[:id])  
   end
   
   def update

@@ -10,7 +10,7 @@
 										<div class="member-details">
 											<div class="member-top">									
 												<h4 class="name">												
-													<%= link_to "#{@user.contact.prenom} #{@user.contact.nom}" , @user %>
+													<%= link_to @user.contact.nom_complet, @user %>
 												</h4>
 												
 												<%= render 'shared/palette_admin', :object => @user %>

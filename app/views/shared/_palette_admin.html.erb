@@ -1,4 +1,10 @@
 <% if current_user.admin? && !current_user?(@user) %>
+	
+			
+		<% if object.class.to_s == "User" %>
+		<% object = object.contact %>
+		<% end %>
+
         <div id="palette_admin">
               <%= link_to "Modifier", "/#{object.class.to_s.downcase}s/#{object.id}/edit" %>
               <%= link_to "Supprimer", object, :method => :delete, :confirm => "Etes-vous certain ?" %>

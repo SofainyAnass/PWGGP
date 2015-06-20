@@ -28,7 +28,7 @@ class Contact < ActiveRecord::Base
   
   
   def nom_complet  
-    return "#{contact.prenom} #{contact.nom}"   
+    return "#{prenom} #{nom}"   
   end
   
   
