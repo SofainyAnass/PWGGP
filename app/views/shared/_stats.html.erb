@@ -4,4 +4,4 @@
  	 
  	 <a href="<%= following_user_path(@user) %>"><%= pluralize(@user.following.count, "Abonnement") %></a>
 	
-	 <a href="<%= followers_user_path(@user) %>"><%= pluralize(@user.followers.count, "Abonné") %></a>
+	 <a  id="Abonne" href="<%= followers_user_path(@user) %>"><%= pluralize(@user.followers.count, "Abonné") %></a>

@@ -7,26 +7,20 @@
 	    	<!--<div class="logo"><a href="#"><img src="/images/logo.png" alt="logo"></a></div>-->
 	    	
 			<ul class="nav navbar-nav" id="mainNav">	
-				<li><%= link_to "Acceuil", root_path, :class => "scroll-link" %></li>			  
-			  <% if signed_in? %>
-			 	 <li><%= link_to "Profil", current_user, :class => "scroll-link" %></li>	
-			 	 <li><%= link_to "Contacts", following_user_path(current_user), :class => "scroll-link" %></li>		 
-			  <% end %>
-			  <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
-			  <li><a href="#service" class="scroll-link">Services</a></li>
-			  <li><%= link_to "Projet", projects_path, :class => "scroll-link" %></li>
-			  <li><a href="#clients" class="scroll-link">Clients</a></li>			  
+				<li><%= link_to "Acceuil", root_path, :class => "scroll-link" %></li>			  	
+			 	<li><%= link_to "Contacts", following_user_path(current_user), :class => "scroll-link" %></li>		 
+			    <li><%= link_to "Projets", projects_path, :class => "scroll-link" %></li>		  
 			</ul>
 				
 			<nav style="float: right;">
 		  	
 			  	<ul class="nav navbar-nav" id="mainNav">
-					<% if signed_in? %>
 			  			<li><% if current_user.admin? %> <%= link_to "Administration", users_path %> <% end %></li>		        	      
 		      			<li><%= link_to "Compte", edit_contact_path(current_user.contact) %></li>
-						<li><%= link_to "Déconnexion", signout_path, :method => :delete %></li>
-					<% end %>
+						<li><%= link_to "Déconnexion", signout_path, :method => :delete, :confirm => "Voulez-vous vraiment vous deconnecter ?"%></li>
+						<li><%= link_to "#{@current_user.contact.prenom} #{@current_user.contact.nom}", current_user%></li>
 				</ul>	
+				<div class="author-avatar">	<%= image_tag("team_pic2.jpg", :width => "50px", :height => "50px", :alt => "Team Member", :class => "img-circle") %></div>
 			  	  	
 		  </nav>
       </div>

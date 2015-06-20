@@ -1,9 +1,5 @@
 <%= form_for @micropost do |f| %> 
-  <div class="field">
     <%= f.text_area :content, :class => "input-text", :placeholder => "Exprimez-vous" %>
-  </div>
-  <div class="actions">
     <%= f.submit "Publier", :class => "input-btn" %>
-  </div>
 <% end %>
 

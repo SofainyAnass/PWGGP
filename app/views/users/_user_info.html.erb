@@ -13,11 +13,7 @@
 													<%= link_to "#{@user.contact.prenom} #{@user.contact.nom}" , @user %>
 												</h4>
 												
-												<% if current_user.admin? && !current_user?(@user) %>
-													<div id="palette_admin">
-														<%= link_to "Supprimer", @user, :method => :delete, :confirm => "Etes-vous certain ?" %>
-													</div>												   
-												<% end %>
+												<%= render 'shared/palette_admin', :object => @user %>
 												
 												<span class="designation">
 													Etudiant à FST Settat

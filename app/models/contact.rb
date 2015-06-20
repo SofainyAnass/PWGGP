@@ -16,11 +16,20 @@ class Contact < ActiveRecord::Base
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
-  validates :nom, :length   => { :maximum => 30 }
+  #validates :nom, :presence => true,
+  #                :length   => { :maximum => 30 }
                    
-  validates :prenom, :length   => { :maximum => 30 }
+  #validates :prenom,  :presence     => true,
+  #                    :length   => { :maximum => 30 }
   
-  validates :email, :uniqueness => { :case_sensitive => false }  #, :format   => { :with => email_regex }
+  #validates :email, :presence     => true,
+                    #:uniqueness => { :case_sensitive => false }, 
+                    #:format   => { :with => email_regex }
+  
+  
+  def nom_complet  
+    return "#{contact.prenom} #{contact.nom}"   
+  end
   
   
 end

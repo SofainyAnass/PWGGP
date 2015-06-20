@@ -5,10 +5,10 @@ class MicropostsController < ApplicationController
   before_filter :authorized_user, :only => :destroy
   
   def create
-    @micropost = current_user.microposts.build(params[:content])
+    @micropost = current_user.microposts.build(micropost_params)
     @titre = "Acceuil"
     if @micropost.save
-      flash[:success] = "Micropost created!"
+      flash[:success] = "Micropost crée avec succès !"
       redirect_to root_path
     else
       @feed_items = []
@@ -22,6 +22,10 @@ class MicropostsController < ApplicationController
   end
   
   private
+  
+  def micropost_params
+      params.require(:micropost).permit(:content)
+  end
   
   def authorized_user
       @micropost = Micropost.find(params[:id])
