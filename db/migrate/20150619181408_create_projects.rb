@@ -3,6 +3,7 @@ class CreateProjects < ActiveRecord::Migration
     create_table :projects do |t|
       t.string :nom
       t.datetime :datedebut
+      t.integer :etat, default: 0, null: false
       t.integer :user_id
 
       t.timestamps null: false

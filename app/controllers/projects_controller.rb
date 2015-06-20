@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
   end
   
   def index
-    @titre="Projets"
+    @titre="Tout les projets"
     @projects=Project.paginate(:page => params[:page])
   end
   
@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
  private
   
   def project_params
-      params.require(:project).permit(:nom, :datedebut)
+      params.require(:project).permit(:nom, :datedebut, :etat)
   end
   
 end

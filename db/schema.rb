@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150619181408) do
     t.string   "nom"
     t.datetime "datedebut"
     t.integer  "user_id"
+    t.integer "etat", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -11,5 +11,9 @@ class PagesController < ApplicationController
     @titre = "Inscription" 
     @user = User.new
   end
+  
+  def administration
+    @titre = "Administration" 
+  end
 
 end

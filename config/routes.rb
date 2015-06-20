@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
-      get :following, :followers, :feed
+      get :following, :followers, :feed, :settings
     end
   end
   
@@ -11,10 +11,11 @@ Rails.application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :contacts, :only => [:new, :create, :destroy, :update, :edit]
   resources :microposts, :only => [:create, :destroy]
-  
+   
   post "/users", :to => 'contacts#edit'
   get '/pages/accueil'
   get '/pages/inscription'
+  get '/administration', :to => 'pages#administration'
   root 'pages#acceuil' 
   get '/signup',  :to => 'pages#inscription'
   get '/signin',  :to => 'sessions#create'

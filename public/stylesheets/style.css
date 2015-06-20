@@ -1091,11 +1091,13 @@ transition: all .25s ease;
 }
 
 #portfolio_wrapper .one-four {
-    margin: 0!important;
+    margin: 10px 3px 10px 3px !important;
     line-height: 0;
     width: 25%;
     padding: 0;
     position: relative;
+    border: solid 1px #000000;
+	border-radius: 3px;	
 }
 
 .portfolio-item {
@@ -1111,8 +1113,8 @@ transition: all .25s ease;
 }
 
 .portfolio-item .portfolio_img img {
-    width: 100%;
-    height: auto;
+    width: 100px;
+    height: 200px;
 }
 
 .portfolio-item:hover .item_overlay {
@@ -1130,12 +1132,13 @@ transition: all .25s ease;
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0;
+    opacity: 1;
     transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
     -webkit-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
     cursor: pointer;
+
 }
 
 .open-project-link {
@@ -1146,24 +1149,22 @@ transition: all .25s ease;
 }
 
 .item_overlay:hover {
-    background: rgba(0, 93, 150, 0.7);
+  
 }
 
 .item_info {
     position: absolute;
     height: 100px;
     width: 100%;
-    top: 50%;
-    margin-top: -50px;
-    text-align: center;
+    margin: 0 0 0 10px;
+    
 }
 
 .project_name {
     color: #fff;
     text-transform: uppercase;
-    margin-top: 25px;
-    
-    opacity: 0;
+    margin-top: 25px;    
+    opacity: 1;
     font-size: 18px;
     transition: all 0.2s ease 0s;
     -moz-transition: all 0.2s ease 0s;
@@ -1736,6 +1737,14 @@ padding-top: 18px;
 .input-btn2:hover {
     background: #fff;
     color: #005490;
-    border: 1px solid #005490;
+    border: 1px solid #000000;
 }
+
+
+#palette_admin {
+	margin: 10px 15px;
+	float: right;
+	
+}
+
 

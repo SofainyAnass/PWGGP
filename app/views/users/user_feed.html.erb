@@ -5,9 +5,10 @@
 	
   <div class="container">
 
-   		 <div class="inner_section">
-   		 	
-	    
+
+		<%= render 'shared/messages', :object => @user %>
+
+   		 <div class="inner_section">  		 	    		
 	     
 				<div class="col-lg-10 col-sm-7">
 					<h2><%= pluralize(@user.microposts.count, "Publication") %> de <%= @user.contact.nom_complet %></h2>

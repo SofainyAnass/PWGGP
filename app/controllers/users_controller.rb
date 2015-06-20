@@ -76,8 +76,13 @@ class UsersController < ApplicationController
     @feed_items = current_user.feed.paginate(:page => params[:page])
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])
-    @titre = "Publications de #{@user.contact.prenom} #{@user.contact.nom}"
+    @titre = "Publications de #{@user.contact.nom_complet}"
     render 'user_feed'
+  end
+  
+  def settings
+    @user = User.find(params[:id])
+    @titre = "Paramètres de #{@user.contact.nom_complet}"
   end
 
 private

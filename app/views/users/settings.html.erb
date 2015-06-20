@@ -3,7 +3,8 @@
   <div class="container">
 	<div class="member-area">
 		<div class="row">
-			<%= render 'user_info'%>				
+			<%= render 'user_info'%>
+			<%= link_to "Modifier", edit_contact_path(current_user.contact) %>			
 						
 		</div><!-- /.row -->
 	</div>

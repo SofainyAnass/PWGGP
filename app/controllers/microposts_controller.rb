@@ -17,9 +17,14 @@ class MicropostsController < ApplicationController
   end
 
   def destroy   
-    @user=@micropost.user
-    @micropost.destroy
-    redirect_to root_path
+    @user=@micropost.user    
+    if @micropost.destroy
+      flash[:success] = "Publication supprimée !"
+      redirect_to feed_user_path(@user)
+    else
+      render feed_user_path(@user)
+    end
+    
   end
   
   private

@@ -1,37 +1,24 @@
-
-						<div class="col-lg-6 col-sm-7">
-							<div class="member wow bounceInUp animated">
-								<div class="member-container" data-wow-delay=".3s">
-									<div class="inner-container">																												
-											<div class="member-top">									
-												<h4 class="name">												
-													<%= link_to @project.nom , @project %>
-												</h4>
-												
-												<%= render 'shared/palette_admin', :object => @project %>
-												
-												<span>
-													Créer par : <%= @project.user.contact.nom %>
-												</span>		
-														
-												
-												<span class="designation">
-													<%= @project.datedebut %>
-												</span>		
-																						
-												<%= render 'shared/project_stats' %>
-												
-											</div><!-- /.member-top -->
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin consequat.
-											</p>
-									
-											<div class="member-social-link">
-																								
-											</div><!-- /.member-social-link -->
-
-										
-									</div><!-- /.inner-container -->
-								</div><!-- /.member-container -->
-							</div><!-- /.member -->
-						</div>
+	<div class="portfolio-item one-four isotope-item <%= @project.etat.delete(' ') %>">
+        <div class="portfolio_img" style="opacity: 0;"> <img> </div>
+        <div class="item_overlay">
+          <div class="item_info"> 
+          	
+            <h4 class="project_name"><%= link_to @project.nom , @project %></h4>
+      		  
+      		<p>Etat : <%= @project.etat %></p>    
+      		      		
+      		<p>Date de début : <%= @project.datedebut %></p>
+      		
+      		<p>Phase : </p>
+      		
+         	<p>Créé par : <%= @project.user.contact.nom_complet %></p>
+         	
+		 	<p><a href="#">0 Membres</a> | <a href="#">0 Tâches</a> | <a href="#">0 Fichiers</a></p>
+         	
+         	<%= render 'shared/palette_admin', :object => @project %>
+         	
+         	
+          </div>
+        </div>
+      </div>
+						
