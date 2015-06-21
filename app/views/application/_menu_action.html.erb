@@ -1,0 +1,28 @@
+  
+<!-- Portfolio -->
+<section id="menu_action"> 
+  
+  <!-- Container -->
+  <div class="container portfolio_title"> 
+  	
+  	<!-- Title -->
+    <div class="section-title">
+      <h2><%= @titre %></h2>
+    </div>
+    <!--/Title --> 
+  	
+    <a href="<%= "/#{object.class.to_s.downcase}s/new" %>"><h5>Créer</h5></a>
+
+    
+	<%= render 'shared/messages', :object => object %>
+    
+    
+    
+  </div>
+  <!-- Container -->
+  
+  <div class="portfolio-top"></div>
+
+
+  
+</section>

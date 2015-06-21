@@ -27,6 +27,7 @@ module SessionsHelper
     redirect_to signin_path, :notice => "Please sign in to access this page."
   end
   
+  
   def redirect_back_or(default)
     redirect_to(session[:return_to] || default)
     clear_return_to
@@ -34,6 +35,10 @@ module SessionsHelper
   
   def current_user?(user)
     user == current_user
+  end
+  
+  def admin_user
+      redirect_to(root_path) unless current_user.admin?
   end
   
   private

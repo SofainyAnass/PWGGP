@@ -8,29 +8,29 @@
 										</div><!-- /.author-avatar -->									
 										
 										<div class="member-details">
-											<div class="member-top">									
+											<div class="member-top">		
+																			
 												<h4 class="name">												
 													<%= link_to @user.contact.nom_complet, @user %>
-												</h4>
+												</h4>											
+
+												<p>Fonction à nom_organisation</p>
 												
-												<%= render 'shared/palette_admin', :object => @user %>
-												
-												<span class="designation">
-													Etudiant à FST Settat
-												</span>		
+												<p>Email : <%= link_to @user.contact.email, "#" %></p>	
 																						
-												<p></p><a href="<%= feed_user_path(@user) %>"><%= pluralize(@user.microposts.count, "Publication") %></a>
+												<p><a href="<%= feed_user_path(@user) %>"><%= pluralize(@user.microposts.count, "Publication") %></a>
 											 	 
 											 	 | <a href="<%= following_user_path(@user) %>"><%= pluralize(@user.following.count, "Abonnement") %></a>
 												
-												 | <a id="Abonne" href="<%= followers_user_path(@user) %>"><%= pluralize(@user.followers.count, "Abonné") %></a>
+												 | <a id="Abonne" href="<%= followers_user_path(@user) %>"><%= pluralize(@user.followers.count, "Abonné") %></a></p>
 												 
-												 | <a href="<%= membre_de_user_path(@user) %>"><%= pluralize(@user.membre_de.count, "Projet") %></a></p>
+												 <p><a href="<%= membre_de_user_path(@user) %>"><%= pluralize(@user.membre_de.count, "Projet") %></a>
+												 
+												 | <a href="#">0 Tâches</a></p>
+												 
+												 <%= render 'shared/palette_admin', :object => @user %>
 												
 											</div><!-- /.member-top -->
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin consequat.
-											</p>
 									
 											<div class="member-social-link">
 												<%= render 'follow_form'%>													

@@ -1,3 +1,4 @@
+<%= render 'menu_action', :object => @project %>
 
 <section id="aboutUs">
 		
@@ -5,8 +6,6 @@
 
 	
   <div class="container">
-  	
-  	<%= render 'shared/messages', :object => @project %>
   	
     <div class="inner_section">
     	
@@ -25,7 +24,7 @@
 							<%= f.datetime_field :datedebut, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
 							
 							<%= f.label :etat, "Etat", :class => "label" %><br />
-							<%= select_tag  "project[etat]", options_for_select([ "Nouveau", "En cours" , "Terminé", "En arrêt" ], @project.etat) %>
+							<%= select_tag  "project[etat]", options_for_select([ "Nouveau", "En cours" , "Terminé", "En arrêt" ], @project.etat), :class => "input-text" %>
 									
 							<%= f.submit "Créer", :class => "input-btn" %>
 							

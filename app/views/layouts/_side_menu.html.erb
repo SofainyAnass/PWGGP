@@ -2,9 +2,10 @@
 <div id="contentLeft">
 
         <ul id="leftNavigation">
-
-            <li class="active">
-                <a href="#"><i class="fa fa-coffee leftNavIcon"></i> Administration</a>
+			
+			<% if current_user.admin? %>
+            <li>
+                <a href="#"><i class="fa leftNavIcon"></i> Administration</a>
                 <ul>
                     <li>
                     	<%= link_to 'Utilisateurs', users_path %>
@@ -14,43 +15,44 @@
                     </li>
                 </ul>
             </li>
+            <% end %>
             <li>
-                <a href="#"><i class="fa fa-flask leftNavIcon"></i> Products</a>
+                <a href="#"><i class="fa leftNavIcon"></i> Publication</a>
+                <ul>
+                    <li class="active">
+                        <a href=" <%= feed_user_path(current_user) %> "><i class="fa fa-angle-right leftNavIcon"></i> Mes Publications</a>
+                    </li>                  
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa leftNavIcon"></i> Messagerie</a>
                 <ul>
                     <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Garden</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Office</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Home</a>
+                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Boite de reception</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-truck leftNavIcon"></i> Services</a>
+                <a href="#"><i class="fa leftNavIcon"></i> Contacts</a>
                 <ul>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Garden</a>
+                	<li>
+                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Mes contacts</a>
+                    </li>
+                    
+                	<li>
+                        <a href="<%= following_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Mes abonnements</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Office</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Home</a>
-                    </li>
+                        <a href="<%= followers_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Mes abonnés</a>
+                    </li>                  
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-envelope-o leftNavIcon"></i> Contact us</a>
+                <a href="#"><i class="fa leftNavIcon"></i> Agenda</a>
                 <ul>
                     <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Find Us</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Contact Details</a>
-                    </li>
+                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Calendrier</a>
+                    </li>                    
                 </ul>
             </li>
 

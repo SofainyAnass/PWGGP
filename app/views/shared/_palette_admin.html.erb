@@ -8,6 +8,7 @@
 					<%= link_to "Modifier", "/#{object.class.to_s.downcase}s/#{object.id}/edit" %>
 			   <% end %>
         	
+        		|
                           
               <%= link_to "Supprimer", object, :method => :delete, :confirm => "Etes-vous certain ?" %>
         </div>   

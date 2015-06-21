@@ -1,3 +1,4 @@
+<%= render 'menu_action', :object => @user %>
 
 <section id="aboutUs">
 		
@@ -6,35 +7,32 @@
 	
   <div class="container">
   	
-  	<%= render 'shared/messages', :object => @contact %>
-  	
     <div class="inner_section">
     	
 		<div class="col-lg-6 col-sm-7">
 			
-			<h2>Informations personnelles :</h2>
+			<h2><%= @titre %></h2>
 	
 					<div class="form">
-		        		<%= form_for(@project) do |f| %>       		
+		        		<%= form_for(@user) do |f| %>       		
 		        		
-							<%= f.label :nom, "Nom", :class => "label" %><br />
-							<%= f.text_field :nom, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+							<%= f.label :login, "Login", :class => "label" %><br />
+							<%= f.text_field :login, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
 		
+							<%= f.label :password, "Mot de passe", :class => "label" %><br />
+							<%= f.password_field :password, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
 		
-							<%= f.label :datedebut, "Date de début", :class => "label" %><br />
-							<%= f.text_field :datedebut, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
-
-							
-							<%= f.submit "Modifier", :class => "input-btn" %>
+							<%= f.label :password_confirmation, "Confirmation", :class => "label" %><br />
+							<%= f.password_field :password_confirmation, :class => "input-text", :onFocus => "if(this.value==this.defaultValue)this.value='';", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+		
+							<%= f.submit "Créer", :class => "input-btn" %>
 							
 						<% end %>
 			          </div>
 	       
 	        
 	    </div>
-
-
-    
+ 
     </div>
   </div> 
   </div>

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_filter :admin_user,   :only => [:index, :destroy]
     
   def index    
+    @user=User.new
     @users = User.paginate(:page => params[:page])
     @titre = "Tous les utilisateurs"
     render "show_users"  
@@ -17,21 +18,31 @@ class UsersController < ApplicationController
   end
 
   def new
+    @user=User.new
     
   end
   
   def create
     @user = User.new(user_params)      
-    if @user.save
-      #sign_in @user        
-      @user.contact=Contact.create! 
-      flash[:success] = "Votre compte a été correctement créé. Veuillez vous authentifier pour continuer."
-      redirect_to root_path
-    else   
-       
-      render '/pages/inscription'          
+    if @user.save         
+         #sign_in @user        
+         @user.contact=Contact.create! 
+         flash[:success] = "Votre compte a été correctement créé. Veuillez vous authentifier pour continuer."    
+    else     
       
-    end
+        m = "There were problems with the following fields:"
+          
+        @user.errors.full_messages.each do |msg|
+          m += "#{msg}"
+        end         
+        
+        flash[:error] = m
+        
+    end   
+    
+    redirect_to :back 
+         
+
   end
   
   def edit
@@ -111,9 +122,6 @@ private
       redirect_to('/pages/acceuil') unless current_user?(@user)
   end
   
-  def admin_user
-      redirect_to(root_path) unless current_user.admin?
-  end
 
   
 end

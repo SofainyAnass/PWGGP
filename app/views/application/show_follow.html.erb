@@ -1,34 +1,32 @@
-<%= render 'menu_action', :object => @users.first %>
-
 <section class="page_section team" id="team"><!--main-section team-start-->
   <div class="container">
-		<div class="member-area">
+    <h2><%= @titre %></h2>
+
+<div class="member-area">
 					<div class="row">
 						<% unless @users.empty? %>
-						
-							<%= will_paginate @users %>
-							
+
 					        <% @users.each do |user| %>
 					        
 					 		  <% @user = user %>
-					 		  
-							  <%= render "user_info" %>
-				          
+					        	     
+					          <%= render "user_info" %>
 					          
 					        <% end %>
 					        
 					        <%= will_paginate @users %>
-					      <%else%>
+					      <% else %>
 					      
-					      <div class="col-lg-6 col-sm-7">
-					        	<p>Aucun contact.</p>
+					        <div class="col-lg-6 col-sm-7">
+					        	<p>Aucun abonnement.</p>
 					        </div>
+					        
 					        
 					      <% end %>
 						
 						
 					</div><!-- /.row -->
-		</div>
+				</div>
 </div>
 </section>
 

@@ -5,12 +5,11 @@
 	
   <div class="container">
 
-
 		<%= render 'shared/messages', :object => @user %>
 
    		 <div class="inner_section">  		 	    		
 	     
-				<div class="col-lg-10 col-sm-7">
+				<div class="col-lg-12 col-sm-7">
 					<h2><%= pluralize(@user.microposts.count, "Publication") %> de <%= @user.contact.nom_complet %></h2>
 					
 						<% unless @user.microposts.empty? %>
@@ -20,7 +19,7 @@
 				 			<%= will_paginate @microposts %>
 				 		<% else%>
 				 		
-				 		Aucune publication
+				 		Aucune publication.
 				 		
 		 				<% end %>
 				</div>	

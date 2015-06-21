@@ -13,7 +13,7 @@ class PagesController < ApplicationController
   end
   
   def administration
-    @titre = "Administration" 
+    @titre = "Configuration" 
   end
 
 end
