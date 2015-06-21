@@ -1,7 +1,11 @@
 # En utilisant le symbole ':user', nous faisons que
 # Factory Girl simule un modèle User.
 
-FactoryGirl.define do  factory :relationproject do
+FactoryGirl.define do  factory :project_user_relation do
+    user_id 1
+project_id 1
+  end
+  factory :relationproject do
     projet_id "MyString"
 user_id "MyString"
   end

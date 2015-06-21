@@ -1,18 +1,16 @@
 # == Schema Information
 #
-# Table name: contacts
+# Table name: project_user_relations
 #
 #  id         :integer          not null, primary key
-#  nom        :string
-#  prenom     :string
-#  email      :string
+#  user_id    :integer
+#  project_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :integer
 #
 
 require 'rails_helper'
 
-RSpec.describe Contact, type: :model do
+RSpec.describe ProjectUserRelation, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

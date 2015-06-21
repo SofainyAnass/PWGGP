@@ -104,10 +104,15 @@ p {
 }
 
 .logo {
-    float: left;
-    margin-top: 8px;
+    margin: 50px auto;
 	position: relative;
 	z-index: 2;
+	border: 2px solid #FFFFFF;
+    border-radius: 3px;
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 .res-nav_click {
@@ -166,6 +171,7 @@ p {
     -moz-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
 }
+
 
 .navStyle ul li a:hover {
     color: #005490;

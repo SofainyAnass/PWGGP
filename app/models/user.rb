@@ -15,7 +15,11 @@ class User < ActiveRecord::Base
   
   has_one :contact
   
-  has_many :projects
+  has_many :projects 
+  
+  has_many :project_user_relations, :foreign_key => :membre_id,
+                                    :dependent => :destroy
+  has_many :membre_de, :through => :project_user_relations, :source => :projet
   
   has_many :microposts, :dependent => :destroy
   
@@ -74,7 +78,20 @@ class User < ActiveRecord::Base
     
     def unfollow!(followed)
       relationships.find_by_followed_id(followed).destroy
-     end
+    end
+     
+    def membre_de?(projet)
+       project_user_relations.find_by_project_id(projet)
+    end
+     
+    def ajouter_au_projet!(projet)
+       project_user_relations.create!(:project_id => projet.id)
+    end
+     
+     
+    def retirer_du_projet!(projet)
+       project_user_relations.find_by_project_id(projet).destroy
+    end
 
   private
 

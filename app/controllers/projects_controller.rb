@@ -1,12 +1,12 @@
 class ProjectsController < ApplicationController
-  def new
-    @titre = "Nouveau projet"
+  def new  
     @project = Project.new
+    @titre = "Nouveau projet"
   end
 
-  def create
-    @titre = "Nouveau projet"
+  def create  
     @project = current_user.projects.build(project_params)
+    @titre = "Nouveau projet"
     if @project.save
       flash[:success] = "Project créé !"
       redirect_to projects_path
@@ -15,14 +15,14 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def edit
-    @titre = "Edition du projet"
+  def edit    
     @project = Project.find(params[:id])
+    @titre = "Edition du projet"
   end
 
   def update
-    @titre = "Édition du projet"
     @project = Project.find(params[:id])
+    @titre = "Édition du projet"
     if @project.update_attributes(project_params)
       flash[:success] = "Projet édité."
       redirect_to projects_path      
@@ -37,8 +37,9 @@ class ProjectsController < ApplicationController
   end
   
   def index
+    @projects = Project.paginate(:page => params[:page])
     @titre="Tout les projets"
-    @projects=Project.paginate(:page => params[:page])
+    render 'show_projects'
   end
   
   def destroy
@@ -49,6 +50,16 @@ class ProjectsController < ApplicationController
       render projects_path
     end
   end 
+  
+  def members   
+    @projet=Project.find(params[:id])   
+    @users = @projet.membres.paginate(:page => params[:page])
+    @titre="Membres du projet #{@projet.nom}"
+    render "show_users"
+       
+  end 
+  
+  
  
  private
   

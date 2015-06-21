@@ -13,7 +13,9 @@
       		
          	<p>Créé par : <%= @project.user.contact.nom_complet %></p>
          	
-		 	<p><a href="#">0 Membres</a> | <a href="#">0 Tâches</a> | <a href="#">0 Fichiers</a></p>
+         	<p><a href="<%=  members_project_path(@project) %>"><%= pluralize(@project.membres.count, "Membre") %></a>
+         	
+		 	| <a href="#">0 Tâches</a> | <a href="#">0 Fichiers</a></p>
          	
          	<%= render 'shared/palette_admin', :object => @project %>
          	

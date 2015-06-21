@@ -1,6 +1,22 @@
 <% unless @feed_items.empty? %>
   <table>
-    <%= render :partial => 'shared/feed_item', :collection => @feed_items %>
+  	 <% @feed_items.each do |feed_item| %>
+  	<tr>
+	  <td>									
+		<div class="author-avatar">	<%= image_tag("team_pic2.jpg", :width => "50px", :height => "50px", :alt => "Team Member", :class => "img-circle") %></div>
+	
+	    <span> <%= link_to feed_item.user.contact.nom_complet, feed_item.user %> </span>
+	    <span> <%= feed_item.content %></span>
+	    
+	    <span> Posté il y a <%= time_ago_in_words(feed_item.created_at) %>.</span>
+	  </td>
+	  <% if current_user?(feed_item.user) %>
+	  <td>
+	    <%= link_to "supprimer", feed_item, :method => :delete, :confirm => "Etes-vous certain ?" %>
+	  </td>
+	  <% end %>
+	</tr>
+	<% end %>
   </table>
   <%= will_paginate @feed_items %>
 <% end %>

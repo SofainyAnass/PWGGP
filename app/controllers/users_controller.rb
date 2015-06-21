@@ -5,9 +5,10 @@ class UsersController < ApplicationController
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => [:index, :destroy]
     
-  def index
-    @titre = "Tous les utilisateurs"
+  def index    
     @users = User.paginate(:page => params[:page])
+    @titre = "Tous les utilisateurs"
+    render "show_users"  
   end
   
   def show
@@ -38,9 +39,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
-  def update
-    @titre = "Édition profil"
+  def update   
     @user = User.find(params[:id])
+    @titre = "Édition profil"
     if @user.update_attributes(user_params)
       flash[:success] = "Profil actualisé."
       redirect_to 'edit'      
@@ -50,25 +51,32 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    if User.find(params[:id]).destroy
-      flash[:success] = "Utilisateur supprimé."
-      redirect_to users_path
+    @user = User.find(params[:id])
+    
+    if @user!=current_user
+      if@user.destroy
+        flash[:success] = "Utilisateur supprimé."
+        redirect_to users_path
+      else
+        render users_path
+      end
     else
-      render users_path
+      flash[:error] = "Vous ne pouvez pas supprimer ce compte tant qu'il est connecté."
+      redirect_to users_path
     end
   end
   
-  def following
-    @titre = "Abonnements"
+  def following   
     @user = User.find(params[:id])
     @users = @user.following.paginate(:page => params[:page])
+    @titre = "Abonnements"
     render 'show_follow'
   end
 
-  def followers
-    @titre = "Abonnés"
+  def followers   
     @user = User.find(params[:id])
     @users = @user.followers.paginate(:page => params[:page])
+    @titre = "Abonnés"
     render 'show_follow'
   end
   
@@ -77,12 +85,19 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])
     @titre = "Publications de #{@user.contact.nom_complet}"
-    render 'user_feed'
+    render 'show_feeds'
   end
   
   def settings
     @user = User.find(params[:id])
     @titre = "Paramètres de #{@user.contact.nom_complet}"
+  end
+  
+  def membre_de
+    @user = User.find(params[:id])
+    @projects = @user.membre_de.paginate(:page => params[:page])
+    @titre = "Projets de #{@user.contact.nom_complet}"
+     render 'show_projects'
   end
 
 private

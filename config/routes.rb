@@ -2,11 +2,16 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
-      get :following, :followers, :feed, :settings
+      get :following, :followers, :feed, :settings, :membre_de
     end
   end
   
-  resources :projects
+  resources :projects do
+    member do
+      get :members
+    end
+  end
+  
   resources :relationships
   resources :sessions, :only => [:new, :create, :destroy]
   resources :contacts, :only => [:new, :create, :destroy, :update, :edit]

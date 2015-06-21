@@ -9,17 +9,18 @@
 			<ul class="nav navbar-nav" id="mainNav">	
 				<li><%= link_to "Acceuil", root_path, :class => "scroll-link" %></li>			  	
 			 	<li><%= link_to "Contacts", following_user_path(current_user), :class => "scroll-link" %></li>		 
-			    <li><%= link_to "Projets", projects_path, :class => "scroll-link" %></li>		  
+			    <li><%= link_to "Projets", membre_de_user_path(current_user), :class => "scroll-link" %></li>		  
 			</ul>
 				
 			<nav style="float: right;">
 		  	
 			  	<ul class="nav navbar-nav" id="mainNav">
-			  			<li><% if current_user.admin? %> <%= link_to "Administration", administration_path %> <% end %></li>		        	      
-						<li><%= link_to "Déconnexion", signout_path, :method => :delete, :confirm => "Voulez-vous vraiment vous deconnecter ?"%></li>
+			  			<li><% if current_user.admin? %> <%= link_to "Administration", administration_path %> <% end %></li>		        	      						
 						<li><%= link_to @current_user.contact.nom_complet, settings_user_path(current_user) %></li>
+					<span style="position: absolute; top:30px; right: 100px;"><%= link_to "Déconnexion", signout_path, :id =>" lien_deconnexion", :method => :delete, :confirm => "Voulez-vous vraiment vous deconnecter ?" %></span>	
 				</ul>	
-				<div class="author-avatar">	<%= image_tag("team_pic2.jpg", :width => "50px", :height => "50px", :alt => "Team Member", :class => "img-circle") %></div>
+				
+				<div class="author-avatar"><a href="<%= settings_user_path(current_user) %>"><%= image_tag("team_pic2.jpg", :width => "50px", :height => "50px", :alt => "Team Member", :class => "img-circle") %></a></div>
 			  	  	
 		  </nav>
       </div>
