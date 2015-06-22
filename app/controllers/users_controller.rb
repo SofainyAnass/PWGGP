@@ -6,8 +6,8 @@ class UsersController < ApplicationController
   before_filter :admin_user,   :only => [:index, :destroy]
     
   def index    
-    @user=User.new
     @users = User.paginate(:page => params[:page])
+    @users.first == nil ?  @user = User.new :
     @titre = "Tous les utilisateurs"
     render "show_users"  
   end
@@ -18,8 +18,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user=User.new
-    
+    @user=User.new   
   end
   
   def create
@@ -27,22 +26,10 @@ class UsersController < ApplicationController
     if @user.save         
          #sign_in @user        
          @user.contact=Contact.create! 
-         flash[:success] = "Votre compte a été correctement créé. Veuillez vous authentifier pour continuer."    
-    else     
-      
-        m = "There were problems with the following fields:"
-          
-        @user.errors.full_messages.each do |msg|
-          m += "#{msg}"
-        end         
-        
-        flash[:error] = m
-        
+         flash[:success] = "Le compte a été correctement créé."    
     end   
     
-    redirect_to :back 
-         
-
+    redirect_to :back
   end
   
   def edit
@@ -95,6 +82,7 @@ class UsersController < ApplicationController
     @feed_items = current_user.feed.paginate(:page => params[:page])
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])
+    @microposts.first == nil ?  @micropost = Microposts.new :  
     @titre = "Publications de #{@user.contact.nom_complet}"
     render 'show_feeds'
   end
@@ -106,7 +94,8 @@ class UsersController < ApplicationController
   
   def membre_de
     @user = User.find(params[:id])
-    @projects = @user.membre_de.paginate(:page => params[:page])
+    @projects = @user.membre_de.paginate(:page => params[:page])   
+    @projects.first == nil ?  @project = Project.new :   
     @titre = "Projets de #{@user.contact.nom_complet}"
      render 'show_projects'
   end

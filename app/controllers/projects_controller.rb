@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   before_filter :admin_user,   :only => [:index, :destroy]
   
   def new  
-    @project = Project.new
+    @project ||= Project.new
     @titre = "Nouveau projet"
   end
 
@@ -43,6 +43,7 @@ class ProjectsController < ApplicationController
   
   def index
     @projects = Project.paginate(:page => params[:page])
+    @projects.first == nil ?  @project = Project.new :
     @titre="Tout les projets"
     render 'show_projects'
   end
@@ -59,6 +60,7 @@ class ProjectsController < ApplicationController
   def members   
     @projet=Project.find(params[:id])   
     @users = @projet.membres.paginate(:page => params[:page])
+    @users.first == nil ?  @user = User.new :
     @titre="Membres du projet #{@projet.nom}"
     render "show_users"
        

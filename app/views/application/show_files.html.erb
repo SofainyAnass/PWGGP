@@ -1,0 +1,35 @@
+<%= render 'menu_action', :object => @datafiles.first || @datafile %>
+
+<section class="page_section team" id="team"><!--main-section team-start-->
+  <div class="container">
+		<div class="member-area">
+					<div class="row">
+						<% unless @datafiles.empty? %>
+						
+							<%= will_paginate @datafiles %>
+							
+					        <% @datafiles.each do |datafile| %>
+					        
+					 		  <% @datafile = datafile %>
+					 		  
+							  <p>Nom : <%= @datafile.nom %></p>
+							  <p>Dernière version : <%= @datafile.versions.last.nom %> </p>
+				          
+					          
+					        <% end %>
+					        
+					        <%= will_paginate @datafiles %>
+					      <%else%>
+					      
+					      <div class="col-lg-6 col-sm-7">
+					        	<p>Aucun fichier.</p>
+					        </div>
+					        
+					      <% end %>
+						
+						
+					</div><!-- /.row -->
+		</div>
+</div>
+</section>
+

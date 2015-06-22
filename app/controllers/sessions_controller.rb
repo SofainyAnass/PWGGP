@@ -9,12 +9,10 @@ class SessionsController < ApplicationController
     if user.nil?
       flash[:error] = "Combinaison Email/Mot de passe invalide."
       @titre = "Acceuil"
-      redirect_to root_path
     else
-      sign_in user
-      redirect_back_or root_path
+      sign_in user   
     end
-    
+    redirect_to root_path
   end
   
   

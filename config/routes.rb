@@ -12,20 +12,19 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :datafiles
   resources :relationships
   resources :sessions, :only => [:new, :create, :destroy]
   resources :contacts, :only => [:new, :create, :destroy, :update, :edit]
   resources :microposts, :only => [:create, :destroy]
-   
-  post "/users", :to => 'contacts#edit'
-  get '/pages/accueil'
-  get '/pages/inscription'
+    
+  get '/accueil',:to => 'pages#acceuil' 
+  root :to => 'pages#acceuil'  
   get '/administration', :to => 'pages#administration'
-  root 'pages#acceuil' 
   get '/signup',  :to => 'pages#inscription'
   get '/signin',  :to => 'sessions#create'
   delete '/signout', :to => 'sessions#destroy'
-
+  post "/users", :to => 'contacts#edit'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

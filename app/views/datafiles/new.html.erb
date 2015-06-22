@@ -1,0 +1,39 @@
+<%= render 'menu_action', :object => @datafile %>
+
+<section id="aboutUs">
+		
+<div class="inner_wrapper">
+
+	
+  <div class="container">
+  	
+    <div class="inner_section">
+    	
+		<div class="col-lg-6 col-sm-7">
+			
+	
+					<div class="form">
+						
+		        		<%= form_for(@datafile) do |f|  %>   
+		        		
+							<%= f.label :attachment, "Selectionnez un fichier", :class => "label" %><br />
+							<%= f.file_field :attachment %>
+							
+							<%= label_tag :version, "Version", :class => "label" %><br />
+							<%= text_field_tag :version, "", :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+									
+							<%= f.submit "Ajouter", :class => "input-btn" %>
+							
+						<% end %>
+			          </div>
+	       
+	        
+	    </div>
+
+
+    
+    </div>
+  </div> 
+  </div>
+</section>
+

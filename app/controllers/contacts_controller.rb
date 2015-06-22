@@ -10,9 +10,9 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
     if @contact.update_attributes(contact_params)
       flash[:success] = "Profil actualisé."
-      render 'edit'      
+      render 'edit'        
     else
-      render 'edit'
+      redirect_to 'edit' 
     end
   end
   
