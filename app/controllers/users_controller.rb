@@ -26,10 +26,11 @@ class UsersController < ApplicationController
     if @user.save         
          #sign_in @user        
          @user.contact=Contact.create! 
-         flash[:success] = "Le compte a été correctement créé."    
-    end   
-    
-    redirect_to :back
+         flash[:success] = "Le compte a été correctement créé."  
+         redirect_to :back  
+    else  
+         render '/pages/inscription'
+    end
   end
   
   def edit
@@ -82,7 +83,7 @@ class UsersController < ApplicationController
     @feed_items = current_user.feed.paginate(:page => params[:page])
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])
-    @microposts.first == nil ?  @micropost = Microposts.new :  
+    @microposts == nil  ?  @micropost = Microposts.new :  
     @titre = "Publications de #{@user.contact.nom_complet}"
     render 'show_feeds'
   end

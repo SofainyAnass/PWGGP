@@ -12,16 +12,13 @@
    		 <div class="inner_section">  		 	    		
 	     
 				<div class="col-lg-12 col-sm-7">
-					<h2><%= pluralize(@user.microposts.count, "Publication") %> de <%= @user.contact.nom_complet %></h2>
+					<%= pluralize(@user.microposts.count, "Publication") %>
 					
 						<% unless @user.microposts.empty? %>
 					        <table>
 					         	<%= render @microposts %>				         	
 					        </table>
-				 			<%= will_paginate @microposts %>
-				 		<% else%>
-				 		
-				 		Aucune publication.
+				 			<%= will_paginate @microposts %>				 		
 				 		
 		 				<% end %>
 				</div>	

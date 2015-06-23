@@ -26,7 +26,8 @@ class DatafilesController < ApplicationController
              
              flash[:success]="Le fichier a été correctement chargé."
            
-
+             redirect_to :back
+             
            end
          
       end
@@ -39,7 +40,7 @@ class DatafilesController < ApplicationController
       
     end
     
-    redirect_to :back
+    render '/datafiles/new'
     
   end
   
