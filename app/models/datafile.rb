@@ -2,42 +2,48 @@ class Datafile < ActiveRecord::Base
   
   @@chemin_upload = "data/uploads"
   
-  has_many :versions
-  
-  has_many :file_version_relations, :foreign_key => :datafile_id, :dependent => :destroy
-  
+  has_many :versions, :dependent => :destroy
+
   validates :nom, :presence => true , :uniqueness => true
-  
-  has_many :historique_versions, :through => :file_versions_relations, :source => :version
   
   default_scope -> { order(:created_at => :desc) }
   
-  attr_accessor :flux, :chemin_upload
 
+  attr_accessor :attachment, :nouveau_chemin
    
   def upload
     
-    File.open(Rails.root.join(@@chemin_upload, nom), 'wb') do |file|
-        file.write(@flux.read)
+    File.open(nouveau_chemin, 'wb') do |file|
+        file.write(attachment.read)
     end
+    
     
   end
   
-  def recup_infos(arg)
+  def self.recup_infos(arg)
    
-    @flux=arg[:attachment]
-    self.nom = flux.original_filename
-    self.type_contenu = flux.content_type
-    self.extension = File.extname(nom)
+    fichier=arg[:attachment]
+    nom =  fichier.original_filename
+    type_contenu =  fichier.content_type
+    extension = File.extname(nom)
+    
+    nouveau_nom="#{File.basename(nom, ".*")}_#{Time.current.to_formatted_s(:number)}#{File.extname(nom)}"    
+    nouveau_chemin=Rails.root.join(@@chemin_upload, nouveau_nom)
+    
+    res = Datafile.find_by(:nom => nom)
+    
+    if( res != nil )
+                          
+               datafile = res    
+               datafile.attachment = fichier  
+               datafile.nouveau_chemin = nouveau_chemin
+    else
+          
+               datafile = self.new(:nom => nom, :type_contenu => type_contenu, :extension => extension, :attachment => fichier, :nouveau_chemin => nouveau_chemin  )
+    end
+    
+    return datafile
 
-  end
-  
-  def chemin_par_defaut
-    return @@chemin_upload
-  end
-  
-  def chemin_complet
-    File.join(self.versions.last.chemin,self.nom)
   end
   
   

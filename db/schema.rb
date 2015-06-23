@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622174318) do
+ActiveRecord::Schema.define(version: 20150622172702) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "nom",        default: "nom",                    null: false
@@ -33,17 +33,6 @@ ActiveRecord::Schema.define(version: 20150622174318) do
   end
 
   add_index "datafiles", ["nom"], name: "index_datafiles_on_nom", unique: true
-
-  create_table "file_version_relations", force: :cascade do |t|
-    t.integer  "fichier_id"
-    t.integer  "version_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "file_version_relations", ["fichier_id", "version_id"], name: "index_file_version_relations_on_fichier_id_and_version_id", unique: true
-  add_index "file_version_relations", ["fichier_id"], name: "index_file_version_relations_on_fichier_id"
-  add_index "file_version_relations", ["version_id"], name: "index_file_version_relations_on_version_id"
 
   create_table "microposts", force: :cascade do |t|
     t.string   "content"

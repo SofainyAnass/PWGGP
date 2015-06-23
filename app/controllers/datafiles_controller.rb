@@ -1,3 +1,4 @@
+
 class DatafilesController < ApplicationController  
   include SessionsHelper
   
@@ -11,48 +12,41 @@ class DatafilesController < ApplicationController
   def create
     
     @titre = "Ajouter un fichier"
-    @datafile = Datafile.new
     
     if (params[:datafile] != nil && (params[:version]!=nil && !params[:version].empty?) )      
 
-          @datafile.recup_infos(:attachment => params[:datafile][:attachment])
-      
-          if( Datafile.find_by(:nom =>  @datafile.nom) != nil )
-                
-               @datafile = Datafile.find_by(:nom =>  @datafile.nom)
-          
-          else
-            
-               @datafile.upload
-              
-          end  
-            
-          @version=@datafile.versions.build(:nom => params[:version], :chemin => @datafile.chemin_par_defaut)
-           
+          @datafile=Datafile.recup_infos(:attachment => params[:datafile][:attachment])
+        
+          @version=@datafile.versions.build(:nom => params[:version], :chemin => @datafile.nouveau_chemin )         
          
           if(Version.find_by(:nom =>  @version.nom,:datafile_id =>  @datafile.id) != nil)
             
-              flash[:error]="La version indiquée du fichier existe déjà."
-
-              
-          else
-              
-              @version.save!
-              @datafile.save!
-              
-              flash[:success]="Le fichier a été correctement chargé."
-               
+              flash[:error]="La version indiquée du fichier existe déjà."          
+          else        
             
-          end  
-  
-    else
-      
-      flash[:error]="Champ obligatoire non renseigné."
-      
-      
+              @version.save!
+              @datafile.save!       
+              @datafile.upload
+                   
+              flash[:success]="Le fichier a été correctement chargé."                        
+          end   
+    else     
+      flash[:error]="Champ obligatoire non renseigné."          
     end
     
     redirect_to :back
+    
+  end
+  
+  def edit   
+    @title = "Modfier un fichier"
+  end
+  
+  def update 
+    @datafile=Datafile.find(params[:id])
+    @datafile.update_attributes!(params[:product].reject { |k,v| v.blank? })
+    flash[:success] = "Fichier mis à jour."
+    redirect_to datafiles_path
     
   end
   
@@ -66,20 +60,17 @@ class DatafilesController < ApplicationController
   
   def destroy  
   
-    Datafile.destroy(params[:id])
-
+    @datafile=Datafile.find(params[:id]) 
+    
+    if Datafile.destroy(@datafile)       
+          flash[:success] = "Fichier supprimé."                     
+    end
+        
+    
+    redirect_to :back  
+         
   end
   
-  def destroy_multiple
-     
-    if Datafile.destroy(params[:datafiles_ids])
-        flash[:success] = "Fichier(s) supprimé(s)."
-        redirect_to :back
-    else
-        redirect_to :back
-    end
-    
-  end
   
    
   def download
