@@ -14,7 +14,7 @@
 	
 					<div class="form">
 						
-		        		<%= form_for(@datafile) do |f|  %>   
+		        		<%= form_for(@datafile) do |f|, remote: true %>   
 		        		
 							<%= f.label :attachment, "Selectionnez un fichier", :class => "label" %><br />
 							<%= f.file_field :attachment %>

@@ -11,8 +11,8 @@ Rails.application.routes.draw do
       get :members
     end
   end
-  
-  resources :datafiles
+   
+  resources :datafiles, only: [:new, :create, :index]
   resources :relationships
   resources :sessions, :only => [:new, :create, :destroy]
   resources :contacts, :only => [:new, :create, :destroy, :update, :edit]
