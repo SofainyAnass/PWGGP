@@ -1,4 +1,7 @@
 class ProjectUserRelationsController < ApplicationController
+  include SessionsHelper
+  
+  before_filter :authenticate
  
  
  

@@ -1,5 +1,7 @@
-class DatafilesController < ApplicationController
+class DatafilesController < ApplicationController  
+  include SessionsHelper
   
+  before_filter :authenticate
   
   def new
     @datafile = Datafile.new  
@@ -61,6 +63,31 @@ class DatafilesController < ApplicationController
     @titre="Tout les fichiers"
     render 'show_files'
   end
+  
+  def destroy  
+  
+    Datafile.destroy(params[:id])
+
+  end
+  
+  def destroy_multiple
+     
+    if Datafile.destroy(params[:datafiles_ids])
+        flash[:success] = "Fichier(s) supprimé(s)."
+        redirect_to :back
+    else
+        redirect_to :back
+    end
+    
+  end
+  
+   
+  def download
+    @datafile=Datafile.find(params[:id])
+    send_file @datafile.chemin_complet, :type=>@datafile.type_contenu 
+  end
+  
+  
   
   
 private

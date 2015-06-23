@@ -1,4 +1,7 @@
 class PagesController < ApplicationController
+  
+  before_filter :authenticate, :only => [:administration]
+  
   def acceuil
     @titre = "Acceuil"
     if signed_in?

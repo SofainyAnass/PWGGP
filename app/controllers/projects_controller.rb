@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
-  include SessionsHelper
   
-  before_filter :authenticate, :except => [:show, :new, :create]
+  before_filter :authenticate
   before_filter :admin_user,   :only => [:index, :destroy]
   
   def new  

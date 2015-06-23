@@ -1,5 +1,7 @@
 class FileVersionRelationsController < ApplicationController
   
+  before_filter :authenticate
+  
   
   
   

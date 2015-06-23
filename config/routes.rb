@@ -12,7 +12,11 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :datafiles
+  resources :datafiles do
+    member do
+      get :download
+    end
+  end
   resources :relationships
   resources :sessions, :only => [:new, :create, :destroy]
   resources :contacts, :only => [:new, :create, :destroy, :update, :edit]

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include SessionsHelper
   
   before_filter :authenticate, :except => [:show, :new, :create]
   before_filter :correct_user, :only => [:edit, :update]

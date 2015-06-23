@@ -1,6 +1,6 @@
 class Datafile < ActiveRecord::Base
   
-  @@chemin_upload = "public/uploads"
+  @@chemin_upload = "data/uploads"
   
   has_many :versions
   
@@ -34,6 +34,10 @@ class Datafile < ActiveRecord::Base
   
   def chemin_par_defaut
     return @@chemin_upload
+  end
+  
+  def chemin_complet
+    File.join(self.versions.last.chemin,self.nom)
   end
   
   

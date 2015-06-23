@@ -1,4 +1,7 @@
 class ContactsController < ApplicationController
+  include SessionsHelper
+  
+  before_filter :authenticate
   
   def edit
     @titre = "Édition profil" 

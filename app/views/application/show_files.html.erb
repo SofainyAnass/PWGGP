@@ -3,30 +3,79 @@
 <section class="page_section team" id="team"><!--main-section team-start-->
   <div class="container">
 		<div class="member-area">
+			
+			
 					<div class="row">
-						<% unless @datafiles.empty? %>
 						
-							<%= will_paginate @datafiles %>
+						
+						
+							<ul class="clearfix">
+								<h5>
+									<li>
+										<a class="lel" href="<%= new_datafile_path %>">Ajouter</a>							
+									</li>
+									
+								</h5>
+								
+							</ul>
+							<div id="filters" class="sixteen columns">
 							
-					        <% @datafiles.each do |datafile| %>
-					        
-					 		  <% @datafile = datafile %>
-					 		  
-							  <p>Nom : <%= @datafile.nom %></p>
-							  <p>Dernière version : <%= @datafile.versions.last.nom %> </p>
-				          
+							 <ul class="clearfix">
+	
+	      	
+						        <li><a id="all" href="#" data-filter="*" class="active">
+						          <h5>Tout</h5>
+						          </a></li>
+						          
+						        <li><a class="" href="#" data-filter=".Nouveau">
+						          <h5>Documents</h5>
+						        </a></li>
+						        
+						        <li><a class="" href="#" data-filter=".Encours">
+						          <h5>Fichiers</h5>
+						        </a></li>
 					          
-					        <% end %>
-					        
-					        <%= will_paginate @datafiles %>
-					      <%else%>
+					
+					  	    </ul>
 					      
-					      <div class="col-lg-6 col-sm-7">
-					        	<p>Aucun fichier.</p>
-					        </div>
-					        
-					      <% end %>
-						
+					      </div>
+																	
+						<div class="col-lg-12 col-sm-7">
+							
+								
+								<% unless @datafiles.empty? %>
+	
+										<table class="table">
+																		
+											<tr>												
+												<td>Nom</td>
+												<td>Dernière version</td>
+												<td>Ajouté par</td>
+												<td>Date et heure d'ajout</td>
+												<td>Historique</td>
+												<td>Téléchargement</td>
+												<td></td>
+											</tr>
+											
+											
+									        <% @datafiles.each do |datafile| %>
+									        
+										 		  <% @datafile = datafile %>
+									 		  
+												  <%= render "datafile_info" %>
+												  
+												  <%= will_paginate @datafiles %>			          
+									          
+								    	    <% end %>							    	    
+								    	    
+								    	</table>
+						    	   
+						        
+							    <% else %>
+							        	<p>Aucun fichier.</p>							       				        				    
+								<% end %>
+								
+						 </div>
 						
 					</div><!-- /.row -->
 		</div>

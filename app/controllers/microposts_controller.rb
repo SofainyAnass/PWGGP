@@ -1,5 +1,4 @@
 class MicropostsController < ApplicationController
-  include SessionsHelper
   
   before_filter :authenticate, :only => [:create, :destroy]
   before_filter :authorized_user, :only => :destroy
