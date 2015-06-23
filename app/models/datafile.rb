@@ -14,13 +14,6 @@ class Datafile < ActiveRecord::Base
   
   attr_accessor :flux, :chemin_upload
 
-  def sauvegarde(arg)
-    
-    recup_infos(arg)
-       
-    save
-    
-  end
    
   def upload
     

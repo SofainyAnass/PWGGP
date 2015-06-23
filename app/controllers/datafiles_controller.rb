@@ -12,35 +12,45 @@ class DatafilesController < ApplicationController
     @datafile = Datafile.new
     
     if (params[:datafile] != nil && (params[:version]!=nil && !params[:version].empty?) )      
-  
 
-      if @datafile.sauvegarde(:attachment => params[:datafile][:attachment])
-              
-           if @datafile.upload
-                  
-             
-             @version=@datafile.versions.build(:nom => params[:version], :chemin => @datafile.chemin_par_defaut)
-              
-             @version.save!
-
-             
-             flash[:success]="Le fichier a été correctement chargé."
-           
-             redirect_to :back
-             
-           end
-         
-      end
+          @datafile.recup_infos(:attachment => params[:datafile][:attachment])
       
+          if( Datafile.find_by(:nom =>  @datafile.nom) != nil )
+                
+               @datafile = Datafile.find_by(:nom =>  @datafile.nom)
+          
+          else
+            
+               @datafile.upload
+              
+          end  
+            
+          @version=@datafile.versions.build(:nom => params[:version], :chemin => @datafile.chemin_par_defaut)
+           
+         
+          if(Version.find_by(:nom =>  @version.nom,:datafile_id =>  @datafile.id) != nil)
+            
+              flash[:error]="La version indiquée du fichier existe déjà."
+
+              
+          else
+              
+              @version.save!
+              @datafile.save!
+              
+              flash[:success]="Le fichier a été correctement chargé."
+               
+            
+          end  
   
     else
       
       flash[:error]="Champ obligatoire non renseigné."
-        
+      
       
     end
     
-    render '/datafiles/new'
+    redirect_to :back
     
   end
   
