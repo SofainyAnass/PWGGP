@@ -2,6 +2,9 @@ class Version < ActiveRecord::Base
   
   belongs_to :datafile
   
+   default_scope -> { order(:created_at => :desc) }
+  
+  
   
   def destroy
     

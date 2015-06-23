@@ -1,0 +1,50 @@
+<%= render 'menu_action', :object =>  @version %>
+
+<section class="page_section team" id="team"><!--main-section team-start-->
+  <div class="container">
+		<div class="member-area">
+			
+			
+					<div class="row">
+								
+																	
+						<div class="col-lg-12 col-sm-7">
+							
+								
+								<% unless @versions.empty? %>
+	
+										<table class="table">
+																		
+											<tr>												
+												<td>Nom</td>
+												<td>Ajouté par</td>
+												<td>Date et heure d'ajout</td>
+												<td>Téléchargement</td>
+												<td></td>
+											</tr>
+											
+											
+									        <% @versions.each do |version | %>
+									        
+										 		  <% @version = version %>
+									 		  
+												  <%= render "version_info" %>
+												  
+												  <%= will_paginate @versions %>			          
+									          
+								    	    <% end %>							    	    
+								    	    
+								    	</table>
+						    	   
+						        
+							    <% else %>
+							        	<p>Aucune version.</p>							       				        				    
+								<% end %>
+								
+						 </div>
+						
+					</div><!-- /.row -->
+		</div>
+</div>
+</section>
+

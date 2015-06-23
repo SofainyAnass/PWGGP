@@ -3,8 +3,8 @@
 		<td><%= @datafile.nom %></td>
 		<td><%= @datafile.versions.last.nom %></td>
 		<td></td>
-		<td><%= @datafile.versions.last.updated_at %></td>
-		<td><%= link_to pluralize(@datafile.versions.count , "version"), "#" %></td>
-		<td><%= link_to "Télécharger", download_datafile_path(@datafile) %></td>
+		<td><%= @datafile.versions.last.created_at %></td>
+		<td><%= link_to pluralize(@datafile.versions.count , "version"), "#{versions_path}?id=#{@datafile.id}" %></td>
+		<td><%= link_to "Télécharger", download_version_path(@datafile.versions.last) %></td>
 		<td><%= link_to "Supprimer", @datafile, :method => :delete %></td>
 </tr>

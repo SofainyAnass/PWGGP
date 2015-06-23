@@ -12,11 +12,19 @@ Rails.application.routes.draw do
     end
   end
   
+  #a supprimer et laisser seulement celui des versions
   resources :datafiles do
     member do
       get :download
     end
   end
+  
+  resources :versions do
+    member do
+      get :download
+    end
+  end
+  
   resources :relationships
   resources :sessions, :only => [:new, :create, :destroy]
   resources :contacts, :only => [:new, :create, :destroy, :update, :edit]
