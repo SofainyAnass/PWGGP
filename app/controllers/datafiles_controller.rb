@@ -7,15 +7,9 @@ class DatafilesController < ApplicationController
   end
   
   def create
-    respond_to do |format|
-    @photo = Photo.new(photo_params)
-    @photo.save
     
-     
     @titre = "Ajouter un fichier"
     @datafile = Datafile.new
-    
-    
     
     if (params[:datafile] != nil && (params[:version]!=nil && !params[:version].empty?) )      
   
@@ -32,8 +26,7 @@ class DatafilesController < ApplicationController
              
              flash[:success]="Le fichier a été correctement chargé."
            
-             format.html { redirect_to :back }
-             format.js
+             redirect_to :back
              
            end
          
@@ -48,8 +41,6 @@ class DatafilesController < ApplicationController
     end
     
     render '/datafiles/new'
-    
-    end
     
   end
   
