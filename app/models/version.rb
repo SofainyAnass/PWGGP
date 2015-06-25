@@ -1,8 +1,10 @@
 class Version < ActiveRecord::Base  
   
+  belongs_to :user
+  
   belongs_to :datafile
   
-   default_scope -> { order(:created_at => :desc) }
+   default_scope -> { order(:updated_at => :desc) }
   
   
   

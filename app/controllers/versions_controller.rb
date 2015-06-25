@@ -28,7 +28,7 @@ class VersionsController < ApplicationController
 
 
     else
-           if Version.destroy(@version) && @datafile.destroy     
+           if Version.destroy(@version) && @datafile.destroy      
               
               flash[:success] = "Toutes les versions du fichier ont été supprimées."
         

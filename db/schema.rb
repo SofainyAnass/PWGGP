@@ -89,9 +89,10 @@ ActiveRecord::Schema.define(version: 20150622172702) do
   add_index "users", ["login"], name: "index_users_on_login"
 
   create_table "versions", force: :cascade do |t|
-    t.string   "nom"
-    t.string   "chemin"
+    t.string   "nom",         null: false
+    t.string   "chemin",      null: false
     t.integer  "datafile_id", null: false
+    t.integer  "user_id",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

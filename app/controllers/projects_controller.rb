@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   before_filter :authenticate
-  before_filter :admin_user,   :only => [:index, :destroy]
+  #before_filter :admin_user,   :only => [:index, :destroy]
   
   def new  
     @project ||= Project.new

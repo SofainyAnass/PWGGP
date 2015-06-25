@@ -17,7 +17,7 @@ class DatafilesController < ApplicationController
 
           @datafile=Datafile.recup_infos(:attachment => params[:datafile][:attachment])
         
-          @version=@datafile.versions.build(:nom => params[:version], :chemin => @datafile.nouveau_chemin )         
+          @version=@datafile.versions.build(:nom => params[:version], :chemin => Rails.root.join(Datadirectory.get_user_file_dir(current_user.id), @datafile.nouveau_nom), :user_id => current_user.id )         
          
           if(Version.find_by(:nom =>  @version.nom,:datafile_id =>  @datafile.id) != nil)
             
@@ -25,8 +25,9 @@ class DatafilesController < ApplicationController
           else        
             
               @version.save!
+              @datafile.update_attributes(:updated_at => @version.updated_at)
               @datafile.save!       
-              @datafile.upload
+              @datafile.upload(Datadirectory.get_user_file_dir(current_user.id))
                    
               flash[:success]="Le fichier a été correctement chargé."                        
           end   

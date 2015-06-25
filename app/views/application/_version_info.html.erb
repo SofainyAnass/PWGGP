@@ -1,8 +1,8 @@
 
 <tr>
 		<td><%= @version.nom %></td>
-		<td></td>
-		<td><%= @version.created_at %></td>
+		<td><%= @version.user.contact.nom_complet %></td>
+		<td><%= @version.updated_at %></td>
 		<td><%= link_to "Télécharger", download_version_path(@version) %></td>
 		<td><%= link_to "Supprimer", @version, :method => :delete %></td>
 </tr>

@@ -25,6 +25,10 @@ class UsersController < ApplicationController
     if @user.save         
          #sign_in @user        
          @user.contact=Contact.create! 
+
+         Datadirectory.new_user(@user.id)
+         
+         
          flash[:success] = "Le compte a été correctement créé."  
          redirect_to :back  
     else  
