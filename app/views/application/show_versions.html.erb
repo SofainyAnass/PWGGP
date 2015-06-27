@@ -1,4 +1,4 @@
-<%= render 'menu_action', :object =>  @version %>
+<%= render 'menu_action', :object =>  @datafile %>
 
 <section class="page_section team" id="team"><!--main-section team-start-->
   <div class="container">
@@ -11,12 +11,14 @@
 						<div class="col-lg-12 col-sm-7">
 							
 								
-								<% unless @versions.empty? %>
+								<% unless @datafiles.empty? %>
 	
 										<table class="table">
 																		
-											<tr>												
-												<td>Nom</td>
+											<tr>
+												<td>Nom</td>												
+												<td>Version</td>
+												<td>Description</td>
 												<td>Ajouté par</td>
 												<td>Date et heure d'ajout</td>
 												<td>Téléchargement</td>
@@ -24,13 +26,11 @@
 											</tr>
 											
 											
-									        <% @versions.each do |version | %>
+									        <% @datafiles.each do |datafile | %>
 									        
-										 		  <% @version = version %>
+										 		  <% @datafile = datafile %>
 									 		  
-												  <%= render "version_info" %>
-												  
-												  <%= will_paginate @versions %>			          
+												  <%= render "version_info" %>		          
 									          
 								    	    <% end %>							    	    
 								    	    

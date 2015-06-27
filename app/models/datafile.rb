@@ -1,50 +1,85 @@
 class Datafile < ActiveRecord::Base
-  
-  @@chemin_upload = "data/uploads" 
-  
-  
-  has_many :versions, :dependent => :destroy
-
-  validates :nom, :presence => true , :uniqueness => true
-  
-  default_scope -> { order(:updated_at => :desc) }
-  
-
-  attr_accessor :attachment, :nouveau_nom
    
-  def upload(nouveau_chemin)
+  
+  belongs_to :user
+  
+  validates :description, :length   => { :maximum => 200 }
+  
+  default_scope -> { order(:created_at => :desc) }
+  
+  attr_accessor :attachment
+  
+  def versions_anterieures
     
-    File.open(File.join(nouveau_chemin,nouveau_nom), 'wb') do |file|
-        file.write(attachment.read)
-    end
+    datafiles = Array.new
+ 
+      Datafile.where(:fichier_id => self.fichier_id).each do | file |
+        
+           datafiles.push(Datafile.find(file.id))
+        
+      end
+      
+    return datafiles
     
     
   end
   
-  def self.recup_infos(arg)
-   
-    fichier=arg[:attachment]
-    nom =  fichier.original_filename
-    type_contenu =  fichier.content_type
-    extension = File.extname(nom)
+  def versions_anterieures
     
-    nouveau_nom="#{File.basename(nom, ".*")}_#{Time.current.to_formatted_s(:number)}#{File.extname(nom)}"    
+    datafiles = Array.new
+ 
+      Datafile.where(:fichier_id => self.fichier_id).each do | file |
+        
+           datafiles.push(Datafile.find(file.id))
+        
+      end
+      
+    return datafiles
+    
+    
+  end
   
-    res = Datafile.find_by(:nom => nom)
-    
-    if( res != nil )
-                          
-               datafile = res    
-               datafile.attachment = fichier  
-               datafile.nouveau_nom = nouveau_nom
-    else
-          
-               datafile = self.new(:nom => nom, :type_contenu => type_contenu, :extension => extension, :attachment => fichier, :nouveau_nom => nouveau_nom )
-    end
-    
+  def derniere_version
+
+      file = Datafile.where(:fichier_id => self.fichier_id).first
+      
+      datafile = Datafile.find(file.id)
+      
     return datafile
-
+    
+    
   end
   
-  
+  def actualiser_versions_anterieures
+
+      datafiles = Array.new
+ 
+      Datafile.where(:fichier_id => self.id).each do | file |
+        
+           datafile = Datafile.find(file.id)         
+           
+           datafiles.push(datafile)
+        
+      end
+      
+
+     datafiles.each do | file |
+        
+           file.update_attributes(:fichier_id => datafiles.last.id)
+        
+      end
+    
+     if(datafiles.last != nil) 
+       
+       datafiles.last.update_attribute(:fichier_id, 0)
+       
+       return false
+       
+     end
+     
+     return true
+     
+  end
+
+ 
 end

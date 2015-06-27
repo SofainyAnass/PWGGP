@@ -16,11 +16,13 @@
 						
 		        		<%= form_for(@datafile) do |f|  %>   
 		        		
+		        			<%= f.hidden_field :fichier_id, :value => @fichier_id ||= 0 %>
+		        		
 							<%= f.label :attachment, "Selectionnez un fichier", :class => "label" %><br />
-							<%= f.file_field :attachment %>
+							<%= f.file_field :attachment, :required => true %>
 							
-							<%= label_tag :version, "Version", :class => "label" %><br />
-							<%= text_field_tag :version, "", :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
+							<%= f.label :description, "Description", :class => "label" %><br />
+							<%= f.text_area :description, :class => "input-text",  :placeholder => "Description du fichier"%>
 									
 							<%= f.submit "Ajouter", :class => "input-btn" %>
 							

@@ -1,10 +1,17 @@
 
 <tr>
 		<td><%= @datafile.nom %></td>
-		<td><%= @datafile.versions.first.nom %></td>
-		<td><%= @datafile.versions.first.user.contact.nom_complet %></td>
-		<td><%= @datafile.updated_at %></td>
-		<td><%= link_to pluralize(@datafile.versions.count , "version"), "#{versions_path}?id=#{@datafile.id}" %></td>
-		<td><%= link_to "Télécharger", download_version_path(@datafile.versions.first) %></td>
-		<td><%= link_to "Supprimer", @datafile, :method => :delete %></td>
+		<td><%= @datafile.version %></td>
+		<td><%= @datafile.description %></td>
+		<td><%= @datafile.user.contact.nom_complet %></td>
+		<td><%= @datafile.created_at %></td>				
+		<td><%= link_to "Versions", versions_fichier_datafile_path(:id =>@datafile.id, :fichier_id =>@datafile.fichier_id) %></td>		
+		<td><%= link_to "Ajouter une version", new_datafile_path(:id =>@datafile.id,  :fichier_id =>@datafile.fichier_id) %></td>
+		<td><%= link_to "Télécharger", download_datafile_path(@datafile.id) %></td>
+		
 </tr>
+
+
+<!-- link_to pluralize(@datafile.versions.count , "version"), "#{versions_path}?id=#{@datafile.id}" # %> -->
+<!-- # link_to "Télécharger", download_version_path(@datafile.versions.first) %> -->
+<!-- # link_to "Supprimer", @datafile, :method => :delete %> -->

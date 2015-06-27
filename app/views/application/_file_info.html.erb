@@ -1,0 +1,10 @@
+
+<tr>
+		<td><%= @file["name"] %></td>
+		<td><%= @file["created_at"] %></td>
+		<td><%= @file["updated_at"] %></td>
+		<td><%= @file["permissions"] %></td>
+		<td></td>
+		<td><%= link_to "Télécharger", "#" %></td>
+		<td><%= link_to "Supprimer", datafiles_path(:file_path => @file["absolute_path"]), :method => :delete_file %></td>
+</tr>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622172702) do
+ActiveRecord::Schema.define(version: 20150622045858) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "nom",        default: "nom",                    null: false
@@ -25,14 +25,16 @@ ActiveRecord::Schema.define(version: 20150622172702) do
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id"
 
   create_table "datafiles", force: :cascade do |t|
-    t.string   "nom"
+    t.string   "nom",                        null: false
+    t.string   "description"
     t.string   "type_contenu"
-    t.string   "extension"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "version",      default: 1,   null: false
+    t.string   "chemin"
+    t.string   "fichier_id",   default: "0"
+    t.string   "user_id",                    null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
-
-  add_index "datafiles", ["nom"], name: "index_datafiles_on_nom", unique: true
 
   create_table "microposts", force: :cascade do |t|
     t.string   "content"
@@ -87,14 +89,5 @@ ActiveRecord::Schema.define(version: 20150622172702) do
   end
 
   add_index "users", ["login"], name: "index_users_on_login"
-
-  create_table "versions", force: :cascade do |t|
-    t.string   "nom",         null: false
-    t.string   "chemin",      null: false
-    t.integer  "datafile_id", null: false
-    t.integer  "user_id",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
 
 end

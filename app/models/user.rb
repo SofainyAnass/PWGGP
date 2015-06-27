@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   
   has_many :versions, :dependent => :destroy
   
+  has_many :datafiles, :dependent => :destroy
+  
   
   
   attr_accessor :password
@@ -96,6 +98,8 @@ class User < ActiveRecord::Base
     def retirer_du_projet!(projet)
        project_user_relations.find_by_project_id(projet).destroy
     end
+    
+    
 
   private
 

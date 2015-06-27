@@ -1,4 +1,4 @@
-<%= render 'menu_action', :object => @datafiles.first || @datafile %>
+<%= render 'menu_action', :object => @datafile %>
 
 <section class="page_section team" id="team"><!--main-section team-start-->
   <div class="container">
@@ -40,33 +40,32 @@
 																	
 						<div class="col-lg-12 col-sm-7">
 							
-								<% unless @user_files.empty? %>
+								<% unless !@datafiles.any? %>
 	
 										<table class="table">
 																		
 											<tr>												
-												<td>Nom</td>
-												<td>Date et heure d'ajout</td>
-												<td>Dernière modification</td>
-												<td>Permissions</td>
-												<td>Historique</td>
-												<td>Téléchargement</td>
+												<td>Nom du fichier</td>
+												<td>Version</td>
+												<td>Description</td>
+												<td>Ajouté par</td>
+												<td>Date et heure</td>	
+												<td></td>	
 												<td></td>
+												<td></td>										
+												
 											</tr>
 											
 											
 											
 											
-									        <% @user_files.each do |user_file| %>
+									        <% @datafiles.each do |datafile| %>
 									        
-									        	<% if !user_file.start_with?(".") %>									       
+												<% @datafile = datafile %>
 										        
-										        	<% @file = Datadirectory.get_file_informations(File.join(Datadirectory.get_user_file_dir(current_user.id),user_file)) %>
-										        
-											 		<%= render "file_info" %>
+											 	<%= render "datafile_info" %>
 												
-												<% end%>
-
+										
 								    	    <% end %>							    	    
 								    	    
 								    	</table>

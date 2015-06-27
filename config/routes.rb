@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
-      get :following, :followers, :feed, :settings, :membre_de
+      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur
     end
   end
   
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   #a supprimer et laisser seulement celui des versions
   resources :datafiles do
     member do
-      get :download
+      get :download, :delete_file, :versions_fichier
     end
   end
   

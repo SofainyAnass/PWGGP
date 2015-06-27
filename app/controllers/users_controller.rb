@@ -25,10 +25,7 @@ class UsersController < ApplicationController
     if @user.save         
          #sign_in @user        
          @user.contact=Contact.create! 
-
-         Datadirectory.new_user(@user.id)
-         
-         
+         Datadirectory.new_user(@user.id)        
          flash[:success] = "Le compte a été correctement créé."  
          redirect_to :back  
     else  
@@ -102,6 +99,33 @@ class UsersController < ApplicationController
     @projects.first == nil ?  @project = Project.new :   
     @titre = "Projets de #{@user.contact.nom_complet}"
      render 'show_projects'
+  end
+  
+  def fichiers_utilisateur
+   
+    @user = User.find(params[:id])
+    
+    @first_files = @user.datafiles.where(:fichier_id => "0") 
+    
+    @datafiles = Array.new
+    
+    @first_files.each do | first_file |
+          
+          
+          @datafile=Datafile.where(:fichier_id => first_file.id ).first
+          
+          if @datafile !=nil
+            @datafiles.push(@datafile)
+          else
+            @datafiles.push(first_file)
+          end
+              
+    end
+    
+    @datafile = Datafile.new
+    
+    @titre = "Fichiers de #{@user.contact.nom_complet}"
+    render 'show_datafiles'
   end
 
 private

@@ -1,8 +1,10 @@
 
 <tr>
-		<td><%= @version.nom %></td>
-		<td><%= @version.user.contact.nom_complet %></td>
-		<td><%= @version.updated_at %></td>
-		<td><%= link_to "Télécharger", download_version_path(@version) %></td>
-		<td><%= link_to "Supprimer", @version, :method => :delete %></td>
+		<td><%= @datafile.nom %></td>
+		<td><%= @datafile.version %></td>
+		<td><%= @datafile.description %></td>
+		<td><%= @datafile.user.contact.nom_complet %></td>
+		<td><%= @datafile.created_at %></td>
+		<td><%= link_to "Télécharger", download_datafile_path(:id => @datafile.id) %></td>
+		<td><%= link_to "Supprimer", delete_file_datafile_path(:id => @datafile.id, :fichier_id => @datafile.fichier_id ) %></td>
 </tr>
