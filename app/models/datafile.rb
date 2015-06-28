@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: datafiles
+#
+#  id           :integer          not null, primary key
+#  nom          :string           not null
+#  description  :string
+#  type_contenu :string
+#  version      :integer          default(1), not null
+#  chemin       :string
+#  fichier_id   :string           default("0")
+#  user_id      :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Datafile < ActiveRecord::Base
    
   

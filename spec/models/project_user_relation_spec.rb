@@ -3,8 +3,8 @@
 # Table name: project_user_relations
 #
 #  id         :integer          not null, primary key
-#  user_id    :integer
-#  project_id :integer
+#  membre_id  :integer
+#  projet_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

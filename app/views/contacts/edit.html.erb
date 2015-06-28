@@ -27,6 +27,9 @@
 							<%= f.label :email, "Email", :class => "label" %><br />
 							<%= f.text_field :email, :class => "input-text",:onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
 							
+							<%= f.label :fonction, "Fonction", :class => "label" %><br />
+							<%= f.text_field :fonction, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>	
+							
 							<%= f.submit "Modifier", :class => "input-btn" %>
 							
 						<% end %>

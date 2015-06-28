@@ -14,7 +14,7 @@
 													<%= link_to @user.contact.nom_complet, @user %>
 												</h4>											
 
-												<p>Fonction à nom_organisation</p>
+												<p><%= @user.contact.fonction %> à <%= @user.contact.organization.nom %></p>
 												
 												<p>Email : <%= link_to @user.contact.email, "#" %></p>	
 																						

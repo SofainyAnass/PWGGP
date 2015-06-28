@@ -11,17 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622045858) do
+ActiveRecord::Schema.define(version: 20150628004612) do
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "nom",        default: "nom",                    null: false
-    t.string   "prenom",     default: " prenom",                null: false
-    t.string   "email",      default: "nom.prenom@example.com", null: false
+    t.string   "nom",             default: "nom",                    null: false
+    t.string   "prenom",          default: " prenom",                null: false
+    t.string   "email",           default: "nom.prenom@example.com", null: false
+    t.string   "fonction"
     t.integer  "user_id"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.integer  "organization_id"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
+  add_index "contacts", ["organization_id"], name: "index_contacts_on_organization_id"
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id"
 
   create_table "datafiles", force: :cascade do |t|
@@ -44,6 +47,15 @@ ActiveRecord::Schema.define(version: 20150622045858) do
   end
 
   add_index "microposts", ["user_id"], name: "index_microposts_on_user_id"
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "nom"
+    t.string   "addresse"
+    t.string   "email"
+    t.string   "telephone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "project_user_relations", force: :cascade do |t|
     t.integer  "membre_id"

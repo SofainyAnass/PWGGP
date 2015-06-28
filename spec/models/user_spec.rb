@@ -4,11 +4,12 @@
 #
 #  id                 :integer          not null, primary key
 #  login              :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  password           :string
 #  encrypted_password :string
 #  salt               :string
 #  admin              :boolean
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 
 require 'rails_helper'
