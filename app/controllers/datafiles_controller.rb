@@ -2,6 +2,7 @@
 class DatafilesController < ApplicationController  
   include SessionsHelper
   
+  
   before_filter :authenticate
   
   def new
@@ -18,33 +19,42 @@ class DatafilesController < ApplicationController
   end
   
   def create
+        
     
         @titre = "Ajouter un fichier"
       
-        if(params[:datafile][:attachment] != nil)       
+        if(params[:datafile][:attachment] != nil)               
          
           attributs=Datadirectory.build_datafile_attributs(datafile_params,current_user.id)
        
         end
         
-        @datafile=current_user.datafiles.build(attributs)
-        
-        if @datafile.save
-           
-          Datadirectory.upload(params[:datafile][:attachment],@datafile.chemin)
-                     
-          flash[:success]="Le fichier a été correctement chargé." 
+        if(attributs != nil)
           
-          redirect_to :back
+          @datafile=current_user.datafiles.build(attributs)
         
-        else  
-         
-         render new_datafile_path
+          if @datafile.save
+             
+            Datadirectory.upload(params[:datafile][:attachment],@datafile.chemin)
+                       
+            flash[:success]="Le fichier a été correctement chargé." 
+            
+            redirect_to :back
+          
+          else  
+           
+           render new_datafile_path
+          
+          end 
+                   
+        else
+            
+            flash[:error]= "Format de fichier non autorisé."
+            
+            redirect_to :back
+          
+        end
         
-        end             
-    
-        
-    
   end
   
   def edit   
@@ -169,14 +179,16 @@ class DatafilesController < ApplicationController
     render 'show_versions'
     
   end
-    
-   
+  
+
   
 private
 
   def datafile_params
       params.require(:datafile).permit(:fichier_id, :attachment, :description)
   end
+  
+ 
 
 
   

@@ -34,11 +34,15 @@ class Datadirectory
     fichier=params[:attachment]
     description=params[:description]
     fichier_id=params[:fichier_id]
-    nom =  fichier.original_filename
+    nom =  sanitize_filename(fichier.original_filename)
     type_contenu =  fichier.content_type
-    extension = File.extname(nom)    
-    nouveau_nom="#{File.basename(nom, ".*")}_#{Time.current.to_formatted_s(:number)}#{File.extname(nom)}"    
-    chemin = Rails.root.join(Datadirectory.get_user_file_dir(attached_to_id),nouveau_nom)
+    extension = File.extname(nom)       
+    
+    if( !format_check(extension) )
+      return nil
+    end
+    
+    chemin = Rails.root.join(Datadirectory.get_user_file_dir(attached_to_id),nom)
     
     
     new_version = 2
@@ -107,6 +111,34 @@ class Datadirectory
   
     File.delete(file_path)
     
+  end
+  
+  def self.sanitize_filename(filename)
+    filename.strip.tap do |name|
+      # NOTE: File.basename doesn't work right with Windows paths on Unix
+      # get only the filename, not the whole path
+      name.sub! /\A.*(\\|\/)/, ''
+      # Finally, replace all non alphanumeric, underscore
+      # or periods with underscore
+      name.gsub! /[^\w\.\-]/, '_'
+      
+      name = "#{File.basename(name, ".*")}_#{Time.current.to_formatted_s(:number)}#{File.extname(name)}"
+      
+      return name
+      
+    end
+  end
+  
+   def self.format_check(extension)
+      
+      formats = [".txt",".pdf",".doc",".docx",".xls",".xlsx"]
+      
+      if(!formats.include?(extension))
+        return false
+      end
+      
+      return true
+   
   end
   
   
