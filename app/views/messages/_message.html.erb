@@ -1,0 +1,5 @@
+
+  <div class="message" data-time="<%= message.created_at.to_i %>">	  
+    <span class="content"><%= message.content %></span>
+    <span class="timestamp" ><%= time_ago_in_words(message.created_at) %>.</span>
+  </div>

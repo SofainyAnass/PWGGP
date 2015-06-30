@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :messages
   resources :relationships
   resources :sessions, :only => [:new, :create, :destroy]
   resources :contacts, :only => [:new, :create, :destroy, :update, :edit]

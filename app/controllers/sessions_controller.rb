@@ -11,15 +11,37 @@ class SessionsController < ApplicationController
       @titre = "Acceuil"
     else
       sign_in user   
+      Clientxmpp.connect(@current_user.login,params[:session][:password])
+      on_message
     end
     redirect_to root_path
   end
   
   
-  def destroy
-    sign_out
+  def destroy   
+    Clientxmpp.disconnect
+    sign_out   
     redirect_to root_path
   end
+  
+  private
+  
+  def on_message
+    Clientxmpp.client.add_message_callback do |message|
+      unless message.body.nil? && message.type != :error
+            
+            Message.create!(:source=> message.from, :destination => message.to,:content => message.body)
+
+      end
+    end
+
+   end
+
+  
+ 
+
+  
+  
   
   
   

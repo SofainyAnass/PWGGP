@@ -14,8 +14,11 @@ module SessionsHelper
   end
   
   def sign_out
-    cookies.delete(:remember_token)
+ 
     self.current_user
+    cookies.delete(:remember_token)   
+    self.current_user
+     
   end
   
   def authenticate
@@ -40,6 +43,7 @@ module SessionsHelper
   def admin_user
       redirect_to(root_path) unless current_user.admin?
   end
+  
   
   private
 

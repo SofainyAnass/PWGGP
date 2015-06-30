@@ -5,8 +5,6 @@ class Organization < ActiveRecord::Base
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i  
   
   validates :nom, :length   => { :maximum => 30 }
-                   
-  validates :prenom, :length   => { :maximum => 30 }
   
   validates :email, :format   => { :with => email_regex }
   

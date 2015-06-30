@@ -1,0 +1,37 @@
+
+<section id="aboutUs">
+		
+<div class="inner_wrapper">
+
+	
+  <div class="container">
+  	
+  	<%= render 'shared/messages', :object => @message %>
+  	
+    <div class="inner_section">
+    	
+    	<div id="messages" data-user="<%= @user.id %> class="col-lg-12 col-sm-7">
+					
+						<% unless @messages.empty? %>
+					        <table>
+					        	<tr>
+					        		<td>
+					        		 	<%= render @messages %>	
+					         		</td>
+					         	</tr>			         	
+					        </table>			 		
+				 		
+		 				<% end %>
+		</div>
+    	
+		<div class="col-lg-5 col-sm-7">
+			
+			<%= render 'shared/message_form' %>
+	        
+	    </div>
+    
+    </div>
+  </div> 
+  </div>
+</section>
+

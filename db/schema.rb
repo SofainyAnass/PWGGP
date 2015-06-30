@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628004612) do
+ActiveRecord::Schema.define(version: 20150629000844) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "nom",             default: "nom",                    null: false
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20150628004612) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string   "source"
+    t.string   "destination"
+    t.string   "content"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "microposts", force: :cascade do |t|
     t.string   "content"
     t.integer  "user_id"
@@ -49,12 +57,12 @@ ActiveRecord::Schema.define(version: 20150628004612) do
   add_index "microposts", ["user_id"], name: "index_microposts_on_user_id"
 
   create_table "organizations", force: :cascade do |t|
-    t.string   "nom"
+    t.string   "nom",        default: "Mon organisation"
     t.string   "addresse"
-    t.string   "email"
+    t.string   "email",      default: "organisation@email.com"
     t.string   "telephone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
   end
 
   create_table "project_user_relations", force: :cascade do |t|

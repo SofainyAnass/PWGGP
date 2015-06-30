@@ -1,0 +1,6 @@
+<%= form_for @message do |f| %> 
+	<%= hidden_field_tag :user, @user.id %>
+    <%= f.text_area :content, :class => "input-text", :placeholder => "Message a envoyer . . ." %>
+    <%= f.submit "Envoyer", :class => "input-btn" %>
+<% end %>
+
