@@ -1,6 +1,6 @@
-<%= form_for @message do |f| %> 
+<%= form_for @message, :remote => true do |f| %> 
 	<%= hidden_field_tag :user, @user.id %>
-    <%= f.text_area :content, :class => "input-text", :placeholder => "Message a envoyer . . ." %>
+    <%= f.text_area :content, :class => "input-text text-area", :placeholder => "Message a envoyer . . .", :required => true %>
     <%= f.submit "Envoyer", :class => "input-btn" %>
 <% end %>
 

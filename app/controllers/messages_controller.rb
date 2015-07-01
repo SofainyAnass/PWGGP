@@ -2,28 +2,30 @@ class MessagesController < ApplicationController
   
   def new
     
-      @message = Message.new
       @user = User.find(params[:user])
-      @messages = Message.where(" ( ( source = (?) and destination = (?) ) and created_at > ? ) or ( ( source = (?) and destination = (?) ) and created_at > ? ) ", Clientxmpp.to_xmpp_address(@user.login), Clientxmpp.to_xmpp_address(current_user.login), Time.at(params[:after].to_i + 1), Clientxmpp.to_xmpp_address(current_user.login), Clientxmpp.to_xmpp_address(@user.login) , Time.at(params[:after].to_i + 1) )
+      
+      @message=  Message.new
+      
+      @messages = Message.messages_partages(current_user,@user,Time.at(params[:after].to_i + 1))
+      
       @titre = "Nouveau message pour #{@user.contact.nom_complet}"
     
   end
   
   def create
-    
-    @message = Message.new(:content => params[:message][:content])  
+      
     @user = User.find(params[:user])
-    @messages = Message.where(" ( ( source = (?) and destination = (?) ) and created_at > ? ) or ( ( source = (?) and destination = (?) ) and created_at > ? ) ", Clientxmpp.to_xmpp_address(@user.login), Clientxmpp.to_xmpp_address(current_user.login), Time.at(params[:after].to_i + 1), Clientxmpp.to_xmpp_address(current_user.login), Clientxmpp.to_xmpp_address(@user.login) , Time.at(params[:after].to_i + 1) )
-    @titre = "Nouveau message pour #{@user.contact.nom_complet}" 
-       
-    message = Clientxmpp.send_message(@user.login,@message.content)
-    Message.create!(:source=> "#{current_user.login}@destroyer/home", :destination => message.to,:content => message.body)
     
-    render 'new'
+    @message=current_user.nouveau_message!(@user, params[:message][:content])
+    
+    message = Clientxmpp.send_message(Clientxmpp.user_xmpp_name(@user),@message.content)
+       
+    
     
   end
   
   def update
+    
     
   end
   

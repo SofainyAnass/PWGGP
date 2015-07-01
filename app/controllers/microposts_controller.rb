@@ -10,7 +10,7 @@ class MicropostsController < ApplicationController
       flash[:success] = "Publication créée !"
       redirect_to root_path
     else
-      @feed_items = []
+      @microposts = []
       render 'pages/acceuil'
     end
   end

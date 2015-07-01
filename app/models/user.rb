@@ -37,6 +37,17 @@ class User < ActiveRecord::Base
   
   has_many :datafiles, :dependent => :destroy
   
+  has_many :messages, :foreign_key => "id_source",:dependent => :destroy
+  
+  has_many :reverse_messages, :foreign_key => "id_destination",
+                                   :class_name => "Message",
+                                   :dependent => :destroy
+  
+  has_many :sent_messages, :through => :messages, :source => :emetteur
+  
+  has_many :received_messages, :through => :messages, :source => :destinataire
+  
+  
   
   
   attr_accessor :password
@@ -98,6 +109,10 @@ class User < ActiveRecord::Base
      
     def retirer_du_projet!(projet)
        project_user_relations.find_by_project_id(projet).destroy
+    end
+    
+    def nouveau_message!(destinataire,message)
+      messages.create!(:id_destination => destinataire.id,:content => message)
     end
     
     

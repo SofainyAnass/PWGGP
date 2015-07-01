@@ -1,15 +1,22 @@
-<tr>
-  <td class="micropost">	
-  	
-    <span class="content"><%= micropost.content %></span>
-    <span class="timestamp">
-      Posté il y a <%= time_ago_in_words(micropost.created_at) %>.
-    </span>
-  </td>
-  <%= render 'shared/palette_admin', :object => @user %>
-  <% if current_user?(micropost.user) %>
-  <td>
-    <%= link_to "supprimer", micropost, :method => :delete, :confirm => "Etes-vous certain ?", :title => micropost.content %>
-  </td>
-  <% end %>
-</tr>
+
+  <div class="micropost">	
+   	
+  	<span class="avatar">	<%= image_tag("team_pic2.jpg", :width => "50px", :height => "50px", :alt => "Team Member") %></span>
+  	<span class="user"> <%= link_to micropost.user.contact.nom_complet, micropost.user %> </span> 
+  	<span class="timestamp">Posté il y a <%= time_ago_in_words(micropost.created_at) %>.</span>	
+    <span class="content"> <%= micropost.content %></span>   
+    
+    
+    
+    <% if current_user?(micropost.user) %>
+   		<span>
+	   		<%= link_to "supprimer", micropost, :method => :delete, :confirm => "Etes-vous certain ?" %>
+	    </span>
+	<% end %>
+	
+	<!-- <%= render 'shared/palette_admin', :object => micropost.user %> -->
+    
+  </div>
+  
+  
+	

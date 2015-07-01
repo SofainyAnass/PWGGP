@@ -1,5 +1,8 @@
 
-  <div class="message" data-time="<%= message.created_at.to_i %>">	  
+  <div class="message" data-time="<%= message.created_at.to_i %>">	
+  	
+  	<span class="user"><%= link_to message.user_source.contact.nom_complet, @user %></span> 
+  	<span class="timestamp" ><%= message.created_at.to_formatted_s(:normal) %></span> 
     <span class="content"><%= message.content %></span>
-    <span class="timestamp" ><%= time_ago_in_words(message.created_at) %>.</span>
+    
   </div>

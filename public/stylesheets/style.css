@@ -890,7 +890,7 @@ transition: all .25s ease;
 }
 
 .input-text.text-area {
-    height: 230px;
+    height: 80px;
     resize: none;
     overflow: auto;
     
@@ -1757,3 +1757,53 @@ padding-top: 18px;
     padding: 30px 0px;
     background: #DDDDDD;
 }
+
+#messages, #microposts {
+	
+	
+	margin : 0px 0px 10px 0px
+
+	
+}
+
+.message, .micropost {
+	
+	padding: 5px 0px 0px 0px;
+	border-bottom: 1px solid ;
+    border-radius: 1px
+	background: #fff;
+    
+    
+		
+}
+
+.micropost .avatar{
+	
+	margin-right: 5px;
+	border: 1px solid #005490;
+	float: left;
+		
+}
+
+.message .user, .micropost .user{
+	
+	padding: 5px 0px 0px 0px;
+		
+}
+
+.message .timestamp, .micropost .timestamp{
+	
+	padding: 5px 0px 0px 0px;
+	float: right;
+		
+}
+
+.message .content, .micropost .content{
+	
+	padding: 5px 0px 5px 0px;
+	display:block;	
+	color: #000;   
+		
+}
+
+
