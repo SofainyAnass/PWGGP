@@ -12,8 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require autocomplete-rails
 //= require turbolinks
 //= require_tree .
+
+$('#contact_name').bind('railsAutocomplete.select', function(event){
+  /* Do something here */
+  alert("zeze");
+});
 
 $(function () {
   if ($('#users').length > 0) {	  

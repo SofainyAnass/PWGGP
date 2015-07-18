@@ -30,10 +30,23 @@ class Contact < ActiveRecord::Base
                     #:uniqueness => { :case_sensitive => false }, 
                     :format   => { :with => email_regex }
   
+  attr_accessor :nom_complet
   
-  def nom_complet  
-    return "#{prenom} #{nom}"   
+  def rech
+    Contact.find(self.id).nom_complet
   end
+  
+  def nom_complet
+    [self.prenom, self.nom].join(' ')
+  end
+  
+  def nom_complet=(name)
+    split = name.split(' ', 2)
+    self.prenom = split.first
+    self.nom = split.last
+  end
+
+
   
   
 end

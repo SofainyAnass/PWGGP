@@ -3,9 +3,10 @@
 <section class="page_section team" id="team"><!--main-section team-start-->
   <div class="container">
 		<div class="member-area">
-			
-					<div id ="users" data-user ="<%= current_user.id %>" class="row">						
 						
+			
+					<div id ="users" data-user ="<%= current_user.id %>" class="row">		
+										
 						  <% unless @users.empty? %>				
 					        
 					        	<%= render @users %>

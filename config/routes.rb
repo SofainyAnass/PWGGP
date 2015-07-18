@@ -2,16 +2,19 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
-      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur
+      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur, :search_suggestions
     end
   end
   
-  resources :projects do
+  resources :projects do    
     member do
-      get :members, :remove_member
+      get :members
+      get :remove_member     
       post :add_member
     end
   end
+  
+  
   
   #a supprimer et laisser seulement celui des versions
   resources :datafiles do
@@ -26,10 +29,13 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :contacts do
+    get :autocomplete_contact_nom, :on => :collection
+  end
+  
   resources :messages
   resources :relationships
-  resources :sessions, :only => [:new, :create, :destroy]
-  resources :contacts
+  resources :sessions, :only => [:new, :create, :destroy] 
   resources :microposts, :only => [:create, :destroy]
     
   get '/accueil',:to => 'pages#acceuil' 

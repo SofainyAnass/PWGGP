@@ -98,7 +98,7 @@ class UsersController < ApplicationController
     @projects = @user.membre_de.paginate(:page => params[:page])   
     @projects.first == nil ?  @project = Project.new :   
     @titre = "Projets de #{@user.contact.nom_complet}"
-     render 'show_projects'
+     render '/projects/index'
   end
   
   def fichiers_utilisateur
@@ -127,6 +127,11 @@ class UsersController < ApplicationController
     @titre = "Fichiers de #{@user.contact.nom_complet}"
     render 'show_datafiles'
   end
+  
+  def search_suggestions
+    redirect_to :back
+  end
+  
 
 private
 

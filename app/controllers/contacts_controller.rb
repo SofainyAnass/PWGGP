@@ -1,6 +1,7 @@
 class ContactsController < ApplicationController
   include SessionsHelper
   
+  autocomplete :contact, :nom, :display_value => :rech
   before_filter :authenticate
   
   def edit
@@ -23,6 +24,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
     @titre = "Profil de #{@contact.nom_complet}"
   end
+  
   
 private
 

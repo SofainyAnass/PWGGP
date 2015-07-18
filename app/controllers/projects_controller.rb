@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  
+
   before_filter :authenticate
   #before_filter :admin_user,   :only => [:index, :destroy]
   
@@ -38,15 +38,16 @@ class ProjectsController < ApplicationController
   def show  
     @project = Project.find(params[:id])
     @users = @project.membres.paginate(:page => params[:page])
-    @users.first == nil ?  @user = User.new :
-    @titre = "#{@project.nom}"
+    @user = User.new
+    @user.contact=Contact.new
+    @titre = "Fiche du projet : #{@project.nom}"
   end
   
   def index
+    @project = Project.new
     @projects = Project.paginate(:page => params[:page])
-    @projects.first == nil ?  @project = Project.new :
+    @projects.first == nil ?  @project = Project.new :   
     @titre="Tout les projets"
-    render 'show_projects'
   end
   
   def destroy
