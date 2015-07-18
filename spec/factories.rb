@@ -1,7 +1,10 @@
 # En utilisant le symbole ':user', nous faisons que
 # Factory Girl simule un modèle User.
 
-FactoryGirl.define do  factory :conversation do
+FactoryGirl.define do  factory :connexion do
+    
+  end
+  factory :conversation do
     
   end
   factory :message do

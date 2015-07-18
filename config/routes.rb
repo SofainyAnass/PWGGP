@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :messages
   resources :relationships
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :contacts, :only => [:new, :create, :destroy, :update, :edit]
+  resources :contacts
   resources :microposts, :only => [:create, :destroy]
     
   get '/accueil',:to => 'pages#acceuil' 

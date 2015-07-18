@@ -2,7 +2,8 @@ module SessionsHelper
   
   def sign_in(user)
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]
-    self.current_user
+    self.current_user  
+    @current_user.connexions.create!
   end
   
   def current_user
@@ -16,6 +17,7 @@ module SessionsHelper
   def sign_out
  
     self.current_user
+    @current_user.connexions.first.disconnect
     cookies.delete(:remember_token)   
     self.current_user
      
@@ -27,7 +29,7 @@ module SessionsHelper
   
   def deny_access
     store_location
-    redirect_to signin_path, :notice => "Please sign in to access this page."
+    redirect_to signin_path, :notice => "Veuillez vous identifier pour acceder a cette page."
   end
   
   

@@ -1,0 +1,34 @@
+
+							<div class="member">
+								<div class="member-container">
+									<div class="inner-container">										
+										<div class="author-avatar">									
+											<%= image_tag("team_pic2.jpg", :alt => "Team Member", :class => "img-circle") %>
+										</div><!-- /.author-avatar -->									
+										
+										<div class="member-details">
+											<div class="member-top">		
+																			
+												<h4 class="name">												
+													<%= contact.nom_complet %>
+												</h4>
+
+												<p><%= contact.fonction %> à <%= contact.organization.nom %></p>
+												
+												<p>Email : <%= link_to contact.email, "#" %></p>	
+												 
+												 <%= render 'shared/palette_admin', :object => contact %>
+												
+											</div><!-- /.member-top -->
+									
+											<div class="member-social-link">
+												
+											</div><!-- /.member-social-link -->
+																		
+											
+										</div><!-- /.member-details -->
+										
+									</div><!-- /.inner-container -->
+								</div><!-- /.member-container -->
+							</div><!-- /.member -->
+

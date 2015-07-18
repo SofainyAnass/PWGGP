@@ -10,17 +10,20 @@ class SessionsController < ApplicationController
       flash[:error] = "Combinaison Email/Mot de passe invalide."
       @titre = "Acceuil"
     else
-      sign_in user   
+      sign_in user                
       Clientxmpp.connect(Clientxmpp.user_xmpp_name(@current_user),params[:session][:password])
       on_message
+      
+      
     end
     redirect_to root_path
   end
   
   
   def destroy   
-    Clientxmpp.disconnect
-    sign_out   
+
+    Clientxmpp.disconnect       
+    sign_out    
     redirect_to root_path
   end
   

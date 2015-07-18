@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   
   has_many :received_messages, :through => :messages, :source => :destinataire
   
-  
+  has_many :connexions, :dependent => :destroy
   
   
   attr_accessor :password
@@ -114,7 +114,6 @@ class User < ActiveRecord::Base
     def nouveau_message!(destinataire,message)
       messages.create!(:id_destination => destinataire.id,:content => message)
     end
-    
     
 
   private

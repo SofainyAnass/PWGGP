@@ -1,0 +1,65 @@
+<% user ||= current_user %>	
+			<div class="col-lg-6 col-sm-7">
+				<div class="user" data-user="<%= user.id.to_i %>" >
+						
+							<div class="member">
+									<div class="user-avatar">									
+											<%= image_tag("team_pic2.jpg", :width => "50px", :height => "50px",:alt => "Team Member", :class => "img-circle") %>
+										</div><!-- /.author-avatar -->									
+										
+										<div class="user-details">
+											
+											<%= render 'shared/palette_admin', :object => user %>
+											
+											<div class="member-top">		
+																			
+												<h4 class="name">												
+													<%= link_to user.contact.nom_complet, user.contact %>																										
+												</h4>
+												
+												
+												<% if user == current_user %>
+												
+													<% if Clientxmpp.is_connected? %>
+														<p class="online"> En ligne </p>
+													<% else %>
+														<p class="offline"> Hors ligne </p>
+													<% end %>
+
+												<% else %>
+													
+													<% if @roster[Clientxmpp.jid(user)].presence != nil %>
+														<p class="online"> En ligne </p>
+													<% else %>
+														<p class="offline"> Hors ligne </p>
+													<% end %>											
+												
+												<% end %>
+
+												
+												
+												<% unless user.connexions.empty? %>
+												
+												<p> Dernière connexion : <%= user.connexions.first.created_at.to_formatted_s(:normal) %>	</p>
+												
+												<% end %>									
+																																	
+												<p><a href="<%= feed_user_path(user) %>"><%= pluralize(user.microposts.count, "Publication") %></a> | <a href="<%= following_user_path(user) %>"><%= pluralize(user.following.count, "Abonnement") %></a> | <a id="Abonne" href="<%= followers_user_path(user) %>"><%= pluralize(user.followers.count, "Abonné") %></a> </p> 
+												<p><a href="<%= membre_de_user_path(user) %>"><%= pluralize(user.membre_de.count, "Projet") %></a> | <a href="#">0 Tâches</a> </p>											 
+												
+											</div><!-- /.member-top -->
+											
+											<% @user = user %>
+											
+											<%= render 'follow_form'%>
+											
+											<%= render 'message_button_form'%>	
+											
+											
+														
+											
+										</div><!-- /.member-details -->
+
+							</div><!-- /.member -->
+				</div>
+		 </div>

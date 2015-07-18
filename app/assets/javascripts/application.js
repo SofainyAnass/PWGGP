@@ -16,6 +16,17 @@
 //= require_tree .
 
 $(function () {
+  if ($('#users').length > 0) {	  
+    setTimeout(updateusers, 5000);
+  }
+});
+
+function updateusers() {
+	$.getScript('/users');
+	setTimeout(updateusers, 5000);
+}
+
+$(function () {
   if ($('#messages').length > 0) {	  
     setTimeout(updatemessages, 5000);
   }
@@ -25,6 +36,6 @@ function updatemessages() {
 	var user_id = $('#messages').attr('data-user');
 	var after = $('.message:last').attr('data-time');
 	$.getScript('/messages/new.js?user=' + user_id + "&after=" + after);
-  setTimeout(updatemessages, 5000);
+	setTimeout(updatemessages, 5000);
 }
 

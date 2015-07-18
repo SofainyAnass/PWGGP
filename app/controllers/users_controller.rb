@@ -5,10 +5,10 @@ class UsersController < ApplicationController
   before_filter :admin_user,   :only => [:index, :destroy]
     
   def index    
-    @users = User.paginate(:page => params[:page])
-    @users.first == nil ?  @user = User.new :
+    @user = User.new
+    @users = User.all 
     @titre = "Tous les utilisateurs"
-    render "show_users"  
+    @roster = Clientxmpp.roster
   end
   
   def show

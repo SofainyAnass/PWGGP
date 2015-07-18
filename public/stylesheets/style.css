@@ -1748,9 +1748,7 @@ padding-top: 18px;
 
 
 #palette_admin {
-	margin: 10px 15px;
 	float: right;
-	
 }
 
 #menu_action {
@@ -1804,6 +1802,75 @@ padding-top: 18px;
 	display:block;	
 	color: #000;   
 		
+}
+
+.online{
+	color: #0e7e16; 
+}
+
+.offline{
+	color: #CB2026; 
+}
+
+#follow_form{
+	
+	display: inline-block;
+	
+}
+
+/* Utilisateur
+---------------------------------*/
+.team_section {
+    max-width: 993px;
+    margin: 0 auto;
+}
+
+#aboutUs {
+    padding: 30px 0;
+}
+.img-circle {
+border-radius: 0%;
+}
+.team .member {
+padding-bottom: 100px;
+}
+.user-avatar {
+float: left;
+max-height: 200px;
+max-width: 200px;
+border: solid 1px;
+border-radius: 0%;
+}
+.user-details {
+padding-left: 70px;
+}
+.member-top {
+position: relative;
+}
+.user-details span {
+display: inline;
+}
+.designation {
+display: inline-block;
+padding-bottom: 5px;
+font-size: .81em;
+color: #b2b2b2;
+letter-spacing: .4px;
+}
+.member-social-link a {
+border-radius: 4px;
+display: inline-block;
+height: 32px;
+width: 32px;
+text-align: center;
+line-height: 32px;
+font-size: .9em;
+margin-right: 6px;
+-webkit-transition: all .25s ease;
+-moz-transition: all .25s ease;
+-ms-transition: all .25s ease;
+-o-transition: all .25s ease;
+transition: all .25s ease;
 }
 
 

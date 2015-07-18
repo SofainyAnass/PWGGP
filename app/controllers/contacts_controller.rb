@@ -11,12 +11,17 @@ class ContactsController < ApplicationController
   def update
     @titre = "Édition profil"
     @contact = Contact.find(params[:id])
+    
     if @contact.update_attributes(contact_params)
       flash[:success] = "Profil actualisé."
-      render 'edit'        
-    else
-      redirect_to 'edit' 
     end
+      redirect_to :back
+    
+  end
+  
+  def show    
+    @contact = Contact.find(params[:id])
+    @titre = "Profil de #{@contact.nom_complet}"
   end
   
 private
