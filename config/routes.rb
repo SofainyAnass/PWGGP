@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   
   resources :projects do
     member do
-      get :members
+      get :members, :remove_member
+      post :add_member
     end
   end
   
@@ -38,6 +39,8 @@ Rails.application.routes.draw do
   get '/signin',  :to => 'sessions#create'
   delete '/signout', :to => 'sessions#destroy'
   post "/users", :to => 'contacts#edit'
+  post "/projects/add_member", :to => 'projects#add_member'
+  post "/projects/remove_member", :to => 'projects#remove_member'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

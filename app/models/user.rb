@@ -103,12 +103,12 @@ class User < ActiveRecord::Base
     end
      
     def ajouter_au_projet!(projet)
-       project_user_relations.create!(:project_id => projet.id)
+       project_user_relations.create!(:projet_id => projet.id)
     end
      
      
     def retirer_du_projet!(projet)
-       project_user_relations.find_by_project_id(projet).destroy
+       project_user_relations.find_by(:projet_id => projet.id).destroy
     end
     
     def nouveau_message!(destinataire,message)

@@ -2,7 +2,11 @@
 
         <div id="palette_admin">
         	
+        	
+        	   
+        	
         	   <% if object.class.to_s == "User" %>
+        	 		<%= link_to "Retirer", "/projects/#{@project.id}/remove_member?user_id=#{object.id}", :remote => true %> |
 					<%= link_to "Modifier", "/contacts/#{object.contact.id}/edit" %> 
 			   <% else %>
 					<%= link_to "Modifier", "/#{object.class.to_s.downcase}s/#{object.id}/edit" %>

@@ -1,38 +1,42 @@
 <% user ||= current_user %>	
-			<div class="col-lg-6 col-sm-7">
-				<div class="user" data-user="<%= user.id.to_i %>" >
-						
+			
+				<div class="user" id="<%= user.id.to_i %>" >
+						<div class="col-lg-4 col-sm-7">
 							<div class="member">
 									<div class="user-avatar">									
 											<%= image_tag("team_pic2.jpg", :width => "50px", :height => "50px",:alt => "Team Member", :class => "img-circle") %>
-										</div><!-- /.author-avatar -->									
+										</div><!-- /.author-avatar -->		
+																									
 										
-										<div class="user-details">
-											
-											<%= render 'shared/palette_admin', :object => user %>
+										<div class="user-details">																			
 											
 											<div class="member-top">		
-																			
+												
+												<%= render 'shared/palette_admin', :object => user %>	
+																	
 												<h4 class="name">												
 													<%= link_to user.contact.nom_complet, user.contact %>																										
 												</h4>
 												
+												<% if @roster!= nil%>
 												
-												<% if user == current_user %>
-												
-													<% if Clientxmpp.is_connected? %>
-														<p class="online"> En ligne </p>
-													<% else %>
-														<p class="offline"> Hors ligne </p>
-													<% end %>
-
-												<% else %>
+													<% if user == current_user %>
 													
-													<% if @roster[Clientxmpp.jid(user)].presence != nil %>
-														<p class="online"> En ligne </p>
+														<% if Clientxmpp.is_connected? %>
+															<p class="online"> En ligne </p>
+														<% else %>
+															<p class="offline"> Hors ligne </p>
+														<% end %>
+	
 													<% else %>
-														<p class="offline"> Hors ligne </p>
-													<% end %>											
+														
+														<% if @roster[Clientxmpp.jid(user)].presence != nil %>
+															<p class="online"> En ligne </p>
+														<% else %>
+															<p class="offline"> Hors ligne </p>
+														<% end %>											
+													
+													<% end %>
 												
 												<% end %>
 
@@ -51,9 +55,11 @@
 											
 											<% @user = user %>
 											
+											<%= render 'message_button_form'%>
+											
 											<%= render 'follow_form'%>
 											
-											<%= render 'message_button_form'%>	
+												
 											
 											
 														

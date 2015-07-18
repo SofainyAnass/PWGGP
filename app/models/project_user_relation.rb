@@ -14,7 +14,7 @@ class ProjectUserRelation < ActiveRecord::Base
   belongs_to :membre, :class_name => "User"
   belongs_to :projet, :class_name => "Project"
   
-  validates :user_id, :presence => true
-  validates :project_id, :presence => true
+  validates :membre_id, :presence => true
+  validates :projet_id, :presence => true
   
 end

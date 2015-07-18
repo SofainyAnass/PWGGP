@@ -35,8 +35,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def show
+  def show  
     @project = Project.find(params[:id])
+    @users = @project.membres.paginate(:page => params[:page])
+    @users.first == nil ?  @user = User.new :
     @titre = "#{@project.nom}"
   end
   
@@ -57,12 +59,41 @@ class ProjectsController < ApplicationController
   end 
   
   def members   
-    @projet=Project.find(params[:id])   
-    @users = @projet.membres.paginate(:page => params[:page])
+    @project=Project.find(params[:id])   
+    @users = @project.membres.paginate(:page => params[:page])
     @users.first == nil ?  @user = User.new :
-    @titre="Membres du projet #{@projet.nom}"
+    @titre="Membres du projet "
     render "show_users"
        
+  end 
+  
+  def add_member    
+           
+    name = params[:contact_name].split(' ')
+    @project=Project.find(params[:id])   
+    @user=Contact.find_by(:prenom => name[0],:nom => name[1]).user
+    @user.ajouter_au_projet!(@project)
+    @titre="Membres du projet "
+    
+    respond_to do |format|
+        format.html { redirect_to :back }
+        format.js   { }
+    end
+    
+  end 
+  
+  def remove_member    
+    
+    @project=Project.find(params[:id])   
+    @user=User.find(params[:user_id])
+    @user.retirer_du_projet!(@project)
+    @titre="Membres du projet "
+    
+    respond_to do |format|
+        format.html { redirect_to :back }
+        format.js   { }
+    end
+    
   end 
   
   

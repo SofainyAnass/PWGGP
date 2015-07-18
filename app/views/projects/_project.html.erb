@@ -1,0 +1,10 @@
+
+  <div class="project">	
+  	
+  	<%= render 'shared/palette_admin', :object => project %>
+  	
+  	<p>Nom : <%= project.nom %></p>
+  	<p>Date de début : <%= project.datedebut.to_formatted_s(:date) %></p> 
+  	<p>Etat : <%= project.etat %></p> 
+
+  </div>
