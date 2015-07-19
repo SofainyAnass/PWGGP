@@ -3,7 +3,7 @@
   <div class="container">
 		<div class="member-area">
 			
-					<h4>Informations générales :</h4>
+					<h2>Informations générales :</h2>
 		
 					<div id ="project" class="row">
 							<div class="col-lg-6 col-sm-7">
@@ -11,32 +11,6 @@
 								<%= render @project %>
 									
 							</div>
-					</div>
-					
-					<h4>Membres :</h4>
-					
-					<div>
-						
-						<%= form_tag('/projects/add_member', remote: true) do %>
-						      <%= hidden_field_tag :id, @project.id %>
-							  <%= autocomplete_field_tag :contact_name,"",autocomplete_contact_nom_contacts_path,:class => "input-text", :required => true %>
-							  <%= submit_tag "Ajouter", :class => "input-btn2" %>
-						<% end %>
-					
-					</div>
-					
-					<div id ="membres" class="row">
-
-							 <% unless @users.empty? %>				
-					        	
-					        	<%= will_paginate @users %>
-					        	
-					        		<%= render @users %>
-					        		
-					        	<%= will_paginate @users %>
-						        
-						     <% end %>
-
 					</div>
 
 		</div>

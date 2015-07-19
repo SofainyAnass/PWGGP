@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
   resources :users do
+    get :get_events, on: :collection
     member do
-      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur, :search_suggestions
+      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur
     end
   end
   
-  resources :projects do    
+  resources :projects do       
     member do
       get :members
       get :remove_member     
@@ -43,6 +44,9 @@ Rails.application.routes.draw do
   get '/administration', :to => 'pages#administration'
   get '/signup',  :to => 'pages#inscription'
   get '/signin',  :to => 'sessions#create'
+  get '/projet', :to => 'pages#projet'
+  get '/calendrier', :to => 'pages#calendrier'
+  get '/ged', :to => 'pages#ged'
   delete '/signout', :to => 'sessions#destroy'
   post "/users", :to => 'contacts#edit'
   post "/projects/add_member", :to => 'projects#add_member'

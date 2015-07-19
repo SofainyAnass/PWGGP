@@ -33,8 +33,6 @@ class User < ActiveRecord::Base
                                    :dependent => :destroy
   has_many :followers, :through => :reverse_relationships, :source => :follower
   
-  has_many :versions, :dependent => :destroy
-  
   has_many :datafiles, :dependent => :destroy
   
   has_many :messages, :foreign_key => "id_source",:dependent => :destroy
@@ -98,8 +96,8 @@ class User < ActiveRecord::Base
       relationships.find_by_followed_id(followed).destroy
     end
      
-    def membre_de?(projet)
-       project_user_relations.find_by_project_id(projet)
+    def membre_de?(project)
+       project_user_relations.find_by(:projet_id => project.id)
     end
      
     def ajouter_au_projet!(projet)

@@ -1,10 +1,7 @@
 <% if current_user.admin? %>
 
         <div id="palette_admin">
-        	
-        	
-        	   
-        	
+  	
         	   <% if object.class.to_s == "User" %>
         	   		<% if @project != nil %>
         	 			<%= link_to "Retirer", "/projects/#{@project.id}/remove_member?user_id=#{object.id}", :remote => true %> |

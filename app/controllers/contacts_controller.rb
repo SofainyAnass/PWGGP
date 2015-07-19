@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   include SessionsHelper
   
-  autocomplete :contact, :nom, :display_value => :rech
+  autocomplete :contact, :nom, :display_value => :recherche
   before_filter :authenticate
   
   def edit

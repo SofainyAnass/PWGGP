@@ -5,6 +5,8 @@
   	
   	<p>Nom : <%= project.nom %></p>
   	<p>Date de début : <%= project.datedebut.to_formatted_s(:date) %></p> 
+  	<p>Date de fin : <%= project.datefin.to_formatted_s(:date) %></p> 
+  	<p>Responsable : <%= project.user.contact.nom_complet %></p>
   	<p>Etat : <%= project.etat %></p> 
 
   </div>

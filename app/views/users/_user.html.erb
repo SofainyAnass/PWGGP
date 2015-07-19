@@ -49,7 +49,7 @@
 												<% end %>									
 																																	
 												<p><a href="<%= feed_user_path(user) %>"><%= pluralize(user.microposts.count, "Publication") %></a> | <a href="<%= following_user_path(user) %>"><%= pluralize(user.following.count, "Abonnement") %></a> | <a id="Abonne" href="<%= followers_user_path(user) %>"><%= pluralize(user.followers.count, "Abonné") %></a> </p> 
-												<p><a href="<%= membre_de_user_path(user) %>"><%= pluralize(user.membre_de.count, "Projet") %></a> | <a href="#">0 Tâches</a> </p>											 
+												<p><a href="<%= membre_de_user_path(user) %>"><%= pluralize(user.membre_de.count, "Projet") %></a> | <a href="#">0 Tâches</a> | <a href="<%= fichiers_utilisateur_user_path(user) %>"><%= pluralize(user.datafiles.count, "Fichier") %></a> </p> 											 
 												
 											</div><!-- /.member-top -->
 											

@@ -128,8 +128,18 @@ class UsersController < ApplicationController
     render 'show_datafiles'
   end
   
-  def search_suggestions
-    redirect_to :back
+   def get_events
+    
+    @projects = current_user.membre_de
+    events = []
+    @projects.each do |project|
+      events << {:id => project.id, :title => "#{project.nom}", :start => "#{project.datedebut}",:end => "#{project.datefin}" }
+    end
+    
+    respond_to do |format|
+        format.html { redirect_to :back }
+        format.json   { render :text => events.to_json }
+    end
   end
   
 

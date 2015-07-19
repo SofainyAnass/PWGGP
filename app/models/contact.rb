@@ -32,7 +32,7 @@ class Contact < ActiveRecord::Base
   
   attr_accessor :nom_complet
   
-  def rech
+  def recherche
     Contact.find(self.id).nom_complet
   end
   

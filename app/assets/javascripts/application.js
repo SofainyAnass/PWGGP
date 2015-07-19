@@ -12,16 +12,35 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery-ui/autocomplete
 //= require autocomplete-rails
 //= require turbolinks
+//= require moment
+//= require fullcalendar
 //= require_tree .
 
-$('#contact_name').bind('railsAutocomplete.select', function(event){
-  /* Do something here */
-  alert("zeze");
-});
 
+
+$(document).ready(function() {
+	
+   $("#calendar").fullCalendar({
+     header: { left: "prev,next today", center: "title", right: "month,agendaWeek,agendaDay" },
+     defaultView: "month",
+     height: 500,
+     slotMinutes: 15,
+     events: "/users/get_events",
+     timeFormat: "h:mm t{ - h:mm t} ",
+     dragOpacity: "0.5",
+     
+     dayClick: function() {
+       alert('a day has been clicked!');
+   	 }	 
+   
+  });
+
+   
+});
+   
 $(function () {
   if ($('#users').length > 0) {	  
     setTimeout(updateusers, 5000);

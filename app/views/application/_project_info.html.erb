@@ -7,11 +7,11 @@
       		  
       		<p>Etat : <%= @project.etat %></p>    
       		      		
-      		<p>Date de début : <%= @project.datedebut %></p>
+      		<p>Date de début : <%= @project.datedebut.to_formatted_s(:date) %></p>
       		
-      		<p>Phase : </p>
+      		<p>Date de fin : <%= @project.datefin.to_formatted_s(:date) %></p>
       		
-         	<p>Créé par : <%= @project.user.contact.nom_complet %></p>
+         	<p>Responsable : <%= @project.user.contact.nom_complet %></p>
          	
          	<p><a href="<%=  members_project_path(@project) %>"><%= pluralize(@project.membres.count, "Membre") %></a>
          	

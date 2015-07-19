@@ -87,7 +87,8 @@ ActiveRecord::Schema.define(version: 20150716032931) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "nom"
-    t.datetime "datedebut"
+    t.date     "datedebut"
+    t.date     "datefin"
     t.integer  "etat",       default: 0, null: false
     t.integer  "user_id"
     t.datetime "created_at",             null: false
