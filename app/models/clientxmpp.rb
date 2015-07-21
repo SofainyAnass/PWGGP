@@ -15,8 +15,8 @@ class Clientxmpp < ActiveRecord::Base
     @@client=client
   end
   
-    def self.roster
-    @@roster
+    def self.roster    
+      return @@roster
   end
   
   def self.roster=(val)
@@ -31,9 +31,9 @@ class Clientxmpp < ActiveRecord::Base
 
   end
   
-  def self.connect(name,password)
+  def self.connect(user,password)
 
-    jid = JID.new(name)
+    jid = jid(user)
     @@client = Client.new jid
     @@client.connect(@@host, 5222)
     @@client.auth "#{password}"
@@ -45,6 +45,7 @@ class Clientxmpp < ActiveRecord::Base
   
   def self.disconnect
     
+    @@roster = nil
     @@client.close
 
   end
@@ -65,7 +66,13 @@ class Clientxmpp < ActiveRecord::Base
 
   def self.user_xmpp_name(user)
     
-    return "#{user.login}@#{@@domain}/#{@@resource}"
+    name =  "#{user.login}@#{@@domain}/"
+    
+    if(@@resource!=nil)
+      name+="#{@@resource}"    
+    end
+    
+    return name
     
   end
   
@@ -89,6 +96,12 @@ class Clientxmpp < ActiveRecord::Base
   def self.is_connected?
 
     return @@client.is_connected?
+    
+  end
+  
+  def self.roster_update
+    
+     @@roster ||= Roster::Helper.new(@@client)
     
   end
   

@@ -1,0 +1,7 @@
+<% if(@user != nil) %>		
+		$('#membres').append("<%= escape_javascript(render @user) %>")	
+		$('#error_msg').hide()
+<% else %>
+		$('#error_msg').html("L'utilisateur est déjà membre.").show()
+<% end %>
+

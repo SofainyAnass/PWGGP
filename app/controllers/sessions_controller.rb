@@ -9,22 +9,20 @@ class SessionsController < ApplicationController
     if user.nil?
       flash[:error] = "Combinaison Email/Mot de passe invalide."
       @titre = "Acceuil"
+      redirect_to :back
     else
       sign_in user                
-      Clientxmpp.connect(Clientxmpp.user_xmpp_name(@current_user),params[:session][:password])
+      Clientxmpp.connect(@current_user,params[:session][:password])
       on_message
-      
-      
+      on_presence
+      redirect_to "/accueil"
     end
-    redirect_to root_path
+    
   end
   
   
-  def destroy   
-
-    Clientxmpp.disconnect       
+  def destroy      
     sign_out    
-    redirect_to root_path
   end
   
   private
@@ -42,7 +40,18 @@ class SessionsController < ApplicationController
       end
     end
 
-   end
+  end
+  
+  def on_presence
+    Clientxmpp.client.add_message_callback do |message|
+      unless message.body.nil? && message.type != :error
+            
+            Clientxmpp.roster_update
+
+      end
+    end
+
+  end
 
   
  

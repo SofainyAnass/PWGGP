@@ -4,7 +4,6 @@
 #
 #  id                 :integer          not null, primary key
 #  login              :string
-#  password           :string
 #  encrypted_password :string
 #  salt               :string
 #  admin              :boolean

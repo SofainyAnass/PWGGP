@@ -3,7 +3,7 @@ class DatafilesController < ApplicationController
   include SessionsHelper
   
   
-  before_filter :authenticate
+  before_filter :verify_connection
   
   def new
     

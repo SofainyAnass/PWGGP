@@ -21,7 +21,9 @@
 												<% if @roster!= nil%>
 												
 													<% if user == current_user %>
-													
+														
+														JID: <%= Clientxmpp.jid(current_user) %>
+														
 														<% if Clientxmpp.is_connected? %>
 															<p class="online"> En ligne </p>
 														<% else %>
@@ -29,6 +31,12 @@
 														<% end %>
 	
 													<% else %>
+														
+														
+														JID: <%= Clientxmpp.jid(user) %>
+														Roster Item: <%=  @roster[Clientxmpp.jid(user)] %>
+														Presence :<%=  @roster[Clientxmpp.jid(user)].presence %>
+														Connect :<%=  @roster[Clientxmpp.jid(user)].online? %>
 														
 														<% if @roster[Clientxmpp.jid(user)].presence != nil %>
 															<p class="online"> En ligne </p>
@@ -49,7 +57,7 @@
 												<% end %>									
 																																	
 												<p><a href="<%= feed_user_path(user) %>"><%= pluralize(user.microposts.count, "Publication") %></a> | <a href="<%= following_user_path(user) %>"><%= pluralize(user.following.count, "Abonnement") %></a> | <a id="Abonne" href="<%= followers_user_path(user) %>"><%= pluralize(user.followers.count, "Abonné") %></a> </p> 
-												<p><a href="<%= membre_de_user_path(user) %>"><%= pluralize(user.membre_de.count, "Projet") %></a> | <a href="#">0 Tâches</a> | <a href="<%= fichiers_utilisateur_user_path(user) %>"><%= pluralize(user.datafiles.count, "Fichier") %></a> </p> 											 
+												<p><a href="<%= membre_de_user_path(user) %>"><%= pluralize(user.membre_de.count, "Projet") %></a> | <a href="<%= taches_attribuees_user_path(user) %>"><%= pluralize(user.charge_de.count, "Tâches") %></a> | <a href="<%= fichiers_utilisateur_user_path(user) %>"><%= pluralize(user.datafiles.count, "Fichier") %></a> </p> 											 
 												
 											</div><!-- /.member-top -->
 											

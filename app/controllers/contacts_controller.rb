@@ -1,8 +1,9 @@
 class ContactsController < ApplicationController
   include SessionsHelper
   
+  before_filter :verify_connection
   autocomplete :contact, :nom, :display_value => :recherche
-  before_filter :authenticate
+ 
   
   def edit
     @titre = "Édition profil" 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users do
     get :get_events, on: :collection
     member do
-      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur
+      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur, :taches_attribuees
     end
   end
   
@@ -14,8 +14,6 @@ Rails.application.routes.draw do
       post :add_member
     end
   end
-  
-  
   
   #a supprimer et laisser seulement celui des versions
   resources :datafiles do
@@ -34,13 +32,21 @@ Rails.application.routes.draw do
     get :autocomplete_contact_nom, :on => :collection
   end
   
+  resources :tasks do
+    member do
+      get :charges
+      get :remove_member     
+      post :add_member
+    end
+  end
+  
   resources :messages
   resources :relationships
   resources :sessions, :only => [:new, :create, :destroy] 
   resources :microposts, :only => [:create, :destroy]
     
   get '/accueil',:to => 'pages#acceuil' 
-  root :to => 'pages#acceuil'  
+  root :to => 'pages#index'  
   get '/administration', :to => 'pages#administration'
   get '/signup',  :to => 'pages#inscription'
   get '/signin',  :to => 'sessions#create'
@@ -50,7 +56,9 @@ Rails.application.routes.draw do
   delete '/signout', :to => 'sessions#destroy'
   post "/users", :to => 'contacts#edit'
   post "/projects/add_member", :to => 'projects#add_member'
-  post "/projects/remove_member", :to => 'projects#remove_member'
+  get "/projects/remove_member", :to => 'projects#remove_member'
+  post "/tasks/add_member", :to => 'tasks#add_member'
+  get "/tasks/remove_member", :to => 'tasks#remove_member'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

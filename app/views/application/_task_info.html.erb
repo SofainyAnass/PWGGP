@@ -1,0 +1,22 @@
+	<div class="portfolio-item one-four isotope-item <%= @task.etat.delete(' ') %>">
+        <div class="portfolio_img" style="opacity: 0;"> <img> </div>
+        <div class="item_overlay">
+          <div class="item_info"> 
+          	
+            <h4 class="task_name"><%= link_to @task.nom , @task %></h4>
+      		  
+      		<p>Etat : <%= @task.etat %></p>    
+      		      		
+      		<p>Date de début : <%= @task.datedebut.to_formatted_s(:date) %></p>
+      		
+      		<p>Date de fin : <%= @task.datefin.to_formatted_s(:date) %></p>
+         	
+         	<p><a href="<%=  charges_task_path(@task) %>"><%= pluralize(@task.charges.count,"Chargé de la tâche","Chargés de la tâche") %></a>
+         	
+         	<%= render 'shared/palette_admin', :object => @task %>
+         	
+         	
+          </div>
+        </div>
+      </div>
+						

@@ -1,4 +1,4 @@
-<%= render 'menu_action', :object => @project %>
+<%= render 'menu_action', :object => @task %>
 
 <section class="page_section team" id="team"><!--main-section team-start-->
   <div class="container">
@@ -6,10 +6,10 @@
 			
 					<h3>Informations générales :</h3>
 		
-					<div id ="project" class="row">
+					<div id ="task" class="row">
 							<div class="col-lg-6 col-sm-7">
 		
-					        		<%= form_for(@project) do |f| %>       		
+					        		<%= form_for(@task) do |f| %>       		
 					        		
 										<%= f.label :nom, "Nom", :class => "label" %><br />
 										<%= f.text_field :nom, :class => "input-text", :onBlur =>"if(this.value=='')this.value=this.defaultValue;" %>
@@ -21,12 +21,8 @@
 										<%= f.label :datefin, "Date de fin :", :class => "label" %>
 										<%= f.date_select :datefin, :use_two_digit_numbers => true, :order =>  [:day, :month, :year] , :class => "input-text", :required => true %></br></br>
 										
-										<%= f.label :contact_name, "Responsable :", :class => "label" %>
-										<%= autocomplete_field_tag :contact_name,"",autocomplete_contact_nom_contacts_path,:class => "input-text", :required => true %>		
-				
-										
 										<%= f.label :etat, "Etat", :class => "label" %><br />
-										<%= select_tag  "project[etat]", options_for_select([ "Nouveau", "En cours" , "Terminé", "En arrêt" ], @project.etat) , :class => "input-text", :required => true %>
+										<%= select_tag  "task[etat]", options_for_select([ "Nouveau", "En cours" , "Terminé", "En arrêt" ], @task.etat) , :class => "input-text", :required => true %>
 												
 										<%= f.submit "Modifier", :class => "input-btn2" %>
 										
@@ -40,8 +36,8 @@
 					
 					<div id="search_member">
 						
-						<%= form_tag('/projects/add_member', remote: true) do %>
-						      <%= hidden_field_tag :id, @project.id %>
+						<%= form_tag('/tasks/add_member', remote: true) do %>
+						      <%= hidden_field_tag :id, @task.id %>
 							  <%= autocomplete_field_tag :contact_name,"",autocomplete_contact_nom_contacts_path,:class => "input-text", :required => true %>
 							  <%= submit_tag "Ajouter", :class => "input-btn2" %>
 						<% end %>

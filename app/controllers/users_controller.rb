@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  
-  before_filter :authenticate, :except => [:show, :new, :create]
+
+  before_filter :verify_connection
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => [:index, :destroy]
     
@@ -99,6 +99,14 @@ class UsersController < ApplicationController
     @projects.first == nil ?  @project = Project.new :   
     @titre = "Projets de #{@user.contact.nom_complet}"
      render '/projects/index'
+  end
+  
+  def taches_attribuees
+    @user = User.find(params[:id])
+    @tasks = @user.charge_de.paginate(:page => params[:page])   
+    @tasks.first == nil ?  @task = Task.new :   
+    @titre = "Tâches attribuées à #{@user.contact.nom_complet}"
+    render '/tasks/index'
   end
   
   def fichiers_utilisateur

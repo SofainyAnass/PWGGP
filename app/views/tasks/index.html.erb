@@ -1,0 +1,97 @@
+<%= render 'menu_action', :object => @tasks.first || @task %>
+
+<!-- Portfolio -->
+<section id="Portfolio" class="content"> 
+  <!-- Container -->
+  <div class="container portfolio_title"> 
+    
+
+	
+  </div>
+  <!-- Container -->
+  
+  <div class="portfolio-top"></div>
+  
+
+  
+  <!-- Portfolio Filters -->
+  
+  <div class="portfolio">    
+    
+   					 	
+    
+    
+    <div id="filters" class="sixteen columns">
+    	  	
+      <ul class="clearfix">
+
+      	
+        <li><a id="all" href="#" data-filter="*" class="active">
+          <h5>Tout</h5>
+          </a></li>
+          
+        <li><a class="" href="#" data-filter=".Nouveau">
+          <h5>Nouveau</h5>
+        </a></li>
+        
+        <li><a class="" href="#" data-filter=".Encours">
+          <h5>En cours</h5>
+        </a></li>
+        
+        <li><a class="" href="#" data-filter=".Terminé">
+          <h5>Terminé</h5>
+        </a></li>
+        
+        <li><a class="" href="#" data-filter=".Enarrêt">
+          <h5>En arrêt</h5>
+        </a></li>
+          
+
+      </ul>
+    </div>
+    <!--/Portfolio Filters --> 
+    
+    <!-- Portfolio Wrapper -->
+    <div id="portfolio_wrapper" class="isotope fadeInLeft animated wow" style="position: relative; overflow: hidden; height: 480px; width: 1203px;" >     
+      
+      
+      <!-- Portfolio Item -->
+      <% unless @tasks.empty? %>
+						
+			<%= will_paginate @tasks %>
+														
+			<% @tasks.each do |task| %>
+					        
+				<% @task = task %>
+
+				<%= render "task_info" %>
+			          					          
+			<% end %>
+					        
+			<%= will_paginate @tasks %>
+		<% else %>
+			<div class="col-lg-6 col-sm-7">
+				<p>Aucune tâche.</p>
+			</div>        
+		<% end %>
+      <!--/Portfolio Item -->
+     
+    </div>
+    <!--/Portfolio Wrapper --> 
+    
+  </div>
+  <!--/Portfolio Filters -->
+  
+  <div class="portfolio_btm"></div>
+  
+  
+  <div id="task_container">
+    <div class="clear"></div>
+    <div id="task_data"></div>
+  </div>
+
+</section>
+<!--/Portfolio --> 
+
+
+

@@ -4,7 +4,6 @@
 #
 #  id                 :integer          not null, primary key
 #  login              :string
-#  password           :string
 #  encrypted_password :string
 #  salt               :string
 #  admin              :boolean
@@ -21,6 +20,13 @@ class User < ActiveRecord::Base
   has_many :project_user_relations, :foreign_key => :membre_id,
                                     :dependent => :destroy
   has_many :membre_de, :through => :project_user_relations, :source => :projet
+  
+  has_many :tasks
+  
+  has_many :task_user_relations, :foreign_key => :user_id,
+                                    :dependent => :destroy
+                                    
+  has_many :charge_de, :through => :task_user_relations, :source => :task
   
   has_many :microposts, :dependent => :destroy
   
@@ -107,6 +113,19 @@ class User < ActiveRecord::Base
      
     def retirer_du_projet!(projet)
        project_user_relations.find_by(:projet_id => projet.id).destroy
+    end
+    
+    def charge_de?(task)
+       task_user_relations.find_by(:task_id => task.id)
+    end
+    
+    def attribuer_tache!(task)
+       task_user_relations.create!(:task_id => task.id)
+    end
+     
+     
+    def retirer_tache!(task)
+       task_user_relations.find_by(:task_id => task.id).destroy
     end
     
     def nouveau_message!(destinataire,message)

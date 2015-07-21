@@ -16,10 +16,20 @@ module SessionsHelper
   
   def sign_out
  
-    self.current_user
-    @current_user.connexions.first.disconnect
+    Clientxmpp.disconnect 
+    self.current_user    
+    
+    if(@current_user != nil)
+      @current_user.connexions.first.disconnect
+    end
+    
     cookies.delete(:remember_token)   
     self.current_user
+
+    respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js  { render :js => "window.location = '/'" }
+    end
      
   end
   
@@ -29,7 +39,19 @@ module SessionsHelper
   
   def deny_access
     store_location
-    redirect_to signin_path, :notice => "Veuillez vous identifier pour acceder a cette page."
+    redirect_to root_path, :notice => "Veuillez vous identifier pour acceder a cette page."
+  end
+   
+  def verify_connection
+    
+    if(signed_in?)
+      if !Clientxmpp.is_connected?
+        sign_out  
+      end   
+    else
+      deny_access  
+    end
+      
   end
   
   

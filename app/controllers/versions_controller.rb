@@ -1,7 +1,7 @@
 class VersionsController < ApplicationController
   include SessionsHelper
   
-  before_filter :authenticate
+  before_filter :verify_connection
   
   def index
     @datafile=Datafile.find(params[:id])

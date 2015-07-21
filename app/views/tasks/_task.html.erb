@@ -1,0 +1,11 @@
+
+  <div class="task">	
+  	
+  	<%= render 'shared/palette_admin', :object => task %>
+  	
+  	<p>Nom : <%= task.nom %></p>
+  	<p>Date de début : <%= task.datedebut.to_formatted_s(:date) %></p> 
+  	<p>Date de fin : <%= task.datefin.to_formatted_s(:date) %></p> 
+  	<p>Etat : <%= task.etat %></p> 
+
+  </div>

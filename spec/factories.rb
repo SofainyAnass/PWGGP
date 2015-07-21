@@ -1,7 +1,16 @@
 # En utilisant le symbole ':user', nous faisons que
 # Factory Girl simule un modèle User.
 
-FactoryGirl.define do  factory :connexion do
+FactoryGirl.define do  factory :task_user_relation do
+    
+  end
+  factory :task do
+    
+  end
+  factory :tach, :class => 'Tache' do
+    
+  end
+  factory :connexion do
     
   end
   factory :conversation do

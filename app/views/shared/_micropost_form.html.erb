@@ -1,5 +1,5 @@
 <%= form_for @micropost do |f| %> 
-    <%= f.text_area :content, :class => "input-text text-area", :placeholder => "Laissez une publication que tout vos abonnés pourront voir . . .", :required => true %>
+    <%= f.text_area :content, :class => "input-text text-area", :style => "width: 100%;", :placeholder => "Laissez une publication que tout vos abonnés pourront voir . . .", :required => true %>
     <%= f.submit "Publier", :class => "input-btn" %>
 <% end %>
 

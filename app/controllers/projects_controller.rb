@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-  before_filter :authenticate
+  before_filter :verify_connection
   #before_filter :admin_user,   :only => [:index, :destroy]
   
   def index
@@ -105,14 +105,8 @@ class ProjectsController < ApplicationController
     @user.retirer_du_projet!(@project)
     @titre="Membres du projet "
     
-    
-    
   end 
 
- 
-  
-  
- 
  private
   
   def project_params
