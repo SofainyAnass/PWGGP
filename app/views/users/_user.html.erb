@@ -22,7 +22,10 @@
 												
 													<% if user == current_user %>
 														
+														Info : <%= Clientxmpp.disco(current_user) %>
+														Presence :<%=  Clientxmpp.presence %>
 														JID: <%= Clientxmpp.jid(current_user) %>
+														Last activity: <%= Clientxmpp.last_activity(current_user) %>
 														
 														<% if Clientxmpp.is_connected? %>
 															<p class="online"> En ligne </p>
@@ -30,19 +33,20 @@
 															<p class="offline"> Hors ligne </p>
 														<% end %>
 	
-													<% else %>
+													<% else %>												
 														
-														
-														JID: <%= Clientxmpp.jid(user) %>
-														Roster Item: <%=  @roster[Clientxmpp.jid(user)] %>
-														Presence :<%=  @roster[Clientxmpp.jid(user)].presence %>
-														Connect :<%=  @roster[Clientxmpp.jid(user)].online? %>
-														
-														<% if @roster[Clientxmpp.jid(user)].presence != nil %>
+														<% begin %>
+															Info : <%= Clientxmpp.disco(user) %>
+															Presence :<%=  @roster[Clientxmpp.jid(user)].presence %>														
 															<p class="online"> En ligne </p>
-														<% else %>
+															Last activity: <%= Clientxmpp.last_activity(user) %>
+														<% rescue %>
 															<p class="offline"> Hors ligne </p>
-														<% end %>											
+														<% end %>
+														
+														
+														
+										
 													
 													<% end %>
 												

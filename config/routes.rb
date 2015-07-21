@@ -45,8 +45,9 @@ Rails.application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy] 
   resources :microposts, :only => [:create, :destroy]
     
-  get '/accueil',:to => 'pages#acceuil' 
+    
   root :to => 'pages#index'  
+  get '/acceuil', :to => 'pages#acceuil'     
   get '/administration', :to => 'pages#administration'
   get '/signup',  :to => 'pages#inscription'
   get '/signin',  :to => 'sessions#create'

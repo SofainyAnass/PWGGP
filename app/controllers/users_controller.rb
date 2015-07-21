@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @users = User.all 
     @titre = "Tous les utilisateurs"
     @roster = Clientxmpp.roster
+    Clientxmpp.send_activity(current_user,0)
   end
   
   def show
