@@ -91,6 +91,10 @@ class SessionsController < ApplicationController
                   if(iq.attributes['type'] == "get")
                       
                       @clientxmpp.send_activity(@current_user,iq.from)
+                      
+                  elsif(iq.attributes['type'] == "result")
+                    
+                    @clientxmpp.set_activity(@clientxmpp.name_xmpp_user(iq.from),iq.first_element('query').attributes['seconds'].to_i)
      
                   end 
          

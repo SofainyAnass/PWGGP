@@ -53,14 +53,20 @@ module SessionsHelper
     
     if(signed_in?)
       if clientxmpp == nil || !clientxmpp.client.is_connected?
-        sign_out  
-      else
-        clientxmpp.activity_update(@current_user.login)   
+        sign_out    
       end   
     else
       deny_access  
     end
       
+  end
+  
+  def not_idle
+
+    if(signed_in?)
+       clientxmpp.activity_update(current_user.login)
+    end
+    
   end
   
   

@@ -192,13 +192,10 @@ class Clientxmpp
 
                  r = LastActivity::Helper.new(@client).get_last_activity_from(jid(user))                  
                  Clientxmpp.clientxmpp(@client.jid.node).set_activity(user.login,r.seconds.to_i)
-                 puts "GET ACTIVITIES"
-                 puts r
                     
               rescue Exception => e  
-                  puts e.message  
-                  puts e.backtrace.inspect      
-                  Clientxmpp.clientxmpp(@client.jid.node).set_activity(user.login,"-1")  
+                  #puts e.message  
+                  #puts e.backtrace.inspect      
               end   
               
             end          
@@ -218,7 +215,7 @@ class Clientxmpp
     iq = Iq.new(:result,destination) 
     iq.from = jid(user)  
     query = LastActivity::IqQueryLastActivity.new      
-    d = activity(user.login)-@start_connetion_time  
+    d = Time.current-activity(user.login)
     query.set_second(d.to_i)
     iq.add(query)
     
@@ -236,7 +233,7 @@ class Clientxmpp
   
   def current_user_last_activity
     
-    t =  Time.current-activity(@client.jid.node)
+    t =  (Time.current-activity(@client.jid.node)).to_i
     t
     
   end

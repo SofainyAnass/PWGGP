@@ -1,5 +1,8 @@
 class MessagesController < ApplicationController
   
+    before_filter :verify_connection
+    before_filter :not_idle, :except => [:new]
+  
   def new
     
       @user = User.find(params[:user])

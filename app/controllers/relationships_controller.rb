@@ -1,6 +1,7 @@
 class RelationshipsController < ApplicationController
   
   before_filter :verify_connection
+  before_filter :not_idle
 
   def create
     @user = User.find(params[:relationship][:followed_id])

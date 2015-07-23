@@ -1,18 +1,18 @@
 class UsersController < ApplicationController
 
   before_filter :verify_connection, :except => [:create]
+  before_filter :not_idle, :except => [:index]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => [:index, :destroy]
     
-  def index 
+  def index
       @user = User.new
       @users = User.all 
       @titre = "Tous les utilisateurs"
       @roster = clientxmpp.roster
-
       clientxmpp.get_activities(@users)  
-
   end
+  
   
   def show
     @user = User.find(params[:id])

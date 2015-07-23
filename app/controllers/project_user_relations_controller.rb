@@ -2,6 +2,7 @@ class ProjectUserRelationsController < ApplicationController
   include SessionsHelper
   
   before_filter :verify_connection
+  before_filter :not_idle
  
  
  

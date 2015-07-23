@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   
   before_filter :verify_connection, :only => [:administration]
+  before_filter :not_idle
   
   def acceuil
     @titre = "Acceuil"

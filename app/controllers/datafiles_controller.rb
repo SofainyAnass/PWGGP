@@ -4,6 +4,7 @@ class DatafilesController < ApplicationController
   
   
   before_filter :verify_connection
+  before_filter :not_idle
   
   def new
     

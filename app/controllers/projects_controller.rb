@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
 
   before_filter :verify_connection
+  before_filter :not_idle
   #before_filter :admin_user,   :only => [:index, :destroy]
   
   def index

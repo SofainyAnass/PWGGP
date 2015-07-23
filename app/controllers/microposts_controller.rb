@@ -1,6 +1,7 @@
 class MicropostsController < ApplicationController
   
   before_filter :verify_connection
+  before_filter :not_idle
   before_filter :authorized_user, :only => :destroy
   
   def create

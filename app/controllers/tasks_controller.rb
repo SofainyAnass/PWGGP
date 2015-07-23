@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   
   before_filter :verify_connection
+  before_filter :not_idle
   
   def index
     @task = Task.new
