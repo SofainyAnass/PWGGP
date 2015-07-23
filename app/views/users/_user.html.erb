@@ -1,4 +1,5 @@
 <% user ||= current_user %>	
+
 			
 				<div class="user" id="<%= user.id.to_i %>" >
 						<div class="col-lg-4 col-sm-7">
@@ -17,43 +18,50 @@
 												<h4 class="name">												
 													<%= link_to user.contact.nom_complet, user.contact %>																										
 												</h4>
-												
-												<% if @roster!= nil%>
-												
-													<% if user == current_user %>
-														
-														Info : <%= Clientxmpp.disco(current_user) %>
-														Presence :<%=  Clientxmpp.presence %>
-														JID: <%= Clientxmpp.jid(current_user) %>
-														Last activity: <%= Clientxmpp.last_activity(current_user) %>
-														
-														<% if Clientxmpp.is_connected? %>
-															<p class="online"> En ligne </p>
-														<% else %>
-															<p class="offline"> Hors ligne </p>
-														<% end %>
-	
-													<% else %>												
-														
-														<% begin %>
-															Info : <%= Clientxmpp.disco(user) %>
-															Presence :<%=  @roster[Clientxmpp.jid(user)].presence %>														
-															<p class="online"> En ligne </p>
-															Last activity: <%= Clientxmpp.last_activity(user) %>
-														<% rescue %>
-															<p class="offline"> Hors ligne </p>
-														<% end %>
-														
-														
-														
 										
+												<% if @clientxmpp.discovery(user.login) %>
+												
+													<p class="online"> En ligne </p>												
 													
-													<% end %>
 												
+												<% else %>
+												
+													<p class="offline"> Hors ligne </p>	
+											
 												<% end %>
-
+												
+												<% if user == current_user %>
+												
+													<p>Derniere activité : <%= @clientxmpp.current_user_last_activity %></p>
+												
+												<% else %>
+												
+													<p>Derniere activité : <%= @clientxmpp.activity(user.login) %></p>
+													
+												<% end %>
+												
+																		
+												<% if user == current_user %>
+													
+													
+													<p>Presence :<%=  @clientxmpp.presence %></p>
+												    
+												    		
+												<% else %>	
+				
+													
+													<% if @roster!= nil%>
+																
+														Presence :<%=  @roster[@clientxmpp.jid(user)].presence %>
+													
+				
+													<% end %>
+																
+												<% end %>
 												
 												
+																
+				
 												<% unless user.connexions.empty? %>
 												
 												<p> Dernière connexion : <%= user.connexions.first.created_at.to_formatted_s(:normal) %>	</p>
@@ -71,7 +79,8 @@
 											
 											<%= render 'follow_form'%>
 											
-												
+											<% puts "ACTIVITES" %>
+      										<% puts clientxmpp.get_activity %>
 											
 											
 														

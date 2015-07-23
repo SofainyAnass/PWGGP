@@ -12,6 +12,20 @@
 									
 							</div>
 					</div>
+					
+					<div id ="membres" class="row">
+
+							 <% unless @users.empty? %>				
+					        	
+					        	<%= will_paginate @users %>
+					        	
+					        		<%= render @users %>
+					        		
+					        	<%= will_paginate @users %>
+						        
+						     <% end %>
+
+					</div>
 
 		</div>
 </div>

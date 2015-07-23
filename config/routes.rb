@@ -46,8 +46,7 @@ Rails.application.routes.draw do
   resources :microposts, :only => [:create, :destroy]
     
     
-  root :to => 'pages#index'  
-  get '/acceuil', :to => 'pages#acceuil'     
+  root :to => 'pages#acceuil'  
   get '/administration', :to => 'pages#administration'
   get '/signup',  :to => 'pages#inscription'
   get '/signin',  :to => 'sessions#create'
@@ -55,7 +54,7 @@ Rails.application.routes.draw do
   get '/calendrier', :to => 'pages#calendrier'
   get '/ged', :to => 'pages#ged'
   delete '/signout', :to => 'sessions#destroy'
-  post "/users", :to => 'contacts#edit'
+  #post "/users", :to => 'contacts#edit'
   post "/projects/add_member", :to => 'projects#add_member'
   get "/projects/remove_member", :to => 'projects#remove_member'
   post "/tasks/add_member", :to => 'tasks#add_member'

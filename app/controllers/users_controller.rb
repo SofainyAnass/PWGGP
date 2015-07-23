@@ -1,15 +1,17 @@
 class UsersController < ApplicationController
 
-  before_filter :verify_connection
+  before_filter :verify_connection, :except => [:create]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => [:index, :destroy]
     
-  def index    
-    @user = User.new
-    @users = User.all 
-    @titre = "Tous les utilisateurs"
-    @roster = Clientxmpp.roster
-    Clientxmpp.send_activity(current_user,0)
+  def index 
+      @user = User.new
+      @users = User.all 
+      @titre = "Tous les utilisateurs"
+      @roster = clientxmpp.roster
+
+      clientxmpp.get_activities(@users)  
+
   end
   
   def show
@@ -23,7 +25,7 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)      
-    if @user.save         
+    if @user.save!         
          #sign_in @user        
          @user.contact=Organization.create!(:nom => "Nom organisation").contacts.create!
          Datadirectory.new_user(@user.id)        
@@ -160,7 +162,7 @@ private
   
   def correct_user
       @user = User.find(params[:id])
-      redirect_to('/pages/acceuil') unless current_user?(@user)
+      redirect_to('/') unless current_user?(@user)
   end
   
 

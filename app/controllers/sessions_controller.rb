@@ -12,12 +12,16 @@ class SessionsController < ApplicationController
       redirect_to :back
     else
       sign_in user                
-      Clientxmpp.connect(@current_user,params[:session][:password])     
+   
+      @clientxmpp=Clientxmpp.new
+      @clientxmpp.connect(@current_user,params[:session][:password]) 
+     
       on_message
       on_presence
       on_iq
       on_stanza
-      redirect_to "/acceuil"
+      redirect_to "/"
+      
     end
     
   end
@@ -30,12 +34,12 @@ class SessionsController < ApplicationController
   private
   
   def on_message
-    Clientxmpp.client.add_message_callback do |message|
+    @clientxmpp.client.add_message_callback do |message|
       unless message.body.nil? && message.type != :error
             
-            source = User.find_by_login(Clientxmpp.name_xmpp_user(message.from))
+            source = User.find_by_login(@clientxmpp.name_xmpp_user(message.from))
             
-            dest =  User.find_by_login(Clientxmpp.name_xmpp_user(message.to))
+            dest =  User.find_by_login(@clientxmpp.name_xmpp_user(message.to))
             
             Message.create!(:id_source=> source.id, :id_destination => dest.id, :content => message.body)
 
@@ -45,45 +49,61 @@ class SessionsController < ApplicationController
   end
   
   def on_presence
-    Clientxmpp.client.add_presence_callback do |presence|
+    
+    @clientxmpp.client.add_presence_callback do |presence|
       
-        puts "Presence : #{presence.from}"
+        if(presence.type == :unavailable)
+          
+            Clientxmpp.clientxmpp(@current_user.login).set_discovery(@clientxmpp.name_xmpp_user(presence.from),false) 
+          
+        else
         
-        if(presence.from ==(Clientxmpp.jid(@current_user)) && presence.to ==(Clientxmpp.jid(@current_user)))
-
-              Clientxmpp.presence = presence
+            if(presence.from ==(@clientxmpp.jid(@current_user)) && presence.to ==(@clientxmpp.jid(@current_user)))
+    
+                  @clientxmpp.presence = presence
+            
+            end
+              
+            Clientxmpp.clientxmpp(@current_user.login).set_discovery(@clientxmpp.name_xmpp_user(presence.from),true)  
+        
         end
-        
-        
 
+        
     end
 
   end
   
   def on_iq
-    Clientxmpp.client.add_iq_callback do |iq|
-        
-       if(!iq.first_element("ping").to_s.blank?)
 
-         Clientxmpp.pong(iq)
+    @clientxmpp.client.add_iq_callback do |iq|
+      
+
+       if(iq.first_element('ping'))
+         
+         @clientxmpp.pong(iq)
+         
        end
-       
-       if(!iq.first_element("query").to_s.blank?)
-          
-          if(iq.first_element("query").to_s.include?"jabber:iq:last")
-               
-                Clientxmpp.send_activity(@current_user,iq.from,100)
-                
-          elsif(iq.first_element("query").to_s.include?"jabber:iq:version")
-               
-                Clientxmpp.version(iq)
+         
+       if(iq.first_element('query'))
+         
+         if(iq.first_element('query').attributes['xmlns'] == "jabber:iq:last")
+                   
+                  if(iq.attributes['type'] == "get")
+                      
+                      @clientxmpp.send_activity(@current_user,iq.from)
+     
+                  end 
+         
+          elsif(iq.first_element('query').attributes['xmlns'] == "jabber:iq:version")
+                 
+                  @clientxmpp.version(iq)
           end
+        
+        end
           
-       end
-       
-       if(!iq.first_element("time").to_s.blank?)
+       if(iq.first_element('time'))
 
-         Clientxmpp.time(iq)
+         @clientxmpp.time(iq)
        end
   
 
@@ -93,9 +113,8 @@ class SessionsController < ApplicationController
   end
   
   def on_stanza
-    Clientxmpp.client.add_stanza_callback do |stanza|
+    @clientxmpp.client.add_stanza_callback do |stanza|
 
-       puts "Stanza : #{stanza}"
       
     end
 

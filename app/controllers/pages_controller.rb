@@ -10,7 +10,6 @@ class PagesController < ApplicationController
       render "acceuil"
     else
       render "index"
-
     end
     
   end

@@ -10,13 +10,20 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
   
+  def clientxmpp
+    @clientxmpp ||= Clientxmpp.clientxmpp(current_user.login)
+  end
+  
   def signed_in?
     !current_user.nil?
   end
   
   def sign_out
  
-    Clientxmpp.disconnect 
+    if(clientxmpp)!=nil
+       clientxmpp.disconnect
+    end
+    
     self.current_user    
     
     if(@current_user != nil)
@@ -45,8 +52,10 @@ module SessionsHelper
   def verify_connection
     
     if(signed_in?)
-      if !Clientxmpp.is_connected?
+      if clientxmpp == nil || !clientxmpp.client.is_connected?
         sign_out  
+      else
+        clientxmpp.activity_update(@current_user.login)   
       end   
     else
       deny_access  
@@ -74,10 +83,12 @@ module SessionsHelper
     def user_from_remember_token
       User.authenticate_with_salt(*remember_token)
     end
+    
 
     def remember_token
       cookies.signed[:remember_token] || [nil, nil]
     end
+    
     
     def store_location
       session[:return_to] = request.fullpath
