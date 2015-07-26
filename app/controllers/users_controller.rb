@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   def index
       @user = User.new
       @users = User.all 
+      @cu_roster = @users
       @titre = "Tous les utilisateurs"
       @roster = clientxmpp.roster
       clientxmpp.get_activities(@users)  

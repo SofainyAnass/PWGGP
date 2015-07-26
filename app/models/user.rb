@@ -136,9 +136,9 @@ class User < ActiveRecord::Base
         connexions.first.finish.to_formatted_s(:normal) 
     end
     
-    def contacts_utilisateur(user)
+    def contacts_utilisateur
         users=User.all
-        users.reject{ |u| u == User.find(user) }
+        users.reject{ |u| u == User.find(self) }
         users
     end
     

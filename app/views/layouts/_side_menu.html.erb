@@ -1,69 +1,104 @@
 
 <div id="contentLeft">
 
-        <ul id="leftNavigation">
-			
-			<% if current_user.admin? %>
-            <li>
-                <a href="#"><i class="fa leftNavIcon"></i> Administration</a>
-                <ul>
-                    <li>
-                    	<%= link_to 'Utilisateurs', users_path %>
-                    </li>
-                    <li>
-                    	<%= link_to 'Projets', projects_path %>
-                    </li>
-                    <li>
-                    	<%= link_to 'GED', datafiles_path %>
-                    </li>
-                </ul>
-            </li>
-            <% end %>
-            <li>
-                <a href="#"><i class="fa leftNavIcon"></i> Publication</a>
-                <ul>
-                    <li class="active">
-                        <a href=" <%= feed_user_path(current_user) %> "><i class="fa fa-angle-right leftNavIcon"></i> Mes Publications</a>
-                    </li>                  
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa leftNavIcon"></i> Messagerie</a>
-                <ul>
-                    <li>
-                        <a href="<%= messages_utilisateur_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Boite de reception</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa leftNavIcon"></i> Contacts</a>
-                <ul>
-                	<li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Mes contacts</a>
-                    </li>
-                    
-                	<li>
-                        <a href="<%= following_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Mes abonnements</a>
-                    </li>
-                    <li>
-                        <a href="<%= followers_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Mes abonnés</a>
-                    </li>                  
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa leftNavIcon"></i> Agenda</a>
-                <ul>
-                    <li>
-                    	<a href="<%= calendrier_path %>"><i class="fa fa-angle-right leftNavIcon"></i> Calendrier</a>
-                    </li>                    
-                </ul>
-                <ul>
-                    <li>
-                        <a href="<%= taches_attribuees_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Mes tâches</a>
-                    </li>                    
-                </ul>
-            </li>
+			        <ul id="leftNavigation">
+						
+						<% if current_user.admin? %>
+			            <li>
+			                <a href="#"><i class="fa leftNavIcon"></i> Administration</a>
+			                <ul>
+			                    <li>
+			                    	<%= link_to 'Utilisateurs', users_path %>
+			                    </li>
+			                    <li>
+			                    	<%= link_to 'Projets', projects_path %>
+			                    </li>
+			                    <li>
+			                    	<%= link_to 'GED', datafiles_path %>
+			                    </li>
+			                </ul>
+			            </li>
+			            <% end %>
+			            <li>
+			                <a href="#"><i class="fa leftNavIcon"></i> Publication</a>
+			                <ul>
+			                    <li class="active">
+			                        <a href=" <%= feed_user_path(current_user) %> "><i class="fa fa-angle-right leftNavIcon"></i> Mes Publications</a>
+			                    </li>                  
+			                </ul>
+			            </li>
+			            <li>
+			                <a href="#"><i class="fa leftNavIcon"></i> Messagerie</a>
+			                <ul>
+			                    <li>
+			                        <a href="<%= messages_utilisateur_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Boite de reception</a>
+			                    </li>
+			                </ul>
+			            </li>
+			            <li>
+			                <a href="#"><i class="fa leftNavIcon"></i> Contacts</a>
+			                <ul>
+			                	<li>
+			                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Mes contacts</a>
+			                    </li>
+			                    
+			                	<li>
+			                        <a href="<%= following_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Mes abonnements</a>
+			                    </li>
+			                    <li>
+			                        <a href="<%= followers_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Mes abonnés</a>
+			                    </li>                  
+			                </ul>
+			            </li>
+			            <li>
+			                <a href="#"><i class="fa leftNavIcon"></i> Agenda</a>
+			                <ul>
+			                    <li>
+			                    	<a href="<%= calendrier_path %>"><i class="fa fa-angle-right leftNavIcon"></i> Calendrier</a>
+			                    </li>                    
+			                </ul>
+			                <ul>
+			                    <li>
+			                        <a href="<%= taches_attribuees_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Mes tâches</a>
+			                    </li>                    
+			                </ul>
+			            </li>
+			            <li>
+						   	<a href="#"><i class="fa leftNavIcon"></i> Utilisateurs connectés </a>
+			            
+			            	<% unless @current_user.contacts_utilisateur.empty? %>			
+					    	<% @cu_roster = @current_user.contacts_utilisateur %>
+					        	
+					        <% @cu_roster.each do |user_roster| %>
 
-        </ul>
+						    		<ul>
+						    			<li>  
+						    				<% if user_roster.en_ligne?(@clientxmpp) %>
+												<% e = "on" %>											
+											<% else %>
+												<% e ="off" %>
+											<% end %> 
+						    			
+						    			
+						    			<% if user_roster.last_activity(@clientxmpp,current_user)!=nil && user_roster.last_activity(@clientxmpp,current_user) > 60  %>
+												<% t = time_ago_in_words(user_roster.last_activity(@clientxmpp,@current_user).seconds.ago)[0..1] %>
+										<% end %>
+						    			
+						    			<%= link_to "#{e} #{user_roster.contact.nom_complet} [#{t}]", user_roster.contact %>
+						    			
+						    			
+										
+										</li>
+									</ul>
+						    			
+						        	        	
+							<% end %>
+							        
+						<% end %>
+					 </li>
+			        </ul>
+			        				
+			 			       
+
 
     </div>

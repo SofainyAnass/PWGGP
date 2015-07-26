@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
     
     @messages = Hash.new
     
-    @users = @user.contacts_utilisateur(@user)
+    @users = @user.contacts_utilisateur
     
     @users.each do |user|
       

@@ -22,7 +22,7 @@ h1 {
 
 #contentLeft {
   z-index: 10;
-  width: 130px;
+  width: 200px;
   height: 100%;
   position: fixed;
   top: 0;
