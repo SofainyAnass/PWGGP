@@ -19,10 +19,17 @@ class Message < ActiveRecord::Base
   validates :id_source, :presence => true
   validates :id_destination, :presence => true
   
-  
-  def self.messages_partages(user1,user2,heure)
+  def self.messages_partages(user1,user2,heure = nil)
     
-    messages = Message.where(" ( ( id_source = (?) and id_destination = (?) ) and created_at > ? ) or ( ( id_source = (?) and id_destination = (?) ) and created_at > ? ) ", user1, user2, heure, user2, user1 , heure )
+    if(heure == nil)
+      
+      messages = Message.where("  ( id_source = (?) and id_destination = (?) )  or ( id_source = (?) and id_destination = (?) ) ", user1, user2, user2, user1 )
+    
+    else     
+      messages = Message.where(" ( ( id_source = (?) and id_destination = (?) ) and created_at > ? ) or ( ( id_source = (?) and id_destination = (?) ) and created_at > ? ) ", user1, user2, heure, user2, user1 , heure )
+    
+    end
+
     
   end
   
@@ -31,5 +38,6 @@ class Message < ActiveRecord::Base
     return User.find(id_source)
     
   end
+  
   
 end

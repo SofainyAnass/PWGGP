@@ -1,4 +1,3 @@
-
 <section id="aboutUs">
 		
 <div class="inner_wrapper">
@@ -10,13 +9,20 @@
     <div class="inner_section">
     	
     	<div class="col-lg-7 col-sm-7">
+	    		
 	    	<div id="messages" data-user="<%= @user.id %>">
-						
-							<% unless @messages.empty? %>
-						        <%= render @messages %>			 						 		
-			 				<% end %>
+							
+							<% @users.each do |user| %>
+	     					
+		     					<% unless @messages[user].empty? %>
+							        <%= render @messages[user] %>			 						 		
+				 				<% end %>
+	  	
+	   						<% end %>
+	
 			</div>
-		</div>
+		
+    	</div>
     	
 		<div class="col-lg-7 col-sm-7">
 			

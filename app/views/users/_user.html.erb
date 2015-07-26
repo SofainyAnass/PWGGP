@@ -19,7 +19,7 @@
 													<%= link_to user.contact.nom_complet, user.contact %>																										
 												</h4>
 										
-												<% if @clientxmpp.discovery(user.login) %>
+												<% if user.en_ligne?(@clientxmpp) %>
 												
 													<p class="online"> En ligne </p>												
 													
@@ -30,16 +30,13 @@
 											
 												<% end %>
 												
-												<% if user == current_user %>
-												
-													<p>Derniere activité : <%= @clientxmpp.current_user_last_activity %></p>
-												
-												<% else %>
-												
-													<p>Derniere activité : <%= @clientxmpp.activity(user.login) %></p>
+												<% if user.last_activity(@clientxmpp,current_user)!=nil  %>
+													
+															<p>Actif il y a <%= time_ago_in_words(user.last_activity(@clientxmpp,@current_user).seconds.ago) %></p>
 													
 												<% end %>
 												
+												<!--
 																		
 												<% if user == current_user %>
 													
@@ -52,19 +49,19 @@
 													
 													<% if @roster!= nil%>
 																
-														Presence :<%=  @roster[@clientxmpp.jid(user)].presence %>
+														Presence :<%=  @roster[Clientxmpp.jid(user)].presence %>
 													
 				
 													<% end %>
 																
 												<% end %>
 												
-												
+												-->
 																
 				
 												<% unless user.connexions.empty? %>
 												
-												<p> Dernière connexion : <%= user.connexions.first.created_at.to_formatted_s(:normal) %>	</p>
+												<p> Dernière connexion : <%= user.derniere_connexion %>	</p>
 												
 												<% end %>									
 																																	

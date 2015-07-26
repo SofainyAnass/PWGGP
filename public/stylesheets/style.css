@@ -222,6 +222,7 @@ p {
 }
 
 .hero_section {
+	height: 700px;
     position: relative; 
 }
 
@@ -869,7 +870,7 @@ transition: all .25s ease;
 .input-text {
     padding: 15px 16px;
     border: 1px solid #ccc;
-    width: 300px;
+    width: 100%;
     height: 50px;
     display: block;
     border-radius: 4px;
@@ -1687,7 +1688,11 @@ padding-top: 18px;
 /*
    Styles personnalisés
 --------------------------- */
+#wrapper{
+	
+	height: 700px;
 
+}
 
 .label {
 	font-size: 16px;
@@ -1752,8 +1757,7 @@ padding-top: 18px;
 }
 
 #menu_action {
-    padding: 30px 0px;
-    background: #DDDDDD;
+    padding: 30px 0px 0px 0px;
 }
 
 #messages, #microposts {
@@ -1931,4 +1935,23 @@ background-image: none;
 	display: none;
 	
 }
+
+/* Messages container */
+
+#messages {
+
+		
+	height: 400px;
+	overflow-y: scroll;
+	
+}
+
+.message .content {
+	
+	height: 100px;
+
+}
+
+
+
 

@@ -1,22 +1,26 @@
 class Datadirectory
+  
+  require 'net/ftp'
     
   @@data_dir_name = "data"  
   @@users_dir_name ="users"
   @@files_dir_name ="files"
+  @@ftp_server = "127.0.0.1"
+  @@user_name = "anonymous"
+  @@pass ="anonymous"
   
   attr_accessor :attachment
   
-  def self.new_user(user_id)
+  def self.new_user(user)
     
-    Dir.mkdir(Rails.root.join(@@data_dir_name,@@users_dir_name,user_id.to_s))
+    create_dir_ftp(File.join(@@users_dir_name,user.id.to_s,@@files_dir_name))
     
-    Dir.mkdir(Rails.root.join(@@data_dir_name,@@users_dir_name,user_id.to_s,@@files_dir_name))
           
   end
   
   def self.get_user_file_dir(user_id)
        
-    Rails.root.join(@@data_dir_name,@@users_dir_name,user_id.to_s,@@files_dir_name)
+    File.join(@@users_dir_name,user_id.to_s,@@files_dir_name)
           
   end
   
@@ -29,7 +33,139 @@ class Datadirectory
   
   end
   
-  def self.build_datafile_attributs(params,attached_to_id)
+  def self.connect_ftp
+    
+     ftp = Net::FTP.new(@@ftp_server)
+          
+     ftp.login @@user_name, @@pass
+     
+     ftp
+     
+  end
+  
+  def self.upload_ftp(user,chemin,datafile)
+
+      begin 
+        
+          @ftp  = connect_ftp
+          
+          files = @ftp.chdir(File.join(@@users_dir_name,user.id.to_s,@@files_dir_name ))
+          
+          @ftp.put(chemin,datafile.nom)
+      
+      ensure
+      
+          @ftp.close
+      
+      end
+
+  end
+  
+  def self.delete_ftp(chemin)
+
+      begin 
+        
+          @ftp  = connect_ftp     
+         
+          @ftp.delete(chemin)
+      
+      ensure
+      
+          @ftp.close
+      
+      end
+
+  end
+  
+  def self.create_dir_ftp(chemin)
+
+     begin 
+          
+          @ftp = connect_ftp
+                  
+          parts = chemin.to_s.split("/")
+                   
+          i=0
+          
+          c="/#{parts[i]}"
+          
+          puts parts[i]
+          
+          puts c
+          
+          if !@ftp.list("/").any?{|dir| dir.match(/\s#{parts[i]}$/)}   
+             @ftp.mkdir("#{c}")
+          end   
+          
+          i+=1
+          
+          while i < parts.size do 
+                  
+             ipad_folder = @ftp.list("#{c}")
+             
+             c+="/#{parts[i]}"
+             
+             if !ipad_folder.any?{|dir| dir.match(/\s#{parts[i]}$/)}
+                @ftp.mkdir("#{c}")
+             end
+             i +=1
+             
+          end
+          
+      
+      ensure
+      
+          @ftp.close
+      
+      end
+
+    
+  end
+  
+  def self.get_file_ftp(chemin,path=nil)
+
+      begin 
+        
+          @ftp  = connect_ftp     
+         
+          @ftp.get(chemin,path)
+      
+      ensure
+      
+          @ftp.close
+      
+      end
+
+  end
+  
+  def self.list_ftp(chemin)
+
+     begin 
+       
+          list=Array.new
+          
+          @ftp = connect_ftp
+                  
+          list = @ftp.list(chemin)    
+          
+      rescue Exception => e
+               puts e.message  
+               puts e.backtrace.inspect       
+
+      ensure
+      
+          @ftp.close
+          
+          list
+      
+      end
+
+      
+  end
+  
+ 
+  
+  def self.build_datafile_attributs(params,user)
    
     fichier=params[:attachment]
     description=params[:description]
@@ -42,7 +178,7 @@ class Datadirectory
       return nil
     end
     
-    chemin = Rails.root.join(Datadirectory.get_user_file_dir(attached_to_id),nom)
+    chemin = File.join(get_user_file_dir(user),nom)
     
     
     new_version = 2
@@ -77,9 +213,9 @@ class Datadirectory
 
   end
   
-  def self.get_user_files(user_id)
+  def self.get_user_files(user)
     
-    Dir.entries( get_user_file_dir(user_id) )
+    Dir.entries( get_user_file_dir(user.id) )
     
   end
   

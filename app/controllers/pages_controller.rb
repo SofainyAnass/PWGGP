@@ -4,7 +4,8 @@ class PagesController < ApplicationController
   before_filter :not_idle
   
   def acceuil
-    @titre = "Acceuil"
+    
+    @titre = "Acceuil"      
     if signed_in?
       @micropost = Micropost.new
       @microposts = current_user.feed.paginate(:page => params[:page])
@@ -12,7 +13,7 @@ class PagesController < ApplicationController
     else
       render "index"
     end
-    
+  
   end
   
   def inscription
@@ -35,5 +36,6 @@ class PagesController < ApplicationController
   def calendrier
     @titre = "Calendrier"
   end
+
 
 end

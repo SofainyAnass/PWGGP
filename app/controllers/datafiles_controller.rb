@@ -33,28 +33,31 @@ class DatafilesController < ApplicationController
         if(attributs != nil)
           
           @datafile=current_user.datafiles.build(attributs)
-        
-          if @datafile.save
              
-            Datadirectory.upload(params[:datafile][:attachment],@datafile.chemin)
-                       
-            flash[:success]="Le fichier a été correctement chargé." 
-            
-            redirect_to :back
-          
-          else  
+          #Datadirectory.upload(params[:datafile][:attachment],@datafile.chemin)
            
-           render new_datafile_path
-          
-          end 
+             begin
+             
+               Datadirectory.upload_ftp(current_user,params[:datafile][:attachment].path,@datafile)
+               
+               @datafile.save!
+               
+               flash[:success]="Le fichier a été correctement ajouté." 
+              
+             rescue Exception => e
+               puts e.message  
+               puts e.backtrace.inspect       
+               flash[:error]="Le fichier n'a pas été chargé. Veuillez verifier la connexion avec le serveur de fichier." 
+               
+             end                       
                    
         else
             
-            flash[:error]= "Format de fichier non autorisé."
-            
-            redirect_to :back
+            flash[:error]= "Format de fichier non autorisé."            
           
         end
+        
+        redirect_to :back
         
   end
   
@@ -73,6 +76,10 @@ class DatafilesController < ApplicationController
   def user_files
     
     @user_files = Datadirectory.get_user_files(current_user.id)
+    @list = Datadirectory.list_ftp(Datadirectory.get_user_file_dir(current_user.id))
+    puts "LIST"
+    puts @list
+    
     @datafiles = Datafile.paginate(:page => params[:page])
     @datafiles.first == nil ?  @datafile = Datafile.new :
     @titre="Tout les fichiers"
@@ -90,7 +97,7 @@ class DatafilesController < ApplicationController
   end
   
   def destroy  
-  
+    
     @datafile=Datafile.find(params[:id]) 
     
     if Datafile.destroy(@datafile)       
@@ -103,8 +110,25 @@ class DatafilesController < ApplicationController
   end
   
   def download
-    @datafile=Datafile.find(params[:id])
-    send_file @datafile.chemin, :type=>@datafile.type_contenu
+    
+    begin
+      
+      @datafile=Datafile.find(params[:id])
+         
+      temp=Tempfile.new([File.basename(@datafile.nom,File.extname(@datafile.nom)),File.extname(@datafile.nom)],'tmp') 
+      Datadirectory.get_file_ftp(@datafile.chemin,File.absolute_path(temp))
+      send_file temp, :type=>@datafile.type_contenu   
+      
+    rescue Exception => e
+      puts e.message  
+      puts e.backtrace.inspect       
+      flash[:error]="Une erreur est survenue lors de la récuperation du fichier."   
+      redirect_to :back
+    
+    end
+    
+    
+    
   end
   
   def delete_file  
@@ -112,34 +136,44 @@ class DatafilesController < ApplicationController
       @datafile=Datafile.find(params[:id]) 
 
                     
-      if @datafile.fichier_id.to_i == 0             
+      if @datafile.fichier_id.to_i == 0       
+        
+          begin
+            res = @datafile.actualiser_versions_anterieures
+     
+            Datadirectory.delete_ftp(@datafile.chemin)
+            Datafile.destroy(@datafile)    
+           
+            if(res)
                  
-                 res = @datafile.actualiser_versions_anterieures
+               flash[:success] = "Toutes les versions du fichier ont été supprimées."        
                  
-                 Datafile.destroy(@datafile.id) 
-                 
-                 Datadirectory.delete_file(@datafile.chemin)
-                 
-                 
-                 if(res)
-                 
-                   flash[:success] = "Toutes les versions du fichier ont été supprimées."        
-                 
-                 else
+            else
                    
-                   flash[:success] = "Version supprimée." 
+               flash[:success] = "Version supprimée." 
                    
-                 end        
-                       
+            end   
+             
+          rescue Exception => e
+             puts e.message  
+             puts e.backtrace.inspect       
+             flash[:error]="Une erreur est survenue lors de la suppression. Le fichier n'a pas été supprimé"      
+          end
+                    
      else
+       
+          begin
+            Datadirectory.delete_ftp(@datafile.chemin)
+            Datafile.destroy(@datafile)    
+            flash[:success] = "Version supprimée."
             
-                 Datafile.destroy(@datafile.id) 
-                 
-                 Datadirectory.delete_file(@datafile.chemin)
-                  
-                 flash[:success] = "Version supprimée." 
-                                                              
-                
+          rescue Exception => e
+            
+            puts e.message  
+            puts e.backtrace.inspect       
+            flash[:error]="Une erreur est survenue lors de ka suppression. Le fichier n'a pas été supprimé"      
+          end
+           
       end
 
       redirect_to fichiers_utilisateur_user_path(current_user.id)  

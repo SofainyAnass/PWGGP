@@ -31,7 +31,7 @@
                 <a href="#"><i class="fa leftNavIcon"></i> Messagerie</a>
                 <ul>
                     <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Boite de reception</a>
+                        <a href="<%= messages_utilisateur_user_path(current_user) %>"><i class="fa fa-angle-right leftNavIcon"></i> Boite de reception</a>
                     </li>
                 </ul>
             </li>
@@ -54,7 +54,7 @@
                 <a href="#"><i class="fa leftNavIcon"></i> Agenda</a>
                 <ul>
                     <li>
-                        <a href="#"><i class="fa fa-angle-right leftNavIcon"></i> Calendrier</a>
+                    	<a href="<%= calendrier_path %>"><i class="fa fa-angle-right leftNavIcon"></i> Calendrier</a>
                     </li>                    
                 </ul>
                 <ul>

@@ -3,7 +3,7 @@ module SessionsHelper
   def sign_in(user)
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]
     self.current_user  
-    @current_user.connexions.create!
+    @current_user.connexions.create!(:finish => Time.current)
   end
   
   def current_user
@@ -64,7 +64,9 @@ module SessionsHelper
   def not_idle
 
     if(signed_in?)
-       clientxmpp.activity_update(current_user.login)
+      if clientxmpp != nil && clientxmpp.client.is_connected?
+        clientxmpp.activity_update(current_user.login)   
+      end     
     end
     
   end

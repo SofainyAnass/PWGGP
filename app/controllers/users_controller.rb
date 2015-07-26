@@ -24,16 +24,24 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(user_params)      
-    if @user.save!         
-         #sign_in @user        
-         @user.contact=Organization.create!(:nom => "Nom organisation").contacts.create!
-         Datadirectory.new_user(@user.id)        
+  
+    begin
+         @user = User.new(user_params) 
+         @user.save!
+         @user.contact=Organization.create!(:nom => "Nom organisation").contacts.create!            
+         Datadirectory.new_user(@user)          
          flash[:success] = "Le compte a été correctement créé."  
-         redirect_to :back  
-    else  
-         render '/pages/inscription'
+         
+    rescue Exception => e  
+         @user.delete
+         puts e.message  
+         puts e.backtrace.inspect 
+         flash[:error] = e.message
+    
     end
+    
+    redirect_to :back  
+
   end
   
   def edit
@@ -135,9 +143,31 @@ class UsersController < ApplicationController
     
     @datafile = Datafile.new
     
+    @list = Datadirectory.list_ftp(Datadirectory.get_user_file_dir(@user.id))
+    puts "LIST"
+    puts @list
+    
+    puts "DATAFILES"
+    puts @datafiles
+    
+    if(@list.count != @datafiles.count)
+      
+      flash[:error] = "Des fichiers ne sont pas synchronisés."
+      
+    end
+    
     @titre = "Fichiers de #{@user.contact.nom_complet}"
     render 'show_datafiles'
   end
+  
+  def messages_utilisateur
+   
+    @user = User.find(params[:id])
+
+    redirect_to :controller => 'messages', :action => 'index', :id => @user.id
+    
+              
+   end
   
    def get_events
     

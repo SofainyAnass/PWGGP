@@ -132,6 +132,36 @@ class User < ActiveRecord::Base
       messages.create!(:id_destination => destinataire.id,:content => message)
     end
     
+    def derniere_connexion
+        connexions.first.finish.to_formatted_s(:normal) 
+    end
+    
+    def contacts_utilisateur(user)
+        users=User.all
+        users.reject{ |u| u == User.find(user) }
+        users
+    end
+    
+    def en_ligne?(clientxmpp)
+      
+       clientxmpp.discovery(self.login)
+      
+    end
+    
+    def last_activity(clientxmpp,current_user)
+    
+        if current_user == self
+          
+            clientxmpp.current_user_last_activity
+          
+        else
+          
+            clientxmpp.activity(self)       
+            
+        end      
+ 
+    end
+    
 
   private
 

@@ -5,6 +5,7 @@ class Clientxmpp
   require 'xmpp4r/iq'
   require 'xmpp4r/version/iq/version'
   require 'xmpp4r/query'
+  require 'xmpp4r/errors'
   require 'xmpp4r/rexmladdons'
   require 'xmpp4r/entity_time/iq'
   include Jabber
@@ -15,6 +16,16 @@ class Clientxmpp
   @@resource = "home"
   @@clients = Hash.new
   @@discovery = Hash.new
+  @@last_activity_tolerance = 1800
+  @user = nil
+  
+  def user
+    @user
+  end
+
+  def user=(val)
+    @user = val
+  end
   
   def client
     @client
@@ -70,6 +81,14 @@ class Clientxmpp
      @@discovery
   end
   
+  def self.set_last_activity_tolerance=(val)    
+     @@last_activity_tolerance=val
+  end
+  
+  def self.last_activity_tolerance  
+     @@last_activity_tolerance
+  end
+  
    def self.stock(login,clientxmpp)
      @@clients[login]=clientxmpp    
    end
@@ -86,21 +105,28 @@ class Clientxmpp
       @start_connetion_time = val
     end
   
+  
+  def initialize(user)
 
-  def jid(user)
+    @user = user
+
+  end
+  
+
+  def self.jid(user)
 
     JID.new(user.login,@@domain,@@resource)
 
   end
   
-  def connect(user,password)
+  def connect(password)
     
     Jabber.debug =true
 
-    jid = jid(user)
+    jid = Clientxmpp.jid(@user)
     @client = Client.new jid
     @client.connect(@@host, 5222)
-    @client.auth "#{password}"
+    @client.auth password
     
     presence = Presence.new(nil,"Je suis disponible",1)
     presence.from=jid
@@ -117,7 +143,8 @@ class Clientxmpp
        
     @activity[user.login]=@start_connetion_time
     
-    Clientxmpp.stock(user.login,self)
+    Clientxmpp.stock(@user.login,self)
+ 
     
   end
  
@@ -141,14 +168,23 @@ class Clientxmpp
     subject = 'Message'
     body = content
     message = Message::new( to, body ).set_type(:chat).set_id('1').set_subject(subject)
-    send message
     
-    return message
+    puts "Message"
+    puts message
+    
+    @client.send message
+    
+  end
+  
+  def self.send_message(current_user,name, content)
+    
+    clientxmpp(current_user.login).send_message(name, content)
+    
     
   end
   
 
-  def user_xmpp_name(user)
+  def self.user_xmpp_name(user)
     
     name =  "#{user.login}@#{@@domain}/"
     
@@ -160,7 +196,7 @@ class Clientxmpp
     
   end
   
-  def name_xmpp_user(xmpp_name)
+  def self.name_xmpp_user(xmpp_name)
    
     name=xmpp_name.to_s
     name.remove!(/@#{@@domain}/)
@@ -184,13 +220,13 @@ class Clientxmpp
   
        users.each do |user|
  
-         if(user.login != @client.jid.node)
+         if(user.login != @user.login)
          
            Thread.new do 
            
               begin 
 
-                 r = LastActivity::Helper.new(@client).get_last_activity_from(jid(user))                  
+                 r = LastActivity::Helper.new(@client).get_last_activity_from(Clientxmpp.jid(user))                  
                  Clientxmpp.clientxmpp(@client.jid.node).set_activity(user.login,r.seconds.to_i)
                     
               rescue Exception => e  
@@ -206,16 +242,16 @@ class Clientxmpp
 
   end
   
-   def send_activity(user,destination)
+   def send_activity(destination)
     
     if destination == nil
       destination = @@domain
     end
     
     iq = Iq.new(:result,destination) 
-    iq.from = jid(user)  
+    iq.from = Clientxmpp.jid(@user)  
     query = LastActivity::IqQueryLastActivity.new      
-    d = Time.current-activity(user.login)
+    d = Time.current-activity(@user.login)
     query.set_second(d.to_i)
     iq.add(query)
     
@@ -226,17 +262,18 @@ class Clientxmpp
   
   def current_user_connection_time
     
-    t = (activity(@client.jid.node)-start_connetion_time).to_i
+    t = (activity(@user.login)-start_connetion_time).to_i
     t
     
   end
   
   def current_user_last_activity
     
-    t =  (Time.current-activity(@client.jid.node)).to_i
+    t =  Time.current-activity(@user.login)
     t
     
   end
+   
   
   
   
@@ -252,12 +289,10 @@ class Clientxmpp
     
       Thread.new do        
         begin 
-           Discovery::Helper.new(@client).get_info_for(jid(user)) 
+           Discovery::Helper.new(@client).get_info_for(Clientxmpp.jid(user)) 
            Clientxmpp.clientxmpp(user.login).set_discovery(user.login,true)
         rescue Exception => e  
-            puts e.message  
-            puts e.backtrace.inspect   
-           Clientxmpp.clientxmpp(user.login).set_discovery(user.login,false)   
+            Clientxmpp.clientxmpp(user.login).set_discovery(user.login,false)   
         ensure   
           puts Clientxmpp.clientxmpp(user.login).get_discovery         
         end
@@ -279,9 +314,11 @@ class Clientxmpp
   
   def pong(ping)
     
+    puts "PONG"
+    
     iq = Iq.new(:result,ping.from)    
     iq.from = ping.to
-    iq.id = ping.id   
+    iq.id = ping.id  
     
     @client.send(iq)
     
@@ -312,9 +349,7 @@ class Clientxmpp
     @client.send(iq)
     
   end
-   
   
-   
   
   
 end
