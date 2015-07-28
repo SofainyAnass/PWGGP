@@ -13,7 +13,7 @@ class Clientxmpp
   
   @@host = "127.0.0.1"
   @@domain = "destroyer"
-  @@resource = "home"
+  @@resource_name = "home"
   @@clients = Hash.new
   @@discovery = Hash.new
   @@last_activity_tolerance = 1800
@@ -25,6 +25,18 @@ class Clientxmpp
 
   def user=(val)
     @user = val
+  end
+     
+  def resource
+    @resource
+  end
+  
+  def resource=(val)
+    @resource = val
+  end
+  
+  def client
+    @client
   end
   
   def client
@@ -107,23 +119,32 @@ class Clientxmpp
   
   
   def initialize(user)
+    
+    self.user = user
+    
+    self.resource = Clientxmpp.generate_resource(user)
 
-    @user = user
+  
 
   end
   
 
-  def self.jid(user)
-
-    JID.new(user.login,@@domain,@@resource)
+  def jid(user)
+    
+    puts "Ressource"
+    
+    puts self.resource
+    
+    JID.new(user.login,@@domain,self.resource)
 
   end
   
-  def connect(password)
+  def connect(password)   
+    
     
     Jabber.debug =true
 
-    jid = Clientxmpp.jid(@user)
+    jid = self.jid(@user)
     @client = Client.new jid
     @client.connect(@@host, 5222)
     @client.auth password
@@ -151,7 +172,7 @@ class Clientxmpp
   
   def disconnect   
 
-    @@clients.delete(@client.jid.node)
+    @@clients.delete(@user.login)
     @roster = nil
     @client.close
 
@@ -184,26 +205,25 @@ class Clientxmpp
   end
   
 
-  def self.user_xmpp_name(user)
+  def user_xmpp_name(user)
     
     name =  "#{user.login}@#{@@domain}/"
     
-    if(@@resource!=nil)
-      name+="#{@@resource}"    
+    if(@resource!=nil)
+      name+="#{@resource}"    
     end
     
-    return name
+    puts "NAME"
+    
+    puts name
+    
+    name
     
   end
   
-  def self.name_xmpp_user(xmpp_name)
-   
-    name=xmpp_name.to_s
-    name.remove!(/@#{@@domain}/)
-    name.remove!("/")
-    name.remove!(/#{@@resource}/)
+  def name_xmpp_user(xmpp_name)
     
-     return name
+    xmpp_name.node
     
   end
   
@@ -223,12 +243,12 @@ class Clientxmpp
              
                 begin 
   
-                   r = LastActivity::Helper.new(@client).get_last_activity_from(Clientxmpp.jid(user))                  
-                   Clientxmpp.clientxmpp(@client.jid.node).set_activity(user.login,r.seconds.to_i)
+                   r = LastActivity::Helper.new(@client).get_last_activity_from(self.jid(user))                  
+                   Clientxmpp.clientxmpp(@user.login).set_activity(user.login,r.seconds.to_i)
                       
                 rescue Exception => e  
-                    puts e.message  
-                    #puts e.backtrace.inspect      
+                   puts e.message  
+                   #puts e.backtrace.inspect      
                 end   
               
            end
@@ -249,8 +269,8 @@ class Clientxmpp
            
               begin 
 
-                 r = LastActivity::Helper.new(@client).get_last_activity_from(Clientxmpp.jid(user))                  
-                 Clientxmpp.clientxmpp(@client.jid.node).set_activity(user.login,r.seconds.to_i)
+                 r = LastActivity::Helper.new(@client).get_last_activity_from(self.jid(user))                  
+                 Clientxmpp.clientxmpp(@user.login).set_activity(user.login,r.seconds.to_i)
                     
               rescue Exception => e  
                   puts e.message  
@@ -272,7 +292,7 @@ class Clientxmpp
     end
     
     iq = Iq.new(:result,destination) 
-    iq.from = Clientxmpp.jid(@user)  
+    iq.from = self.jid(@user)  
     query = LastActivity::IqQueryLastActivity.new      
     d = Time.current-activity(@user.login)
     query.set_second(d.to_i)
@@ -312,7 +332,7 @@ class Clientxmpp
     
       Thread.new do        
         begin 
-           Discovery::Helper.new(@client).get_info_for(Clientxmpp.jid(user)) 
+           Discovery::Helper.new(@client).get_info_for(clientxmpp.jid(user)) 
            Clientxmpp.clientxmpp(user.login).set_discovery(user.login,true)
         rescue Exception => e  
             Clientxmpp.clientxmpp(user.login).set_discovery(user.login,false)   
@@ -373,6 +393,15 @@ class Clientxmpp
     
   end
   
+  private
+  
+    def self.generate_resource(user)    
+      resource_salt = "#{Time.now.to_i}"
+      #resource = "#{@@resource_name}#{resource_salt}"
+      resource = "#{@@resource_name}"      
+      resource
+    end
+
   
   
 end

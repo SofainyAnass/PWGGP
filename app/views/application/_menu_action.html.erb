@@ -4,23 +4,52 @@
   
   <!-- Container -->
   <div class="container portfolio_title"> 
-  	
+    	
   	<!-- Title -->
     <div class="section-title">
-      <h2><%= @titre %></h2>
+      <h1><%= @titre %></h1>
     </div>
-    <!--/Title --> 
-  	
-    <a href="<%= "/#{object.class.to_s.downcase}s/new" %>"><h5>Ajouter</h5></a>
+    <!--/Title -->  	
 
+	
 	<%= render 'shared/messages', :object => object %>
+	
+	<ul id="views">
+			<h5>
+				<li>
+					<a id="kanban_btn" class="<% if @vue="kanban" %>action_active<% end %> action" href="#">Kanban</a>							
+				</li>
+				<li>
+					<a id="table_btn" class="<% if @vue="tableau" %>action_active<% end %> action" href="#">Tableau</a>							
+				</li>
+				<li>
+					<a id="calendar_btn" class="<% if @vue="calendrier" %>action_active<% end %> action" href="#">Calendrier</a>							
+				</li>
+				<li>
+					<a id="gannt_btn" class="<% if @vue="gantt" %>action_active<% end %> action" href="#">Gantt</a>							
+				</li>
+									
+			</h5>
+								
+	</ul>
+	
+	<ul class="clearfix">
+			<h5>
+				<li>
+					<a class="action" href="<%= "/#{object.class.to_s.downcase}s/new" %>">Ajouter</a>							
+				</li>
+									
+			</h5>
+								
+	</ul>
+	
+	
+    
     
     
     
   </div>
   <!-- Container -->
-  
-  <div class="portfolio-top"></div>
 
 
   

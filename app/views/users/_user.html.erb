@@ -1,8 +1,8 @@
 <% user ||= current_user %>	
 
-			
-				<div class="user" id="<%= user.id.to_i %>" >
-						<div class="col-lg-4 col-sm-7">
+					<div class="col-lg-4 col-sm-7">
+						<div class="user" id="<%= user.id.to_i %>" >
+						
 							<div class="member">
 									<div class="user-avatar">									
 											<%= image_tag("team_pic2.jpg", :width => "50px", :height => "50px",:alt => "Team Member", :class => "img-circle") %>
@@ -61,20 +61,24 @@
 				
 												<% unless user.connexions.empty? %>
 												
-												<p> Dernière connexion : <%= user.derniere_connexion %>	</p>
+												<p> Dernière connexion : <%= user.derniere_connexion.to_formatted_s(:normal) %>	</p>
 												
 												<% end %>									
 																																	
-												<p><a href="<%= feed_user_path(user) %>"><%= pluralize(user.microposts.count, "Publication") %></a> | <a href="<%= following_user_path(user) %>"><%= pluralize(user.following.count, "Abonnement") %></a> | <a id="Abonne" href="<%= followers_user_path(user) %>"><%= pluralize(user.followers.count, "Abonné") %></a> </p> 
+												<p><a href="<%= feed_user_path(user) %>"><%= pluralize(user.microposts.count, "Publication") %></a> | <a href="<%= following_user_path(user) %>"><%= pluralize(user.following.count, "Contact") %><!-- </a> | <a id="Abonne" href="<%= followers_user_path(user) %>"><%= pluralize(user.followers.count, "Abonné") %></a> --> </p> 
 												<p><a href="<%= membre_de_user_path(user) %>"><%= pluralize(user.membre_de.count, "Projet") %></a> | <a href="<%= taches_attribuees_user_path(user) %>"><%= pluralize(user.charge_de.count, "Tâches") %></a> | <a href="<%= fichiers_utilisateur_user_path(user) %>"><%= pluralize(user.datafiles.count, "Fichier") %></a> </p> 											 
 												
 											</div><!-- /.member-top -->
 											
 											<% @user = user %>
 											
-											<%= render 'message_button_form'%>
+											<%= render '/shared/message_button_form'%>
 											
-											<%= render 'follow_form'%>
+											<%= render '/shared/follow_form'%>
+											
+											
+											
+											
 												
 											
 										</div><!-- /.member-details -->

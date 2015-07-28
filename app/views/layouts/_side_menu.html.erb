@@ -67,9 +67,22 @@
 			            
 			           
 			        </ul>
-			        <div id="users_sidemenu">
+			        <div id="users_sidemenu" data-user ="<%= current_user.id %>">		        	
+			           		
+			           	<% unless @current_user.following == nil || @current_user.following.empty? %>			           		 		
+			           		
+			           		<% @cu_roster=@current_user.following%>
+			           	 
+			           	 	<%= render 'layouts/side_menu_users' %>
+			           	 
+			           	<% else %>
+							<ul>
+								<li><span>Aucun contact</span></li>
+							</ul>
 						
-						<%= render 'layouts/side_menu_users' %>
+						<% end %>
+						
+						
 							
 					</div>
 

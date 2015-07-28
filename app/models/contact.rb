@@ -30,8 +30,10 @@ class Contact < ActiveRecord::Base
   validates :email, :presence     => true,
                     #:uniqueness => { :case_sensitive => false }, 
                     :format   => { :with => email_regex }
+                                     
   
   attr_accessor :nom_complet
+
   
   def recherche
     Contact.find(self.id).nom_complet

@@ -2,8 +2,7 @@ module SessionsHelper
   
   def sign_in(user)
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]
-    self.current_user  
-    @current_user.connexions.create!(:finish => Time.current)
+    self.current_user     
   end
   
   def current_user

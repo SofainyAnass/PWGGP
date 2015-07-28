@@ -1,0 +1,10 @@
+<% unless current_user?(@user) %>
+	<div id="follow_form">
+
+    <%= form_tag new_message_path, :method => :get do %>
+	  <%= hidden_field_tag :user, @user.id %>
+	  <%= submit_tag "Message", :class => "input-btn2" %>
+	<% end %>
+
+  </div>
+<% end %>

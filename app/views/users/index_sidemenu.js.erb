@@ -1,1 +1,11 @@
+
+<% unless @current_user.following == nil || @current_user.following.empty? %>
+
 $('#users_sidemenu').html("<%= escape_javascript(render 'layouts/side_menu_users') %>")
+
+<% else %>
+
+$('#users_sidemenu').html("<ul><li><span>Aucun contact</span></li></ul>")
+	
+						
+<% end %>

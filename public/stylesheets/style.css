@@ -1,9 +1,4 @@
-/*
-Author URI: http://webthemez.com/
-Note: 
-Licence under Creative Commons Attribution 3.0 
-Do not remove the back-link in this web template 
--------------------------------------------------------*/
+
 
 @charset "utf-8";
 @import url(http://fonts.googleapis.com/css?family=Raleway:800,700,400);
@@ -1033,16 +1028,16 @@ transition: all .25s ease;
     position: relative;
 }
 
-#filters ul li, .lel{
+#filters ul li {
     display: inline-block;
     margin: 0 5px;
 }
 
-#filters ul li a, .lel {
+#filters ul li a {
     display: block;
 }
 
-#filters ul li a h5 , .lel {
+#filters ul li a h5 {
     background: none repeat scroll 0 0 #f7f7f7;
     border-radius: 4px;
     display: inline-block;
@@ -1058,7 +1053,7 @@ transition: all .25s ease;
     color: #7C7C7C;
 }
 
-#filters ul li a:hover h5, #filters ul li a.active h5, .lel {
+#filters ul li a:hover h5, #filters ul li a.active h5 {
     background: #fff;
     color: #005490;
     text-decoration: none;
@@ -1702,21 +1697,6 @@ padding-top: 18px;
 	
 }
 
-.error_box {
-	margin-top: 15px;
-	color: #000000;
-	background-color: #DD4B39;
-	border: 2px solid #CB2026;
-    border-radius: 3px;
-}
-
-.success_box {
-	margin-top: 15px;
-	color: #000000;
-	background-color: #49B5E7;
-	border: 2px solid #3B5998;
-    border-radius: 3px;
-}
 
 #header_wrapper .container {
 	width: 100%;
@@ -1822,9 +1802,104 @@ padding-top: 18px;
 	
 }
 
+/* Menu action */
+
+.action {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.action {
+    display: block;
+}
+
+.action {
+    background: none repeat scroll 0 0 #f7f7f7;
+    border-radius: 4px;
+    display: inline-block;    
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    padding: 10px 22px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out 0s;
+    background: #fff;
+    border: #C2C2C2 solid 1px;
+    color: #7C7C7C;
+}
+
+.action:hover {
+    background: #fff;
+    color: #005490;
+    text-decoration: none;
+    border: #005490 solid 1px;
+}
+
+.action_active{
+    background: #fff;
+    color: #005490;
+    text-decoration: none;
+    border: #005490 solid 1px;
+}
+
+/* messages box */
+
+.error_box {
+	margin: 15px 0 15px 0px;
+	color: #000000;
+	background-color: #DD4B39;
+	border: 2px solid #CB2026;
+    border-radius: 3px;
+}
+
+.success_box {
+	margin: 15px 0 15px 0px;
+	color: #000000;
+	background-color: #49B5E7;
+	border: 2px solid #3B5998;
+    border-radius: 3px;
+}
+
+.warning_box {
+	margin: 15px 0 15px 0px;
+	color: #000000;
+	background-color: #ffcf05;
+	border: 2px solid #ffa905;
+    border-radius: 3px;
+}
+
+
+/* Vue
+---------------------------------*/
+
+#views li{
+	
+	float: right;
+	display: inline;
+}
+
+
+
+
+/* Project
+---------------------------------*/
+
+.project {
+	
+	margin : 0 0 50px 0;
+	
+	
+}
+
+
 
 /* Utilisateur
 ---------------------------------*/
+
+.user {
+
+}
+
 .team_section {
     max-width: 993px;
     margin: 0 auto;

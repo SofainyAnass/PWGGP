@@ -55,20 +55,20 @@ class User < ActiveRecord::Base
   
   
   attr_accessor :password
-  
-  
+
   
   validates :login,  :presence => true,
-                     :length   => { :maximum => 50 },
+                     :length   => { :maximum => 20 },
                      :uniqueness => { :case_sensitive => false } 
                    
           
                     
   validates :password, :presence     => true,
                        :confirmation => true,
-                       :length       => { :within => 6..40 }
+                       :length       => { :within => 6..40 }                                            
                        
   before_save :encrypt_password
+  
   
   
     def has_password?(password_soumis)
@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
     
     def derniere_connexion(time_distance=false)
         
-        t = connexions.first.finish.to_formatted_s(:normal) 
+        t = connexions.first.finish 
         
         if time_distance
           t = Time.current-t
@@ -142,13 +142,6 @@ class User < ActiveRecord::Base
         
         t
         
-    end
-    
-    def contacts_utilisateur
-        #users=User.all
-        #users.reject{ |u| u == User.find(self.id) }
-        #users
-        Hash.new
     end
     
     def en_ligne?(clientxmpp)
@@ -185,7 +178,7 @@ class User < ActiveRecord::Base
     end
 
     def make_salt
-      secure_hash("#{Time.now.utc}--#{password}")
+      secure_hash("#{Time.current}--#{password}")
     end
 
     def secure_hash(string)

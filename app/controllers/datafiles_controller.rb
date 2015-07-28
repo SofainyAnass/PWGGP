@@ -9,7 +9,7 @@ class DatafilesController < ApplicationController
   def new
     
     @datafile = Datafile.new  
-    @titre = "Ajouter un fichier"  
+    @titre = "Nouveau fichier"  
     
     if(params[:fichier_id].to_i == 0)
       @fichier_id = params[:id]    
@@ -22,7 +22,7 @@ class DatafilesController < ApplicationController
   def create
         
     
-        @titre = "Ajouter un fichier"
+        @titre = "Nouveau fichier"
       
         if(params[:datafile][:attachment] != nil)               
          
@@ -94,6 +94,8 @@ class DatafilesController < ApplicationController
     if(params[:user_id]!=nil)
       
         @user= User.find(params[:user_id])
+        
+        @titre = "Fichiers de #{@user.contact.nom_complet}"
     
         @first_files = @user.datafiles.where(:fichier_id => "0") 
         
@@ -115,19 +117,14 @@ class DatafilesController < ApplicationController
         @datafile = Datafile.new
         
         @list = Datadirectory.list_ftp(Datadirectory.get_user_file_dir(@user.id))
-        puts "LIST"
-        puts @list
-        
-        puts "DATAFILES"
-        puts @datafiles
         
         if(@list.count != @datafiles.count)
           
-          flash[:error] = "Des fichiers ne sont pas synchronisés."
+          flash[:warning] = "La synchronisation indique des fichiers manquants."
           
         end
         
-        @titre = "Fichiers de #{@user.contact.nom_complet}"
+        redirect_to datafiles_path
     
     else  
     
@@ -136,6 +133,7 @@ class DatafilesController < ApplicationController
         @titre="Tout les fichiers"
     
     end
+    
   end
   
   def destroy  

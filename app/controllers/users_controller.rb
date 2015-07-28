@@ -23,35 +23,61 @@ class UsersController < ApplicationController
 
   end
   
-  def contacts_utilisateur
+  def following   
      
-    @user = User.find(params[:id])    
-    @users = @user.contacts_utilisateur 
-  
-    
-      if(@users.empty? == false)
-        
-        clientxmpp.get_activities(@users) 
-        
-      end    
-      
       if(params[:sidemenu]!=nil)       
-         
-          render 'index_sidemenu'
+        
+          Thread.new do 
+             
+                begin 
+                  
+                  @user = User.find(params[:id])    
+                  @users = @user.following
+                  
+                  
+                  @users.sort_by{|e| e.contact.organization.id }
+                
+                  if(@users.empty? == false)
+                    
+                    clientxmpp.get_activities(@users) 
+                    
+                 end 
+  
+                  @cu_roster = @users
+          
+                  @cu_roster.sort_by{|e| e.last_activity(@clientxmpp,@current_user)}
+                  
+                  render 'index_sidemenu'
+                      
+                rescue Exception => e  
+                    puts e.message  
+                    #puts e.backtrace.inspect      
+                end   
+              
+           end       
             
       else
         
+          @user = User.find(params[:id])    
+          @users = @user.following
+          
+          
+          @users.sort_by{|e| e.contact.organization.id }
+        
+          if(@users.empty? == false)
+            
+            clientxmpp.get_activities(@users) 
+            
+          end 
           @titre = "Contacts de #{@user.contact.nom_complet}"
-          @id = "user_contacts"
+          @id = "user_followings"
         
           render 'index'
       
-      end
-
-   
-   end
-
-  
+      end   
+    
+    
+  end
   
   def show
     @user = User.find(params[:id])
@@ -115,12 +141,7 @@ class UsersController < ApplicationController
     end
   end
   
-  def following   
-    @user = User.find(params[:id])
-    @users = @user.following.paginate(:page => params[:page])
-    @titre = "Abonnements"
-    render 'show_follow'
-  end
+  
 
   def followers   
     @user = User.find(params[:id])
@@ -144,11 +165,11 @@ class UsersController < ApplicationController
   end
   
   def membre_de
+      
     @user = User.find(params[:id])
-    @projects = @user.membre_de.paginate(:page => params[:page])   
-    @projects.first == nil ?  @project = Project.new :   
-    @titre = "Projets de #{@user.contact.nom_complet}"
-     render '/projects/index'
+
+    redirect_to :controller => 'projects', :action => 'index', :id => @user.id
+    
   end
   
   def taches_attribuees
@@ -176,7 +197,6 @@ class UsersController < ApplicationController
    end
    
    
-  
    def get_events
     
     @projects = current_user.membre_de

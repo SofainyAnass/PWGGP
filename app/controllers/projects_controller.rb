@@ -5,12 +5,37 @@ class ProjectsController < ApplicationController
   #before_filter :admin_user,   :only => [:index, :destroy]
   
   def index
-    @project = Project.new
-    @projects = Project.paginate(:page => params[:page])
-    @projects.first == nil ?  @project = Project.new :   
-    @titre="Tout les projets"
-  end
+    
+    if(params[:user_id] != nil)
+      
+      @user = User.find(params[:user_id])
+      @projects = @user.membre_de.paginate(:page => params[:page])   
+      @projects.first == nil ?  @project = Project.new :   
+      @titre = "Projets de #{@user.contact.nom_complet}"  
+    
+    else
+      
+      @project = Project.new
+      @projects = Project.paginate(:page => params[:page])
+      @projects.first == nil ?  @project = Project.new :   
+      @titre="Tout les projets"    
+    
+    end
+    
+    @vue = "kanban"
+    
+    respond_to do |format|
+        format.html { render 'index' }
+        format.json   {   @projects.each do |project|
+                            events << {:id => project.id, :title => "#{project.nom}", :start => "#{project.datedebut}",:end => "#{project.datefin}" }
+                          end
+                          events = []
+                          render :text => events.to_json  }
+    end
   
+  
+  end
+
   def new  
     @project ||= Project.new
     @titre = "Nouveau projet"
