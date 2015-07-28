@@ -1,0 +1,84 @@
+<%= render 'menu_action', :object => @datafile %>
+
+<section class="page_section team" id="team"><!--main-section team-start-->
+  <div class="container">
+		<div class="member-area">
+			
+			
+					<div class="row">
+				
+							<ul class="clearfix">
+								<h5>
+									<li>
+										<a class="lel" href="<%= new_datafile_path %>">Ajouter</a>							
+									</li>
+									
+								</h5>
+								
+							</ul>
+							<div id="filters" class="sixteen columns">
+							
+							 <ul class="clearfix">
+	
+	      	
+						        <li><a id="all" href="#" data-filter="*" class="active">
+						          <h5>Tout</h5>
+						          </a></li>
+
+						        <li><a class="" href="#" data-filter=".Nouveau">
+						          <h5>Documents</h5>
+						        </a></li>
+						        
+						        <li><a class="" href="#" data-filter=".Encours">
+						          <h5>Fichiers</h5>
+						        </a></li>
+					          
+					
+					  	    </ul>
+					      
+					      </div>
+																	
+						<div class="col-lg-12 col-sm-7">
+							
+								<% unless !@datafiles.any? %>
+	
+										<table class="table">
+																		
+											<tr>												
+												<td>Nom du fichier</td>
+												<td>Version</td>
+												<td>Description</td>
+												<td>Ajouté par</td>
+												<td>Heure et Date</td>	
+												<td></td>	
+												<td></td>
+												<td></td>										
+												
+											</tr>
+											
+											
+											
+											
+									        <% @datafiles.each do |datafile| %>
+									        
+												<% @datafile = datafile %>
+										        
+											 	<%= render "datafile_info" %>
+												
+										
+								    	    <% end %>							    	    
+								    	    
+								    	</table>
+						    	   
+						        
+							    <% else %>
+							        	<p>Aucun fichier.</p>							       				        				    
+								<% end %>
+								
+						 </div>
+						
+					</div><!-- /.row -->
+		</div>
+</div>
+</section>
+

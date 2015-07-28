@@ -139,7 +139,7 @@ class Clientxmpp
     
     @start_connetion_time = Time.current
     
-    @activity = Hash.new
+    @activity = Hash.new(-1)
        
     @activity[user.login]=@start_connetion_time
     
@@ -215,6 +215,29 @@ class Clientxmpp
   end
   
 
+  def get_user_activity(user)    
+  
+         if(user.login != @user.login)
+
+           Thread.new do 
+             
+                begin 
+  
+                   r = LastActivity::Helper.new(@client).get_last_activity_from(Clientxmpp.jid(user))                  
+                   Clientxmpp.clientxmpp(@client.jid.node).set_activity(user.login,r.seconds.to_i)
+                      
+                rescue Exception => e  
+                    puts e.message  
+                    #puts e.backtrace.inspect      
+                end   
+              
+           end
+                   
+           
+         end
+         
+
+  end
   
   def get_activities(users)    
   
@@ -230,7 +253,7 @@ class Clientxmpp
                  Clientxmpp.clientxmpp(@client.jid.node).set_activity(user.login,r.seconds.to_i)
                     
               rescue Exception => e  
-                  #puts e.message  
+                  puts e.message  
                   #puts e.backtrace.inspect      
               end   
               

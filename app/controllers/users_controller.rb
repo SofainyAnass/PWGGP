@@ -6,13 +6,51 @@ class UsersController < ApplicationController
   before_filter :admin_user,   :only => [:index, :destroy]
     
   def index
+    
       @user = User.new
-      @users = User.all 
-      @cu_roster = @users
+      @users = User.all      
+      
+      #@roster = clientxmpp.roster
+      
+      if(@users.empty? == false)
+      
+        clientxmpp.get_activities(@users) 
+      
+      end   
+      
       @titre = "Tous les utilisateurs"
-      @roster = clientxmpp.roster
-      clientxmpp.get_activities(@users)  
+      @id = "users"
+
   end
+  
+  def contacts_utilisateur
+     
+    @user = User.find(params[:id])    
+    @users = @user.contacts_utilisateur 
+  
+    
+      if(@users.empty? == false)
+        
+        clientxmpp.get_activities(@users) 
+        
+      end    
+      
+      if(params[:sidemenu]!=nil)       
+         
+          render 'index_sidemenu'
+            
+      else
+        
+          @titre = "Contacts de #{@user.contact.nom_complet}"
+          @id = "user_contacts"
+        
+          render 'index'
+      
+      end
+
+   
+   end
+
   
   
   def show
@@ -64,7 +102,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     
-    if @user!=current_user
+    if @user!=current_user && @user.en_ligne?(current_user)
       if@user.destroy
         flash[:success] = "Utilisateur supprimé."
         redirect_to users_path
@@ -124,41 +162,8 @@ class UsersController < ApplicationController
   def fichiers_utilisateur
    
     @user = User.find(params[:id])
-    
-    @first_files = @user.datafiles.where(:fichier_id => "0") 
-    
-    @datafiles = Array.new
-    
-    @first_files.each do | first_file |
-          
-          
-          @datafile=Datafile.where(:fichier_id => first_file.id ).first
-          
-          if @datafile !=nil
-            @datafiles.push(@datafile)
-          else
-            @datafiles.push(first_file)
-          end
-              
-    end
-    
-    @datafile = Datafile.new
-    
-    @list = Datadirectory.list_ftp(Datadirectory.get_user_file_dir(@user.id))
-    puts "LIST"
-    puts @list
-    
-    puts "DATAFILES"
-    puts @datafiles
-    
-    if(@list.count != @datafiles.count)
-      
-      flash[:error] = "Des fichiers ne sont pas synchronisés."
-      
-    end
-    
-    @titre = "Fichiers de #{@user.contact.nom_complet}"
-    render 'show_datafiles'
+     
+    redirect_to :controller => 'datafiles', :action => 'index', :user_id => @user.id
   end
   
   def messages_utilisateur
@@ -169,6 +174,8 @@ class UsersController < ApplicationController
     
               
    end
+   
+   
   
    def get_events
     

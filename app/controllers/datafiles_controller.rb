@@ -90,10 +90,52 @@ class DatafilesController < ApplicationController
   
   def index
     #@user_files = Datadirectory.get_user_files(current_user.id)
-    @datafiles = Datafile.paginate(:page => params[:page])
-    @datafile = Datafile.new 
-    @titre="Tout les fichiers"
-    render 'show_datafiles'
+    
+    if(params[:user_id]!=nil)
+      
+        @user= User.find(params[:user_id])
+    
+        @first_files = @user.datafiles.where(:fichier_id => "0") 
+        
+        @datafiles = Array.new
+        
+        @first_files.each do | first_file |
+              
+              
+              @datafile=Datafile.where(:fichier_id => first_file.id ).first
+              
+              if @datafile !=nil
+                @datafiles.push(@datafile)
+              else
+                @datafiles.push(first_file)
+              end
+                  
+        end
+        
+        @datafile = Datafile.new
+        
+        @list = Datadirectory.list_ftp(Datadirectory.get_user_file_dir(@user.id))
+        puts "LIST"
+        puts @list
+        
+        puts "DATAFILES"
+        puts @datafiles
+        
+        if(@list.count != @datafiles.count)
+          
+          flash[:error] = "Des fichiers ne sont pas synchronisés."
+          
+        end
+        
+        @titre = "Fichiers de #{@user.contact.nom_complet}"
+    
+    else  
+    
+        @datafiles = Datafile.paginate(:page => params[:page])
+        @datafile = Datafile.new 
+        @titre="Tout les fichiers"
+    
+    end
   end
   
   def destroy  
@@ -214,6 +256,8 @@ class DatafilesController < ApplicationController
     render 'show_versions'
     
   end
+  
+  
   
 
   

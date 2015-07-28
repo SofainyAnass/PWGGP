@@ -20,7 +20,7 @@ class Connexion < ActiveRecord::Base
   
   def disconnect
     
-    update_attribute(:finish, Time.current)
+    #update_attribute(:finish, Time.current)
     
   end
   

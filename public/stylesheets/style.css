@@ -1953,5 +1953,128 @@ background-image: none;
 }
 
 
+/* HAMBURGER*/
+
+#navbar {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.menubtn {
+  /* needs positioning for z-index http://stackoverflow.com/a/10600930/477958 */
+  position: relative; 
+  z-index: 101;
+  color: #274a61;
+  text-decoration: none;
+  font-size: 0em;
+  line-height: 0em;
+  top: 2px;
+  padding: 15px;
+  background-image: url('../images/hamburger.png');
+  background-position: 50% 50%;
+  background-size: 25px 25px;
+  background-repeat: no-repeat;
+}
+.menubtn:hover, .openmenu .menubtn {
+  color: #bdd43e;
+  background-image: url('../images/hamburger-active.png');
+}
+
+/** toggle menu **/
+body.openmenu {
+  position: fixed;
+  overflow: hidden;
+}
+
+#pgcontainer {
+  padding: 45px 0;
+  margin: 0;
+}
+
+.overlay {
+  position: fixed;
+  z-index: 99;
+  /*background-color: rgba(0,0,0,0.5);*/
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.openmenu .overlay {
+  top: 0;
+}
+
+
+#hamburgermenu {
+  height: 100%;
+  width: 0;
+  background: #373737;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  overflow: hidden;
+  -webkit-box-shadow: 3px 0 7px rgba(0,0,0,0.55);
+  -moz-box-shadow: 3px 0 7px rgba(0,0,0,0.55);
+  box-shadow: 3px 0 7px rgba(0,0,0,0.55);
+}
+#hamburgermenu ul {
+  margin-top: 70px;
+  z-index: 101;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#hamburgermenu ul li {
+  display: block;
+}
+#hamburgermenu ul li a {
+  display: block;
+  min-width: 130px;
+  padding: 18px 8px;
+  color: #cdcdcd;
+  text-decoration: none;
+  text-align: center;
+}
+#hamburgermenu li a:hover {
+  color: #fff;
+  background: #2c2c2c;
+}
+
+/* Users side menu*/
+
+#users_sidemenu {
+	
+	width: 100%;
+	position: absolute;
+    bottom: 20px;
+	height: 100px;
+	overflow-y: auto;
+	border-bottom: solid 1px #395673;
+	border-top: solid 1px #395673;
+	
+}
+
+#users_sidemenu ul {
+  margin-top: 10px;
+  padding: 0px 10px 0px 10px;
+
+}
+
+#users_sidemenu a {
+
+
+}
+
+
+#users_sidemenu ul li a{
+  height: 20px;
+  padding: 0px;
+  color: #cdcdcd;
+  text-decoration: none;
+  text-align: inherit;
+	
+	
+}
+
 
 

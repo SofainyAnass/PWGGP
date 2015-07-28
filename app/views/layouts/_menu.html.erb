@@ -2,17 +2,20 @@
       <div class="navbar-header">
         <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
         </div>
+       	
+       	
        
 	    <div id="main-nav" class="collapse navbar-collapse navStyle">
 	    	<!--<div class="logo"><a href="#"><img src="/images/logo.png" alt="logo"></a></div>-->
 	    	
-			<ul class="nav navbar-nav" id="mainNav">	
+			<ul class="nav navbar-nav" id="mainNav">
+				<li class="menubtn"></li>	
 				<li><%= link_to "Acceuil", root_path %></li>
 				<li><%= link_to "Calendrier", calendrier_path %></li>	 			  				 			 
 			    <li><%= link_to "Projet", projet_path %></li>	
 			    <li><%= link_to "GED", ged_path %></li>	 
 			    <% if current_user.admin? %>
-				<li><%= link_to 'Utilisateurs', users_path %></li>
+				<li><%= link_to 'Contact', contacts_utilisateur_user_path(current_user) %></li>
            	 	<% end %> 
 			</ul>
 				

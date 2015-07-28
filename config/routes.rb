@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users do
     get :get_events, on: :collection
     member do
-      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur, :taches_attribuees, :messages_utilisateur
+      get :following, :followers, :feed, :settings, :membre_de, :fichiers_utilisateur, :taches_attribuees, :messages_utilisateur, :contacts_utilisateur
     end
   end
   

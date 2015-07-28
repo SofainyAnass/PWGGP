@@ -1,0 +1,75 @@
+		            		
+		           <% unless @current_user.contacts_utilisateur.empty? %>
+		            		
+		            		<% if @clientxmpp != nil %>
+		            		
+		            		
+							<ul>
+								
+				            				
+						    	<% @cu_roster = @current_user.contacts_utilisateur %>
+						    	<% @cu_roster.sort_by{|e| e.last_activity(@clientxmpp,@current_user)} %>					        	
+						        
+						        <% @cu_roster.each do |user_roster| %>
+
+							    		
+							    			<li>  
+							    				
+	
+							    					 						    					
+							    				
+							    				<a href="/contacts/<%= user_roster.contact.id %>">
+							    					
+							    					<span style ="float: right">
+							    						
+										    			
+														
+																				        
+														<% if user_roster.en_ligne?(@clientxmpp) %>
+														
+															<% if (user_roster.last_activity(@clientxmpp,current_user)!=nil) && (user_roster.last_activity(@clientxmpp,current_user) > 60)  %>
+																	<%= time_ago_in_words(user_roster.last_activity(@clientxmpp,@current_user).seconds.ago) %>
+															<% end %>
+														
+															<%= image_tag("online.png", :width => "10px", :height => "10px",:alt => "En ligne") %>
+															
+														<% else %>
+														
+															<%= time_ago_in_words(user_roster.derniere_connexion(true).seconds.ago) %>
+										
+														<% end %>
+														
+														
+													</span>
+							    					
+						    					
+							    					<span><%= user_roster.contact.nom_complet %></span>
+
+							    					
+							    					
+							    					
+							    					
+							    				</a>
+									
+					
+											</li>
+
+							     <% end %> 	        	
+								
+								
+							</ul>   
+							
+							<% else %>
+							
+							Connexion impossible au service de discussion instantané
+							
+							
+							<% end %> 
+							    
+						
+					<% else %>
+							<ul>
+								<li><span>Aucun contact</span></li>
+							</ul>
+						
+					<% end %>

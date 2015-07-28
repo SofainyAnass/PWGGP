@@ -132,18 +132,28 @@ class User < ActiveRecord::Base
       messages.create!(:id_destination => destinataire.id,:content => message)
     end
     
-    def derniere_connexion
-        connexions.first.finish.to_formatted_s(:normal) 
+    def derniere_connexion(time_distance=false)
+        
+        t = connexions.first.finish.to_formatted_s(:normal) 
+        
+        if time_distance
+          t = Time.current-t
+        end
+        
+        t
+        
     end
     
     def contacts_utilisateur
-        users=User.all
-        users.reject{ |u| u == User.find(self) }
-        users
+        #users=User.all
+        #users.reject{ |u| u == User.find(self.id) }
+        #users
+        Hash.new
     end
     
     def en_ligne?(clientxmpp)
       
+       #clientxmpp.get_user_activity(self)
        clientxmpp.discovery(self.login)
       
     end
@@ -156,7 +166,7 @@ class User < ActiveRecord::Base
           
         else
           
-            clientxmpp.activity(self)       
+            clientxmpp.activity(self.login)       
             
         end      
  
